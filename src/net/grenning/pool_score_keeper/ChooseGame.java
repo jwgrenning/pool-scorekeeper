@@ -16,7 +16,7 @@ import android.view.View;
  *
  * @see SystemUiHider
  */
-public class ChooseGaame extends Activity {
+public class ChooseGame extends Activity {
     /**
      * Whether or not the system UI should be auto-hidden after
      * {@link #AUTO_HIDE_DELAY_MILLIS} milliseconds.
@@ -49,7 +49,7 @@ public class ChooseGaame extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_choose_gaame);
+        setContentView(R.layout.activity_choose_game);
 
         final View controlsView = findViewById(R.id.fullscreen_content_controls);
         final View contentView = findViewById(R.id.fullscreen_content);
