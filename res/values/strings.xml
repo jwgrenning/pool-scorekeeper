@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">pool-score-keeper</string>
+    <string name="chooser_screen_content">Let\'s Play Pool</string>
+    <string name="straight_pool_button">Straight Pool 14.1</string>
+    <string name="cowboy_pool_button">Cowboy 1,3,5</string>
+    
+</resources>
