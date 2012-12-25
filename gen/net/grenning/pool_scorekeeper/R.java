@@ -31,6 +31,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int fullscreen_content_controls=0x7f070001;
         public static final int straight_pool_button=0x7f070002;
         public static final int textView1=0x7f070005;
+        public static final int textView2=0x7f070006;
     }
     public static final class layout {
         public static final int activity_choose_game=0x7f030000;

@@ -58,6 +58,13 @@
             android:text="Player 1"
             android:textAppearance="?android:attr/textAppearanceLarge" />
 
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Player 2"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
     </FrameLayout>
 
 </FrameLayout>
