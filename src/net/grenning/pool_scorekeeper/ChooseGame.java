@@ -1,6 +1,7 @@
-package net.grenning.pool_score_keeper;
+package net.grenning.pool_scorekeeper;
 
-import net.grenning.pool_score_keeper.util.SystemUiHider;
+import net.grenning.pool_scorekeeper.R;
+import net.grenning.pool_scorekeeper.util.SystemUiHider;
 
 import android.annotation.TargetApi;
 import android.app.Activity;

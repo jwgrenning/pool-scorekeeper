@@ -1,4 +1,4 @@
-package net.grenning.pool_score_keeper.util;
+package net.grenning.pool_scorekeeper.util;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
