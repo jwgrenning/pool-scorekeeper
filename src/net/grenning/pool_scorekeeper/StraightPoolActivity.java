@@ -4,6 +4,8 @@ import net.grenning.pool_scorekeeper.util.SystemUiHider;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -159,4 +161,15 @@ public class StraightPoolActivity extends Activity {
 		mHideHandler.removeCallbacks(mHideRunnable);
 		mHideHandler.postDelayed(mHideRunnable, delayMillis);
 	}
+	
+    public void showGeneralPoolRules(View view) {
+    	Intent browserIntent = new Intent(Intent.ACTION_VIEW, 
+    			Uri.parse("http://www.wpa-pool.com/web/the_rules_of_play"));
+    	startActivity(browserIntent);
+    }
+    public void showStraightPoolRules(View view) {
+    	Intent browserIntent = new Intent(Intent.ACTION_VIEW, 
+    			Uri.parse("http://www.wpa-pool.com/web/index.asp?id=119&pagetype=rules"));
+    	startActivity(browserIntent);
+    }
 }
