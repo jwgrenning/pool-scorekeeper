@@ -4,6 +4,7 @@ import net.grenning.pool_scorekeeper.util.SystemUiHider;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -159,4 +160,9 @@ public class StraightPoolStartActivity extends Activity {
 		mHideHandler.removeCallbacks(mHideRunnable);
 		mHideHandler.postDelayed(mHideRunnable, delayMillis);
 	}
+
+	public void launchPlayStraightPoolScreen(View view) {
+    	Intent i = new Intent( this, StraightPoolActivity.class );
+    	startActivity( i );    }
+
 }
