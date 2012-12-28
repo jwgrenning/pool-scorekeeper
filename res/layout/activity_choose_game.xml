@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#0099cc"
+    android:background="#008B00"
     tools:context=".ChooseGame" >
 
     <!--
@@ -17,7 +17,7 @@
         android:layout_height="match_parent"
         android:gravity="center"
         android:keepScreenOn="true"
-        android:text="@string/chooser_screen_content"
+        android:text="@string/game_chooser_screen_content"
         android:textColor="#33b5e5"
         android:textSize="50sp"
         android:textStyle="bold" />
@@ -34,7 +34,7 @@
 
         <LinearLayout
             android:id="@+id/fullscreen_content_controls"
-            style="?buttonBarStyle"
+            style="@style/ButtonBarButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|center_horizontal"
@@ -44,20 +44,22 @@
 
             <Button
                 android:id="@+id/straight_pool_button"
-                style="?buttonBarButtonStyle"
+                style="@style/ButtonBarButton"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/straight_pool_button"
-                android:onClick="launchStraightPoolScreen" />
+                android:onClick="launchStraightPoolScreen"
+                android:text="@string/straight_pool_button" />
+
             <Button
                 android:id="@+id/cowboy_pool_button"
-                style="?buttonBarButtonStyle"
+                style="@style/ButtonBarButton"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/cowboy_pool_button"
-                android:onClick="launchStraightPoolScreen" />
+                android:onClick="launchStraightPoolScreen"
+                android:text="@string/cowboy_pool_button" />
+
             </LinearLayout>
         </FrameLayout>
 

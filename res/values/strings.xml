@@ -2,10 +2,10 @@
 <resources>
 
     <string name="app_name">pool-score-keeper</string>
-    <string name="chooser_screen_content">Let\'s Play Pool</string>
+    <string name="game_chooser_screen_content">Let\'s Play Pool</string>
     <string name="straight_pool_button">Straight Pool</string>
     <string name="cowboy_pool_button">Cowboy</string>
-    <string name="dummy_content">DUMMY\nCONTENT</string>
+    <string name="playing_straight_pool_screen_content">Playing Straight Pool</string>
     <string name="straight_pool_start_content">Who is playing?</string>
     <string name="dummy_button">Dummy Button</string>
     <string name="title_activity_straight_pool">StraightPoolActivity</string>

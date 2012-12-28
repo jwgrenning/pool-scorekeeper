@@ -40,10 +40,10 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
     }
     public static final class string {
         public static final int app_name=0x7f050000;
-        public static final int chooser_screen_content=0x7f050001;
         public static final int cowboy_pool_button=0x7f050003;
         public static final int dummy_button=0x7f050006;
-        public static final int dummy_content=0x7f050004;
+        public static final int game_chooser_screen_content=0x7f050001;
+        public static final int playing_straight_pool_screen_content=0x7f050004;
         public static final int straight_pool_button=0x7f050002;
         public static final int straight_pool_start_content=0x7f050005;
         public static final int title_activity_straight_pool=0x7f050007;
