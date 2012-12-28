@@ -27,11 +27,10 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
     public static final class id {
         public static final int cowboy_pool_button=0x7f070003;
         public static final int dummy_button=0x7f070004;
+        public static final int editText1=0x7f070005;
         public static final int fullscreen_content=0x7f070000;
         public static final int fullscreen_content_controls=0x7f070001;
         public static final int straight_pool_button=0x7f070002;
-        public static final int textView1=0x7f070005;
-        public static final int textView2=0x7f070006;
     }
     public static final class layout {
         public static final int activity_choose_game=0x7f030000;
@@ -43,11 +42,16 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int cowboy_pool_button=0x7f050003;
         public static final int dummy_button=0x7f050006;
         public static final int game_chooser_screen_content=0x7f050001;
+        public static final int player1=0x7f050009;
+        public static final int player2=0x7f05000a;
+        public static final int player3=0x7f05000b;
+        public static final int player4=0x7f05000c;
         public static final int playing_straight_pool_screen_content=0x7f050004;
         public static final int straight_pool_button=0x7f050002;
         public static final int straight_pool_start_content=0x7f050005;
         public static final int title_activity_straight_pool=0x7f050007;
         public static final int title_activity_straight_pool_start=0x7f050008;
+        public static final int whos_playing_title=0x7f05000d;
     }
     public static final class style {
         /** 

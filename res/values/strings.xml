@@ -11,4 +11,10 @@
     <string name="title_activity_straight_pool">StraightPoolActivity</string>
     <string name="title_activity_straight_pool_start">StraightPoolStartActivity</string>
 
+    <string name="player1">Player 1</string>
+    <string name="player2">Player 2</string>
+    <string name="player3">Player 3</string>
+    <string name="player4">Player 4</string>
+    <string name="whos_playing_title">Who\'s playing</string>
+    
 </resources>
