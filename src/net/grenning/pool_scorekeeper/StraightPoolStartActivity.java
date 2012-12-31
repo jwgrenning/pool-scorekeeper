@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.EditText;
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
@@ -115,7 +116,7 @@ public class StraightPoolStartActivity extends Activity {
 		// Upon interacting with UI controls, delay any scheduled hide()
 		// operations to prevent the jarring behavior of controls going away
 		// while interacting with the UI.
-		findViewById(R.id.dummy_button).setOnTouchListener(
+		findViewById(R.id.playStraightPoolButton).setOnTouchListener(
 				mDelayHideTouchListener);
 	}
 
@@ -162,7 +163,8 @@ public class StraightPoolStartActivity extends Activity {
 	}
 	
 	private void addToIntent(Intent intent, String name, int id) {
-    	String value = findViewById(id).toString();
+		EditText text = (EditText)findViewById(id);
+    	String value = text.getText().toString();
     	intent.putExtra(name, value);
 	}
 
@@ -172,5 +174,22 @@ public class StraightPoolStartActivity extends Activity {
        	addToIntent(i, "player2Name", R.id.player2Name);
        	addToIntent(i, "player1PointsToWin", R.id.player1PointsToWin);
        	addToIntent(i, "player2PointsToWin", R.id.player2PointsToWin);
-        startActivity( i );    }
+        startActivity( i );    
+    }
+	
+	private void swapText(int id1, int id2) {
+		EditText text1 = (EditText)findViewById(id1);
+		EditText text2 = (EditText)findViewById(id2);
+		String s1 = text1.getText().toString();
+		String s2 = text2.getText().toString();
+		text1.setText(s2);
+		text2.setText(s1);
+		
+	}
+
+	public void swapPlayers(View view) {
+		swapText(R.id.player1Name, R.id.player2Name);
+		swapText(R.id.player1PointsToWin, R.id.player2PointsToWin);
+	}
+
 }

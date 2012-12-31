@@ -139,7 +139,7 @@
             tools:ignore="UselessParent" >
 
             <Button
-                android:id="@+id/dummy_button"
+                android:id="@+id/playStraightPoolButton"
                 style="@style/ButtonBarButton"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -147,7 +147,16 @@
                 android:layout_weight="1"
                 android:text="@string/lets_play" />
 
-        </LinearLayout>
+            <Button
+                android:id="@+id/swapPlayersButton"
+                style="@style/ButtonBarButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:onClick="swapPlayers"
+                android:layout_weight="1"
+                android:text="@string/swap_players" />
+
+            </LinearLayout>
 
 
     </FrameLayout>
