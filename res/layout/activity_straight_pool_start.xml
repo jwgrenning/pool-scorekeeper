@@ -72,6 +72,7 @@
 			android:layout_weight="1" 
             android:padding="20dip" 
             android:gravity="center"
+            android:nextFocusDown="@+id/player1PointsToWin"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:inputType="textCapWords" >
            <requestFocus />
@@ -86,6 +87,7 @@
 			android:layout_weight="1" 
             android:padding="20dip" 
             android:gravity="center"
+            android:nextFocusDown="@+id/player2Name"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:inputType="number" >
         </EditText>
@@ -105,6 +107,7 @@
 			android:layout_weight="1" 
             android:padding="20dip" 
             android:gravity="center"
+            android:nextFocusDown="@+id/player2PointsToWin"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:inputType="textCapWords" >
           </EditText>
