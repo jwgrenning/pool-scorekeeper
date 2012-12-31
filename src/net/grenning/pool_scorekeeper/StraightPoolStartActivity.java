@@ -160,9 +160,17 @@ public class StraightPoolStartActivity extends Activity {
 		mHideHandler.removeCallbacks(mHideRunnable);
 		mHideHandler.postDelayed(mHideRunnable, delayMillis);
 	}
+	
+	private void addToIntent(Intent intent, String name, int id) {
+    	String value = findViewById(id).toString();
+    	intent.putExtra(name, value);
+	}
 
 	public void launchPlayStraightPoolScreen(View view) {
     	Intent i = new Intent( this, StraightPoolActivity.class );
-    	startActivity( i );    }
-
+       	addToIntent(i, "player1Name", R.id.player1Name);
+       	addToIntent(i, "player2Name", R.id.player2Name);
+       	addToIntent(i, "player1PointsToWin", R.id.player1PointsToWin);
+       	addToIntent(i, "player2PointsToWin", R.id.player2PointsToWin);
+        startActivity( i );    }
 }

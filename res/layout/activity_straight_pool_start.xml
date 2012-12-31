@@ -17,10 +17,7 @@
         android:layout_height="match_parent"
         android:gravity="center"
         android:keepScreenOn="true"
-        android:text="@string/straight_pool_start_content"
-        android:textColor="#33b5e5"
-        android:textSize="50sp"
-        android:textStyle="bold" />
+		/>
 
     <!--
          This FrameLayout insets its children based on system windows using
@@ -67,7 +64,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" >
           <EditText
-            android:id="@+id/straightPoolPlayer1Name"
+            android:id="@+id/player1Name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@color/black_overlay"
@@ -76,12 +73,12 @@
             android:padding="20dip" 
             android:gravity="center"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:inputType="textPersonName" >
+            android:inputType="textCapWords" >
            <requestFocus />
           </EditText>
           
         <EditText
-            android:id="@+id/straightPoolPlayer1pointsToWin"
+            android:id="@+id/player1PointsToWin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@color/black_overlay"
@@ -100,7 +97,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" >
           <EditText
-            android:id="@+id/straightPoolPlayer2Name"
+            android:id="@+id/player2Name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@color/black_overlay"
@@ -109,11 +106,11 @@
             android:padding="20dip" 
             android:gravity="center"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:inputType="textPersonName" >
+            android:inputType="textCapWords" >
           </EditText>
           
         <EditText
-            android:id="@+id/straightPoolPlayer2pointsToWin"
+            android:id="@+id/player2PointsToWin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@color/black_overlay"

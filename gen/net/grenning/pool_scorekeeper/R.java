@@ -31,12 +31,12 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int dummy_button=0x7f070005;
         public static final int fullscreen_content=0x7f070000;
         public static final int fullscreen_content_controls=0x7f070001;
-        public static final int straightPoolPlayer1Name=0x7f07000a;
+        public static final int player1Name=0x7f07000a;
+        public static final int player1PointsToWin=0x7f07000b;
+        public static final int player2Name=0x7f07000d;
+        public static final int player2PointsToWin=0x7f07000e;
         public static final int straightPoolPlayer1Row=0x7f070009;
-        public static final int straightPoolPlayer1pointsToWin=0x7f07000b;
-        public static final int straightPoolPlayer2Name=0x7f07000d;
         public static final int straightPoolPlayer2Row=0x7f07000c;
-        public static final int straightPoolPlayer2pointsToWin=0x7f07000e;
         public static final int straightPoolPlayersTitle=0x7f070007;
         public static final int straightPoolPointsToWinTitle=0x7f070008;
         public static final int straightPoolStartHeaderRow=0x7f070006;
