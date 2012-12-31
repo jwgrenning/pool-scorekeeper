@@ -3,13 +3,18 @@
 
     <string name="app_name">pool-score-keeper</string>
     <string name="game_chooser_screen_content">Let\'s Play Pool</string>
-    <string name="straight_pool_button">Straight Pool</string>
-    <string name="cowboy_pool_button">Cowboy</string>
-    <string name="playing_straight_pool_screen_content">Playing Straight Pool</string>
-    <string name="straight_pool_start_content">Who is playing?</string>
     <string name="dummy_button">Dummy Button</string>
     <string name="title_activity_straight_pool">StraightPoolActivity</string>
     <string name="title_activity_straight_pool_start">StraightPoolStartActivity</string>
+
+    <string name="cowboy_pool_button">Cowboy</string>
+
+    <string name="playing_straight_pool_screen_content">Playing Straight Pool</string>
+    <string name="straight_pool_button">Straight Pool</string>
+    <string name="straight_pool_start_content">Who is playing?</string>
+    <string name="straight_pool_rules_button">Straight Pool Rules</string>
+    <string name="straight_pool_default_points_to_win">50</string>
+    
 
     <string name="players">Players</string>
     <string name="player1">Player 1</string>
@@ -20,7 +25,6 @@
     <string name="points_to_win">Points to Win?</string>
     <string name="lets_play">Let\'s Play Pool</string>
     <string name="general_pool_rules_button">General Pool Rules</string>
-    <string name="straight_pool_rules_button">Straight Pool Rules</string>
     
     <string name="new_game_button">New Game</string>
 </resources>
