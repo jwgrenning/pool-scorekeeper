@@ -32,57 +32,102 @@
         android:layout_height="match_parent"
         android:fitsSystemWindows="true" >
 		
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="top|center_horizontal"
-            android:background="@color/black_overlay"
-            android:orientation="vertical"
-            tools:ignore="UselessParent" >
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
 
+        <TableRow
+            android:id="@+id/straightPoolStartHeaderRow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
            <TextView
 	         android:id="@+id/straightPoolPlayersTitle"
 	         android:layout_width="wrap_content"
 	         android:layout_height="wrap_content"
 	         android:text="@string/whos_playing_title"
-	         android:textAppearance="?android:attr/textAppearanceLarge" />
+			 android:layout_weight="1" 
+             android:padding="20dip" 
+             android:gravity="center"
+             android:textAppearance="?android:attr/textAppearanceLarge" />
         
            <TextView
 	         android:id="@+id/straightPoolPointsToWinTitle"
 	         android:layout_width="wrap_content"
 	         android:layout_height="wrap_content"
 	         android:text="@string/points_to_win"
-	         android:layout_toRightOf="@+id/straightPoolPlayersTitle"
-             android:layout_marginLeft="10dp"
+			 android:layout_weight="1" 
+             android:padding="20dip" 
+             android:gravity="center"
 	         android:textAppearance="?android:attr/textAppearanceLarge" />
-        
-           
+            
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/straightPoolPlayer1Row"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
           <EditText
             android:id="@+id/straightPoolPlayer1Name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@color/black_overlay"
 		    android:hint="@string/player1"  
-	        android:layout_below="@+id/straightPoolPlayersTitle"
-            android:ems="20"
+			android:layout_weight="1" 
+            android:padding="20dip" 
+            android:gravity="center"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:inputType="textPersonName" >
-
-              <requestFocus />
+           <requestFocus />
           </EditText>
           
         <EditText
+            android:id="@+id/straightPoolPlayer1pointsToWin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/black_overlay"
+		    android:text="@string/straight_pool_default_points_to_win"  
+			android:layout_weight="1" 
+            android:padding="20dip" 
+            android:gravity="center"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:inputType="number" >
+        </EditText>
+            
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/straightPoolPlayer2Row"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+          <EditText
             android:id="@+id/straightPoolPlayer2Name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@color/black_overlay"
 		    android:hint="@string/player2"  
-            android:ems="20"
-	        android:layout_below="@+id/straightPoolPlayer1Name"
+			android:layout_weight="1" 
+            android:padding="20dip" 
+            android:gravity="center"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:inputType="textPersonName" >
+          </EditText>
+          
+        <EditText
+            android:id="@+id/straightPoolPlayer2pointsToWin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/black_overlay"
+		    android:text="@string/straight_pool_default_points_to_win"  
+			android:layout_weight="1" 
+            android:padding="20dip" 
+            android:gravity="center"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:inputType="number" >
         </EditText>
-        </RelativeLayout>
+            
+        </TableRow>
+    </TableLayout>
+    
         <LinearLayout
             android:id="@+id/fullscreen_content_controls"
             style="?buttonBarStyle"
