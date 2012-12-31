@@ -31,7 +31,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fitsSystemWindows="true" >
-
+		
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -40,6 +40,14 @@
             android:orientation="vertical"
             tools:ignore="UselessParent" >
 
+           <TextView
+	         android:id="@+id/textView1"
+	         android:layout_width="wrap_content"
+	         android:layout_height="wrap_content"
+	         android:text="@string/whos_playing_title"
+	         android:textAppearance="?android:attr/textAppearanceLarge" />
+        
+            
           <EditText
             android:id="@+id/player1Name"
             android:layout_width="match_parent"
@@ -47,6 +55,7 @@
             android:background="@color/black_overlay"
 		    android:hint="@string/player1"  
             android:ems="20"
+            android:textAppearance="?android:attr/textAppearanceLarge"
             android:inputType="textPersonName" >
 
               <requestFocus />
@@ -59,6 +68,7 @@
             android:background="@color/black_overlay"
 		    android:hint="@string/player2"  
             android:ems="20"
+            android:textAppearance="?android:attr/textAppearanceLarge"
             android:inputType="textPersonName" >
         </EditText>
                       </LinearLayout>
@@ -82,7 +92,6 @@
                 android:text="@string/lets_play" />
 
         </LinearLayout>
-            
 
     </FrameLayout>
 

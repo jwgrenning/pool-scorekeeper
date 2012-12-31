@@ -11,6 +11,7 @@
     <string name="title_activity_straight_pool">StraightPoolActivity</string>
     <string name="title_activity_straight_pool_start">StraightPoolStartActivity</string>
 
+    <string name="players">Players</string>
     <string name="player1">Player 1</string>
     <string name="player2">Player 2</string>
     <string name="player3">Player 3</string>
@@ -19,4 +20,6 @@
     <string name="lets_play">Let\'s Play Pool</string>
     <string name="general_pool_rules_button">General Pool Rules</string>
     <string name="straight_pool_rules_button">Straight Pool Rules</string>
+    
+    <string name="new_game_button">New Game</string>
 </resources>
