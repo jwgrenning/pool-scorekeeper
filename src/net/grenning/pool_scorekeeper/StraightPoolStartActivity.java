@@ -169,7 +169,7 @@ public class StraightPoolStartActivity extends Activity {
 	}
 
 	public void launchPlayStraightPoolScreen(View view) {
-    	Intent i = new Intent( this, StraightPoolActivity.class );
+    	Intent i = new Intent( this, ScoreStraightPoolActivity.class );
        	addToIntent(i, "player1Name", R.id.player1Name);
        	addToIntent(i, "player2Name", R.id.player2Name);
        	addToIntent(i, "player1PointsToWin", R.id.player1PointsToWin);
