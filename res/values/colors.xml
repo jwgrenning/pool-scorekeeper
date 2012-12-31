@@ -2,5 +2,6 @@
 
     <color name="black_overlay">#66000000</color>
     <color name="pool_table_felt">#008B00</color>
+    <color name="text_color">#000000</color>
     
 </resources>

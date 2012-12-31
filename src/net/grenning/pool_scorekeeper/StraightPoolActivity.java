@@ -23,7 +23,7 @@ public class StraightPoolActivity extends Activity {
 	 * Whether or not the system UI should be auto-hidden after
 	 * {@link #AUTO_HIDE_DELAY_MILLIS} milliseconds.
 	 */
-	private static final boolean AUTO_HIDE = true;
+	private static final boolean AUTO_HIDE = false;
 
 	/**
 	 * If {@link #AUTO_HIDE} is set, the number of milliseconds to wait after
@@ -46,6 +46,7 @@ public class StraightPoolActivity extends Activity {
 	 * The instance of the {@link SystemUiHider} for this activity.
 	 */
 	private SystemUiHider mSystemUiHider;
+	
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -94,10 +95,10 @@ public class StraightPoolActivity extends Activity {
 									: View.GONE);
 						}
 
-						if (visible && AUTO_HIDE) {
-							// Schedule a hide().
-							delayedHide(AUTO_HIDE_DELAY_MILLIS);
-						}
+//						if (visible && AUTO_HIDE) {
+//							// Schedule a hide().
+//							delayedHide(AUTO_HIDE_DELAY_MILLIS);
+//						}
 					}
 				});
 
@@ -127,7 +128,7 @@ public class StraightPoolActivity extends Activity {
 		// Trigger the initial hide() shortly after the activity has been
 		// created, to briefly hint to the user that UI controls
 		// are available.
-		delayedHide(100);
+//		delayedHide(100);
 	}
 
 	/**

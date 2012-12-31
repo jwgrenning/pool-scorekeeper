@@ -21,28 +21,37 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
     public static final class color {
         public static final int black_overlay=0x7f040000;
         public static final int pool_table_felt=0x7f040001;
+        public static final int text_color=0x7f040002;
     }
     public static final class drawable {
         public static final int ic_launcher=0x7f020000;
     }
     public static final class id {
-        public static final int Button01=0x7f070004;
+        public static final int Button01=0x7f07000e;
+        public static final int ballDownButton=0x7f070008;
         public static final int cowboy_pool_button=0x7f070003;
-        public static final int dummy_button=0x7f070005;
+        public static final int dummy_button=0x7f07000f;
+        public static final int foulButton=0x7f07000c;
         public static final int fullscreen_content=0x7f070000;
         public static final int fullscreen_content_controls=0x7f070001;
-        public static final int playStraightPoolButton=0x7f07000f;
-        public static final int player1Name=0x7f07000a;
-        public static final int player1PointsToWin=0x7f07000b;
-        public static final int player2Name=0x7f07000c;
-        public static final int player2PointsToWin=0x7f07000e;
-        public static final int straightPoolPlayer1Row=0x7f070009;
-        public static final int straightPoolPlayer2Row=0x7f07000d;
-        public static final int straightPoolPlayersTitle=0x7f070007;
-        public static final int straightPoolPointsToWinTitle=0x7f070008;
-        public static final int straightPoolStartHeaderRow=0x7f070006;
+        public static final int playStraightPoolButton=0x7f070017;
+        public static final int player1Name=0x7f070005;
+        public static final int player1PointsToWin=0x7f070014;
+        public static final int player2Name=0x7f070006;
+        public static final int player2PointsToWin=0x7f070016;
+        public static final int straightPoolPlayer1Row=0x7f070013;
+        public static final int straightPoolPlayer2Row=0x7f070015;
+        public static final int straightPoolPlayersTitle=0x7f070011;
+        public static final int straightPoolPointsToWinTitle=0x7f070012;
+        public static final int straightPoolScore1Row=0x7f070004;
+        public static final int straightPoolScore2Row=0x7f070007;
+        public static final int straightPoolScore3Row=0x7f070009;
+        public static final int straightPoolScore4Row=0x7f07000b;
+        public static final int straightPoolScore5Row=0x7f07000d;
+        public static final int straightPoolStartHeaderRow=0x7f070010;
         public static final int straight_pool_button=0x7f070002;
-        public static final int swapPlayersButton=0x7f070010;
+        public static final int swapPlayersButton=0x7f070018;
+        public static final int undoButton=0x7f07000a;
     }
     public static final class layout {
         public static final int activity_choose_game=0x7f030000;
@@ -51,27 +60,38 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
     }
     public static final class string {
         public static final int app_name=0x7f050000;
+        public static final int consecutive_fouls=0x7f050011;
         public static final int cowboy_pool_button=0x7f050005;
+        public static final int current_rack_total=0x7f05000c;
+        public static final int default_player1Name=0x7f05000e;
+        public static final int default_player2Name=0x7f05000f;
         public static final int dummy_button=0x7f050002;
+        public static final int foul=0x7f050010;
         public static final int game_chooser_screen_content=0x7f050001;
-        public static final int general_pool_rules_button=0x7f050014;
-        public static final int lets_play=0x7f050013;
-        public static final int new_game_button=0x7f050015;
-        public static final int player1=0x7f05000c;
-        public static final int player2=0x7f05000d;
-        public static final int player3=0x7f05000e;
-        public static final int player4=0x7f05000f;
-        public static final int players=0x7f05000b;
+        public static final int game_total=0x7f05000d;
+        public static final int general_pool_rules_button=0x7f05001f;
+        public static final int lets_play=0x7f05001e;
+        public static final int missed_shot=0x7f050013;
+        public static final int missed_shot_total=0x7f050014;
+        public static final int new_game_button=0x7f050020;
+        public static final int player1=0x7f050017;
+        public static final int player2=0x7f050018;
+        public static final int player3=0x7f050019;
+        public static final int player4=0x7f05001a;
+        public static final int players=0x7f050016;
         public static final int playing_straight_pool_screen_content=0x7f050006;
-        public static final int points_to_win=0x7f050012;
+        public static final int points_to_win=0x7f05001d;
+        public static final int shot_made=0x7f05000b;
         public static final int straight_pool_button=0x7f050007;
         public static final int straight_pool_default_points_to_win=0x7f05000a;
         public static final int straight_pool_rules_button=0x7f050009;
         public static final int straight_pool_start_content=0x7f050008;
-        public static final int swap_players=0x7f050010;
+        public static final int swap_players=0x7f05001b;
         public static final int title_activity_straight_pool=0x7f050003;
         public static final int title_activity_straight_pool_start=0x7f050004;
-        public static final int whos_playing_title=0x7f050011;
+        public static final int total_fouls=0x7f050012;
+        public static final int undo=0x7f050015;
+        public static final int whos_playing_title=0x7f05001c;
     }
     public static final class style {
         /** 
