@@ -20,6 +20,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
     }
     public static final class color {
         public static final int black_overlay=0x7f040000;
+        public static final int pool_table_felt=0x7f040001;
     }
     public static final class drawable {
         public static final int ic_launcher=0x7f020000;
@@ -30,10 +31,10 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int dummy_button=0x7f070005;
         public static final int fullscreen_content=0x7f070000;
         public static final int fullscreen_content_controls=0x7f070001;
-        public static final int player1Name=0x7f070007;
-        public static final int player2Name=0x7f070008;
+        public static final int straightPoolPlayer1Name=0x7f070007;
+        public static final int straightPoolPlayer2Name=0x7f070008;
+        public static final int straightPoolPlayers=0x7f070006;
         public static final int straight_pool_button=0x7f070002;
-        public static final int textView1=0x7f070006;
     }
     public static final class layout {
         public static final int activity_choose_game=0x7f030000;
