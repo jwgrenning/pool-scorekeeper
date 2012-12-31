@@ -16,7 +16,8 @@
     <string name="player2">Player 2</string>
     <string name="player3">Player 3</string>
     <string name="player4">Player 4</string>
-    <string name="whos_playing_title">Who\'s playing</string>
+    <string name="whos_playing_title">Who\'s playing?</string>
+    <string name="points_to_win">Points to Win?</string>
     <string name="lets_play">Let\'s Play Pool</string>
     <string name="general_pool_rules_button">General Pool Rules</string>
     <string name="straight_pool_rules_button">Straight Pool Rules</string>

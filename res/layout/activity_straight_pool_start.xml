@@ -41,30 +41,39 @@
             tools:ignore="UselessParent" >
 
            <TextView
-	         android:id="@+id/straightPoolPlayers"
+	         android:id="@+id/straightPoolPlayersTitle"
 	         android:layout_width="wrap_content"
 	         android:layout_height="wrap_content"
 	         android:text="@string/whos_playing_title"
 	         android:textAppearance="?android:attr/textAppearanceLarge" />
         
-            
+           <TextView
+	         android:id="@+id/straightPoolPointsToWinTitle"
+	         android:layout_width="wrap_content"
+	         android:layout_height="wrap_content"
+	         android:text="@string/points_to_win"
+	         android:layout_toRightOf="@+id/straightPoolPlayersTitle"
+             android:layout_marginLeft="10dp"
+	         android:textAppearance="?android:attr/textAppearanceLarge" />
+        
+           
           <EditText
             android:id="@+id/straightPoolPlayer1Name"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@color/black_overlay"
 		    android:hint="@string/player1"  
-	        android:layout_below="@+id/straightPoolPlayers"
+	        android:layout_below="@+id/straightPoolPlayersTitle"
             android:ems="20"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:inputType="textPersonName" >
 
               <requestFocus />
           </EditText>
-              
+          
         <EditText
             android:id="@+id/straightPoolPlayer2Name"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@color/black_overlay"
 		    android:hint="@string/player2"  
@@ -94,6 +103,7 @@
                 android:text="@string/lets_play" />
 
         </LinearLayout>
+
 
     </FrameLayout>
 
