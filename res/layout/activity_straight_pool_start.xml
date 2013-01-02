@@ -74,7 +74,8 @@
             android:gravity="center"
             android:nextFocusDown="@+id/player1PointsToWin"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:inputType="textCapWords" >
+            android:inputType="textCapWords"
+	        android:imeOptions="actionDone" >
            <requestFocus />
           </EditText>
           
@@ -89,7 +90,8 @@
             android:gravity="center"
             android:nextFocusDown="@+id/player2Name"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:inputType="number" >
+            android:inputType="number" 
+	        android:imeOptions="actionDone">
         </EditText>
             
         </TableRow>
@@ -109,7 +111,8 @@
             android:gravity="center"
             android:nextFocusDown="@+id/player2PointsToWin"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:inputType="textCapWords" >
+            android:inputType="textCapWords"
+	        android:imeOptions="actionDone" >
           </EditText>
           
         <EditText
@@ -122,7 +125,8 @@
             android:padding="20dip" 
             android:gravity="center"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:inputType="number" >
+            android:inputType="number"
+	        android:imeOptions="actionDone" >
         </EditText>
             
         </TableRow>
