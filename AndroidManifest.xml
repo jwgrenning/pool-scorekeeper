@@ -39,6 +39,7 @@
         <activity
             android:name="net.grenning.pool_scorekeeper.ScoreStraightPoolActivity"
             android:label="@string/title_activity_score_straight_pool" >
+            android:theme="@style/FullscreenTheme" >
         </activity>
     </application>
 

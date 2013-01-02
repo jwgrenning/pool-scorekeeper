@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/pool_table_felt"
+    android:textColor="@color/text_color"
     tools:context=".ChooseGame" >
 
     <!--
@@ -18,7 +19,6 @@
         android:gravity="center"
         android:keepScreenOn="true"
         android:text="@string/game_chooser_screen_content"
-        android:textColor="#33b5e5"
         android:textSize="50sp"
         android:textStyle="bold" />
 
