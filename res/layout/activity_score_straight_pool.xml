@@ -16,7 +16,7 @@
         android:layout_height="match_parent" >
 
         <TableRow
-            android:id="@+id/straightPoolScore1Row"
+            android:id="@+id/HeaderRow"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" >
 
@@ -60,7 +60,7 @@
         </TableRow>
 
         <TableRow
-            android:id="@+id/straightPoolScore2Row"
+            android:id="@+id/currentRackRow"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" >
 
@@ -79,23 +79,15 @@
 
             <TextView
                 android:id="@+id/player1BallsThisRack"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:text="10" />
+                style="@style/ScoreTableNumberEntry" />
 
             <TextView
                 android:id="@+id/player2BallsThisRack"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:text="20" />
+                style="@style/ScoreTableNumberEntry" />
         </TableRow>
 
         <TableRow
-            android:id="@+id/straightPoolScore3Row"
+            android:id="@+id/totalScoreRow"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" >
 
@@ -108,29 +100,20 @@
 
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
+                style="@style/ScoreTableTextEntry"
                 android:text="@string/game_total" />
 
             <TextView
                 android:id="@+id/player1Score"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:text="10" />
+                style="@style/ScoreTableNumberEntry" />
 
             <TextView
                 android:id="@+id/player2Score"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:text="20" />
+                style="@style/ScoreTableNumberEntry" />
         </TableRow>
 
         <TableRow
-            android:id="@+id/straightPoolScore4Row"
+            android:id="@+id/pointsToWinRow"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" >
 
@@ -139,7 +122,34 @@
                 style="@style/AppTheme"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/foul" />
+                android:text="@string/missed_shot" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/points_needed" />
+
+            <TextView
+                android:id="@+id/player1PointsToWin"
+                style="@style/ScoreTableNumberEntry" />
+
+            <TextView
+                android:id="@+id/player2PointsToWin"
+                style="@style/ScoreTableNumberEntry" />
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/consecutiveFoulsRow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+            <Button
+                android:id="@+id/undoButton"
+                style="@style/AppTheme"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/undo" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -149,23 +159,15 @@
 
             <TextView
                 android:id="@+id/player1ConsecutiveFouls"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:text="10" />
+                style="@style/ScoreTableNumberEntry" />
 
             <TextView
                 android:id="@+id/player2ConsecutiveFouls"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:text="20" />
+                style="@style/ScoreTableNumberEntry" />
         </TableRow>
 
         <TableRow
-            android:id="@+id/straightPoolScore5Row"
+            android:id="@+id/totalFoulsRow"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" >
 
@@ -183,19 +185,11 @@
 
             <TextView
                 android:id="@+id/player1TotalFouls"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:text="10" />
+                style="@style/ScoreTableNumberEntry" />
 
             <TextView
                 android:id="@+id/player2TotalFouls"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:text="20" />
+                style="@style/ScoreTableNumberEntry" />
         </TableRow>
     </TableLayout>
 
@@ -216,7 +210,7 @@
 
             <Button
                 android:id="@+id/Button01"
-	            style="@style/AppTheme"
+                style="@style/AppTheme"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -225,7 +219,7 @@
 
             <Button
                 android:id="@+id/dummy_button"
-	            style="@style/AppTheme"
+                style="@style/AppTheme"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
