@@ -139,10 +139,15 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int AppTheme=0x7f060001;
         public static final int ButtonBar=0x7f060003;
         public static final int ButtonBarButton=0x7f060002;
-        public static final int FullscreenActionBarStyle=0x7f060007;
-        public static final int FullscreenTheme=0x7f060006;
-        public static final int ScoreTableNumberEntry=0x7f060004;
-        public static final int ScoreTableTextEntry=0x7f060005;
+        public static final int FullscreenActionBarStyle=0x7f06000c;
+        public static final int FullscreenTheme=0x7f06000b;
+        public static final int ScoreTable=0x7f060004;
+        public static final int ScoreTableBlankEntry=0x7f060007;
+        public static final int ScoreTableButton=0x7f060009;
+        public static final int ScoreTableHeading=0x7f06000a;
+        public static final int ScoreTableNumberEntry=0x7f060005;
+        public static final int ScoreTableRow=0x7f060008;
+        public static final int ScoreTableTextEntry=0x7f060006;
     }
     public static final class styleable {
         /** 

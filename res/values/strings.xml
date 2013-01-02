@@ -31,7 +31,7 @@
     <string name="swap_players">Swap Players</string>
     <string name="whos_playing_title">Who\'s playing?</string>
     <string name="points_to_win">Points to Win?</string>
-    <string name="points_needed">Points Needed to Win</string>
+    <string name="points_needed">Needed to Win</string>
     <string name="lets_play">Let\'s Play Pool</string>
     <string name="general_pool_rules_button">General Pool Rules</string>
     <string name="new_game_button">New Game</string>

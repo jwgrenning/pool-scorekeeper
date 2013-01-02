@@ -10,7 +10,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
-public class ScoreStraightPoolActivity extends Activity {
+public class ScoreStraightPoolActivity extends Activity{
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -22,15 +22,20 @@ public class ScoreStraightPoolActivity extends Activity {
 				R.string.default_player1Name);
 		setPlayerName("player2Name", R.id.player2Name,
 				R.string.default_player2Name);
-		setFieldById(R.id.player1BallsThisRack, 0);
-		setFieldById(R.id.player2BallsThisRack, 0);
+		
+//		player1Score(0);
+//		player1RackScore(0);
+//		player1BallsNeededToWin(getNumberFieldFromIntent("player1PointsToWin"));
 		setFieldById(R.id.player1Score, 0);
-		setFieldById(R.id.player2Score, 0);
+		setFieldById(R.id.player1BallsThisRack, 0);
 		setFieldById(R.id.player1PointsToWin, getNumberFieldFromIntent("player1PointsToWin"));
-		setFieldById(R.id.player2PointsToWin, getNumberFieldFromIntent("player2PointsToWin"));
 		setFieldById(R.id.player1ConsecutiveFouls, 0);
-		setFieldById(R.id.player2ConsecutiveFouls, 0);
 		setFieldById(R.id.player1TotalFouls, 0);
+
+		setFieldById(R.id.player2Score, 0);
+		setFieldById(R.id.player2BallsThisRack, 0);
+		setFieldById(R.id.player2PointsToWin, getNumberFieldFromIntent("player2PointsToWin"));
+		setFieldById(R.id.player2ConsecutiveFouls, 0);
 		setFieldById(R.id.player2TotalFouls, 0);
 	}
 

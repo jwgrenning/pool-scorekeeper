@@ -15,9 +15,10 @@
 
     <!-- Application theme. -->
     <style name="AppTheme" parent="AppBaseTheme">
+
         <!-- All customizations that are NOT specific to a particular API-level can go here. -->
-        <item name="android:textColor">#FFFFFF</item>"
-    </style>
+        <item name="android:textColor">#FFFFFF</item>
+"</style>
 
     <style name="ButtonBarButton" />
 
@@ -28,19 +29,35 @@
         <item name="android:paddingBottom">0dp</item>
         <item name="android:background">@android:drawable/bottom_bar</item>
     </style>
-    
-    <style name="ScoreTableNumberEntry">
-        <item name ="android:layout_width">wrap_content</item>
-        <item name ="android:layout_height">wrap_content</item>
-        <item name ="android:layout_weight">1</item>
-        <item name ="android:gravity">center</item>
-        <item name ="android:text">0</item>
+
+    <style name="ScoreTable" parent="@style/AppTheme">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:gravity">center</item>
     </style>
 
-    <style name="ScoreTableTextEntry">
-        <item name ="android:layout_width">wrap_content</item>
-        <item name ="android:layout_height">wrap_content</item>
-        <item name ="android:layout_weight">1</item>
+    <style name="ScoreTableNumberEntry" parent="ScoreTable">
+        <item name="android:text">0</item>
+    </style>
+
+    <style name="ScoreTableTextEntry" parent="ScoreTable"></style>
+
+    <style name="ScoreTableBlankEntry" parent="ScoreTable">
+        <item name="android:text"></item>
+    </style>
+    
+    <style name="ScoreTableRow">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+    
+    <style name="ScoreTableButton" parent="ScoreTable"></style>
+
+    <style name="ScoreTableHeading" parent="ScoreTable">
+        <item name="android:paddingLeft">10dp</item>
+        <item name="android:paddingRight">10dp</item>
+        <item name="android:background">@color/black_overlay</item>
+        <item name="android:inputType">textCapWords</item>
     </style>
 
     <style name="FullscreenTheme" parent="android:Theme.NoTitleBar">

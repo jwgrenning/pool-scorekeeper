@@ -17,30 +17,17 @@
 
         <TableRow
             android:id="@+id/HeaderRow"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" >
+            style="@style/ScoreTableRow" >
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="" />
+                style="@style/ScoreTableBlankEntry" />
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="" />
+                style="@style/ScoreTableBlankEntry" />
 
             <EditText
                 android:id="@+id/player1Name"
-                style="@style/AppTheme"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="@color/black_overlay"
-                android:gravity="center"
-                android:inputType="textCapWords"
+                style="@style/ScoreTableHeading"
                 android:text="@string/default_player1Name" >
 
                 <requestFocus />
@@ -48,33 +35,22 @@
 
             <EditText
                 android:id="@+id/player2Name"
-                style="@style/AppTheme"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="@color/black_overlay"
-                android:gravity="center"
-                android:inputType="textCapWords"
+                style="@style/ScoreTableHeading"
                 android:text="@string/default_player2Name" >
             </EditText>
         </TableRow>
 
         <TableRow
             android:id="@+id/currentRackRow"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" >
+            style="@style/ScoreTableRow" >
 
             <Button
                 android:id="@+id/ballDownButton"
-                style="@style/AppTheme"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
+                style="@style/ScoreTableButton"
                 android:text="@string/shot_made" />
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
+                style="@style/ScoreTableTextEntry"
                 android:text="@string/current_rack_total" />
 
             <TextView
@@ -88,18 +64,14 @@
 
         <TableRow
             android:id="@+id/totalScoreRow"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" >
+            style="@style/ScoreTableRow" >
 
             <Button
                 android:id="@+id/missedShotButton"
-                style="@style/AppTheme"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
+                style="@style/ScoreTableButton"
                 android:text="@string/missed_shot" />
 
             <TextView
-                android:layout_width="wrap_content"
                 style="@style/ScoreTableTextEntry"
                 android:text="@string/game_total" />
 
@@ -114,20 +86,15 @@
 
         <TableRow
             android:id="@+id/pointsToWinRow"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" >
+            style="@style/ScoreTableRow" >
 
             <Button
                 android:id="@+id/foulButton"
-                style="@style/AppTheme"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/missed_shot" />
+                style="@style/ScoreTableButton"
+                android:text="@string/foul" />
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
+                style="@style/ScoreTableTextEntry"
                 android:text="@string/points_needed" />
 
             <TextView
@@ -141,20 +108,15 @@
 
         <TableRow
             android:id="@+id/consecutiveFoulsRow"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" >
+            style="@style/ScoreTableRow" >
 
             <Button
                 android:id="@+id/undoButton"
-                style="@style/AppTheme"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
+                style="@style/ScoreTableButton"
                 android:text="@string/undo" />
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
+                style="@style/ScoreTableTextEntry"
                 android:text="@string/consecutive_fouls" />
 
             <TextView
@@ -168,19 +130,13 @@
 
         <TableRow
             android:id="@+id/totalFoulsRow"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" >
+            style="@style/ScoreTableRow" >
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="" />
+                style="@style/ScoreTableBlankEntry" />
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
+                style="@style/ScoreTableTextEntry"
                 android:text="@string/total_fouls" />
 
             <TextView
