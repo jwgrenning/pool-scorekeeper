@@ -25,12 +25,6 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="net.grenning.pool_scorekeeper.StraightPoolActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize"
-            android:label="@string/title_activity_straight_pool"
-            android:theme="@style/FullscreenTheme" >
-        </activity>
-        <activity
             android:name="net.grenning.pool_scorekeeper.StraightPoolStartActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_straight_pool_start"

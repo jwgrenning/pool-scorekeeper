@@ -8,6 +8,7 @@ import android.content.pm.ActivityInfo;
 import android.view.Menu;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 
 public class ScoreStraightPoolActivity extends Activity {
 
@@ -19,8 +20,23 @@ public class ScoreStraightPoolActivity extends Activity {
 		
 		setPlayerName("player1Name", R.id.player1Name, R.string.default_player1Name);
 		setPlayerName("player2Name", R.id.player2Name, R.string.default_player2Name);
+		setFieldById(R.id.player1BallsThisRack, 0);
+		setFieldById(R.id.player2BallsThisRack, 0);
+		setFieldById(R.id.player1ConsecutiveFouls, 0);
+		setFieldById(R.id.player2ConsecutiveFouls, 0);
+		setFieldById(R.id.player1TotalFouls, 0);
+		setFieldById(R.id.player2TotalFouls, 0);
+		setFieldById(R.id.player1Score, 0);
+		setFieldById(R.id.player2Score, 0);
+//		setFieldById(R.id.player1PointsToWin, 0);
+//		setFieldById(R.id.player2PointsToWin, 0);
 	}
 	
+	private void setFieldById(int id, int value) {
+		TextView field = (TextView)findViewById(id);
+		field.setText(new Integer(value).toString());
+	}
+
 	private void setPlayerName(String player, int playerTextId, int defaultPlayer) {
 		String p1 = getIntent().getStringExtra(player);
 		EditText playerText = (EditText)findViewById(playerTextId);
