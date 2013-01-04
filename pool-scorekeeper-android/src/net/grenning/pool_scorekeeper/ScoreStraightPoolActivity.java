@@ -10,11 +10,39 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
-public class ScoreStraightPoolActivity extends Activity implements StraightPoolScorerView {
+public class ScoreStraightPoolActivity extends Activity {
 
 	StraightPoolScorer scorer;
 	
+	StraightPoolScorerView player1Scorer = new  StraightPoolScorerView() {
+
+		@Override
+		public void score(int i) {
+			setFieldById(R.id.player1Score, i);
+		}
+
+		@Override
+		public void ballsNeededToWin(int ballsNeededToWin) {
+			setFieldById(R.id.player1PointsToWin, ballsNeededToWin);
+		}
+
+		@Override
+		public void rackScore(int player1RackScore) {
+			setFieldById(R.id.player1BallsThisRack, player1RackScore);
+		}
+		
+		@Override
+		public void fouls(int count) {
+			setFieldById(R.id.player1TotalFouls, count);
+		}
+
+		@Override
+		public void consecutiveFouls(int count) {
+			setFieldById(R.id.player1ConsecutiveFouls, count);
+		}		
+	};
 	
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -25,12 +53,9 @@ public class ScoreStraightPoolActivity extends Activity implements StraightPoolS
 				R.string.default_player1Name);
 		setPlayerName("player2Name", R.id.player2Name,
 				R.string.default_player2Name);
+				
+		scorer = new StraightPoolScorer(player1Scorer, getNumberFieldFromIntent("player1PointsToWin"));
 		
-		scorer = new StraightPoolScorer(this, getNumberFieldFromIntent("player1PointsToWin"));
-		
-		consecutiveFouls(0);
-		fouls(0);
-
 		setFieldById(R.id.player2Score, 0);
 		setFieldById(R.id.player2BallsThisRack, 0);
 		setFieldById(R.id.player2PointsToWin, getNumberFieldFromIntent("player2PointsToWin"));
@@ -78,29 +103,6 @@ public class ScoreStraightPoolActivity extends Activity implements StraightPoolS
 		startActivity(browserIntent);
 	}
 
-	@Override
-	public void score(int i) {
-		setFieldById(R.id.player1Score, i);
-	}
-
-	@Override
-	public void ballsNeededToWin(int ballsNeededToWin) {
-		setFieldById(R.id.player1PointsToWin, ballsNeededToWin);
-	}
-
-	@Override
-	public void rackScore(int player1RackScore) {
-		setFieldById(R.id.player1BallsThisRack, player1RackScore);
-	}
-	
-	public void fouls(int count) {
-		setFieldById(R.id.player1TotalFouls, count);
-	}
-
-	public void consecutiveFouls(int count) {
-		setFieldById(R.id.player1ConsecutiveFouls, count);
-	}
-	
 	public void shotMadeButtonClicked(View view) {
 		scorer.goodShot();
 	}
