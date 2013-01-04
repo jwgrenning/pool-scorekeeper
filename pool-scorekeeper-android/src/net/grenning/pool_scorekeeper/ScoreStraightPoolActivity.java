@@ -12,9 +12,11 @@ import android.widget.TextView;
 
 public class ScoreStraightPoolActivity extends Activity {
 
-	StraightPoolScorer scorer;
+	StraightPoolGameScorer scorer;
+	StraightPoolScorer player1Scorer;
+	StraightPoolScorer player2Scorer;
 	
-	StraightPoolScorerView player1Scorer = new  StraightPoolScorerView() {
+	StraightPoolScorerView player1View = new  StraightPoolScorerView() {
 
 		@Override
 		public void score(int i) {
@@ -43,6 +45,35 @@ public class ScoreStraightPoolActivity extends Activity {
 	};
 	
 
+	StraightPoolScorerView player2View = new  StraightPoolScorerView() {
+
+		@Override
+		public void score(int i) {
+			setFieldById(R.id.player2Score, i);
+		}
+
+		@Override
+		public void ballsNeededToWin(int ballsNeededToWin) {
+			setFieldById(R.id.player2PointsToWin, ballsNeededToWin);
+		}
+
+		@Override
+		public void rackScore(int rackScore) {
+			setFieldById(R.id.player2BallsThisRack, rackScore);
+		}
+		
+		@Override
+		public void fouls(int count) {
+			setFieldById(R.id.player2TotalFouls, count);
+		}
+
+		@Override
+		public void consecutiveFouls(int count) {
+			setFieldById(R.id.player2ConsecutiveFouls, count);
+		}		
+	};
+	
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -54,7 +85,9 @@ public class ScoreStraightPoolActivity extends Activity {
 		setPlayerName("player2Name", R.id.player2Name,
 				R.string.default_player2Name);
 				
-		scorer = new StraightPoolScorer(player1Scorer, getNumberFieldFromIntent("player1PointsToWin"));
+		player1Scorer = new StraightPoolScorer(player1View, getNumberFieldFromIntent("player1PointsToWin"));
+		player2Scorer = new StraightPoolScorer(player2View, getNumberFieldFromIntent("player2PointsToWin"));
+		scorer = new StraightPoolGameScorer(player1Scorer, player2Scorer);
 		
 		setFieldById(R.id.player2Score, 0);
 		setFieldById(R.id.player2BallsThisRack, 0);
@@ -104,11 +137,11 @@ public class ScoreStraightPoolActivity extends Activity {
 	}
 
 	public void shotMadeButtonClicked(View view) {
-		scorer.goodShot();
+		scorer.playerMakesShot();
 	}
 
 	public void missedShotButtonClicked(View view) {
-		scorer.missedShot();
+		scorer.playerMissesShot();
 	}
 
 	public void foulButtonClicked(View view) {
