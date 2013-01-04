@@ -29,7 +29,6 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
     public static final class id {
         public static final int Button01=0x7f08001a;
         public static final int HeaderRow=0x7f080004;
-        public static final int ballDownButton=0x7f080008;
         public static final int consecutiveFoulsRow=0x7f080013;
         public static final int cowboy_pool_button=0x7f080003;
         public static final int currentRackRow=0x7f080007;
@@ -53,6 +52,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int player2Score=0x7f08000e;
         public static final int player2TotalFouls=0x7f080019;
         public static final int pointsToWinRow=0x7f08000f;
+        public static final int shotMadeButton=0x7f080008;
         public static final int straightPoolPlayer1Row=0x7f08001f;
         public static final int straightPoolPlayer2Row=0x7f080020;
         public static final int straightPoolPlayersTitle=0x7f08001d;

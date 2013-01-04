@@ -45,8 +45,9 @@
             style="@style/ScoreTableRow" >
 
             <Button
-                android:id="@+id/ballDownButton"
+                android:id="@+id/shotMadeButton"
                 style="@style/ScoreTableButton"
+                android:onClick="shotMadeButtonClicked"
                 android:text="@string/shot_made" />
 
             <TextView
@@ -69,6 +70,7 @@
             <Button
                 android:id="@+id/missedShotButton"
                 style="@style/ScoreTableButton"
+                android:onClick="missedShotButtonClicked"
                 android:text="@string/missed_shot" />
 
             <TextView
@@ -91,6 +93,7 @@
             <Button
                 android:id="@+id/foulButton"
                 style="@style/ScoreTableButton"
+                android:onClick="foulButtonClicked"
                 android:text="@string/foul" />
 
             <TextView
