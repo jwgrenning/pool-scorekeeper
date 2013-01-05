@@ -90,6 +90,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int missed_shot=0x7f050013;
         public static final int missed_shot_total=0x7f050014;
         public static final int new_game_button=0x7f050021;
+        public static final int new_rack=0x7f050025;
         public static final int player1=0x7f050017;
         public static final int player2=0x7f050018;
         public static final int player3=0x7f050019;

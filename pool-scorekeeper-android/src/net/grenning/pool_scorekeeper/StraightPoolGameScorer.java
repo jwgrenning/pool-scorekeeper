@@ -36,4 +36,10 @@ public class StraightPoolGameScorer {
 			currentPlayer = player1Scorer;
 	}
 
+	public void newRack() {
+		player1Scorer.newRack();
+		player2Scorer.newRack();
+		
+	}
+
 }

@@ -53,4 +53,9 @@ public class StraightPoolScorer {
 		breakShotComing  = true;
 	}
 
+	public void newRack() {
+		rackScore = 0;
+		updateView(view);
+	}
+
 }

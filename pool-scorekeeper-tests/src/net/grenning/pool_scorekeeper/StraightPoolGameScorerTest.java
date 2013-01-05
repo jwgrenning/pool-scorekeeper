@@ -55,5 +55,39 @@ public class StraightPoolGameScorerTest {
 		assertEquals(1, player1Spy.player1Score);
 		assertEquals(0, player2Spy.player1Score);
 	}
+	
+	@Test
+	public void testNewRack() {
+		game.playerMakesShot();
+		game.playerMakesShot();
+		game.playerMakesShot();
+		game.playerMakesShot();
+		game.playerMakesShot();
+		game.playerMakesShot();
+		game.playerMakesShot();
+		game.playerMakesShot();
+		game.playerMakesShot();
+		game.playerMakesShot();
+		game.playerMakesShot();
+		game.playerMakesShot();
+		game.playerMakesShot();
+		game.playerMakesShot();
+		assertEquals(14, player1Spy.player1Score);
+		game.newRack();
+		assertEquals(14, player1Spy.player1Score);
+		assertEquals(0, player1Spy.player1RackScore);
+		assertEquals(0, player2Spy.player1RackScore);
+		
+	}
+	
+	/*
+	 * game view, racks, runs, innings
+	 * multiple balls in one shot
+	 * 14:1 re rack
+	 * Undo
+	 * Move rules into the options menu
+	 * Add settings, default players, points
+	 * 
+	 */
 
 }

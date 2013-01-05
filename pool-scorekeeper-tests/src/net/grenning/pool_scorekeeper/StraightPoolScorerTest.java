@@ -144,4 +144,17 @@ public class StraightPoolScorerTest {
 		assertTotalFouls(1);
 	}
 
+	@Test
+	public void trestNewRack() {
+		scorer.yourBreak();
+		scorer.goodShot();
+		scorer.missedShot();
+		assertPlayerScore(1);
+		assertRackScore(1);
+		scorer.newRack();
+		assertPlayerScore(1);
+		assertRackScore(0);
+		
+	}
+
 }

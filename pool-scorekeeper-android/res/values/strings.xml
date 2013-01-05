@@ -38,5 +38,5 @@
     <string name="hello_world">Hello world!</string>
     <string name="menu_settings">Settings</string>
     <string name="title_activity_score_straight_pool">Straight Pool Score Board</string>
-
+	<string name="new_rack">New Rack</string>
 </resources>

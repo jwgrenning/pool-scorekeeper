@@ -116,7 +116,8 @@
             <Button
                 android:id="@+id/undoButton"
                 style="@style/ScoreTableButton"
-                android:text="@string/undo" />
+                android:onClick="newRackButtonClicked"
+                android:text="@string/new_rack" />
 
             <TextView
                 style="@style/ScoreTableTextEntry"

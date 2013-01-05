@@ -147,5 +147,9 @@ public class ScoreStraightPoolActivity extends Activity {
 	public void foulButtonClicked(View view) {
 		scorer.foul();
 	}
+	
+	public void newRackButtonClicked(View view) {
+		scorer.newRack();
+	}
 
 }
