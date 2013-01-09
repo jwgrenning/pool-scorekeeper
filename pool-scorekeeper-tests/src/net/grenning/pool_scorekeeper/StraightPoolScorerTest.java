@@ -156,5 +156,15 @@ public class StraightPoolScorerTest {
 		assertRackScore(0);
 		
 	}
+	
+	@Test
+	public void testPlayFoulStreakResets() {
+		scorer.missedShot();
+		scorer.foul();
+		scorer.foul();
+		scorer.missedShot();
+		assertConsecutiveFouls(0);
+	}
+	
 
 }

@@ -47,6 +47,8 @@ public class StraightPoolScorer {
 
 	public void missedShot() {
 		breakShotComing = false;
+		consecutiveFouls = 0;
+		updateView(view);
 	}
 
 	public void yourBreak() {
@@ -56,6 +58,14 @@ public class StraightPoolScorer {
 	public void newRack() {
 		rackScore = 0;
 		updateView(view);
+	}
+
+	public void makeActive() {
+		view.makeActive();
+	}
+
+	public void makeInactive() {
+		view.makeInactive();
 	}
 
 }

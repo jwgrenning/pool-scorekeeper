@@ -12,4 +12,8 @@ public interface StraightPoolScorerView {
 
 	void fouls(int fouls);
 
+	void makeActive();
+
+	void makeInactive();
+
 }

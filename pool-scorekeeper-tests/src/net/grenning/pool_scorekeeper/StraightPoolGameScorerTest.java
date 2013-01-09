@@ -33,24 +33,20 @@ public class StraightPoolGameScorerTest {
 
 	@Test
 	public void testGamePlayer1BreaksAndHitsSomeBallsIn() {
-		game.playerMakesShot();
-		game.playerMakesShot();
-		game.playerMakesShot();
+		playerMakesSomeShots(3);
 		assertEquals(3, player1Spy.player1Score);
 	}
 
 	@Test
 	public void testGamePlayer1BreaksMissesPlayer2HitsSomeBallsIn() {
 		game.playerMissesShot();
-		game.playerMakesShot();
-		game.playerMakesShot();
+		playerMakesSomeShots(2);
 		assertEquals(2, player2Spy.player1Score);
 	}
 
 	@Test
 	public void testP1MissP2MissP1MakesShot() {
-		game.playerMissesShot();
-		game.playerMissesShot();
+		playerMissesSomeShots(2);
 		game.playerMakesShot();
 		assertEquals(1, player1Spy.player1Score);
 		assertEquals(0, player2Spy.player1Score);
@@ -58,26 +54,50 @@ public class StraightPoolGameScorerTest {
 	
 	@Test
 	public void testNewRack() {
-		game.playerMakesShot();
-		game.playerMakesShot();
-		game.playerMakesShot();
-		game.playerMakesShot();
-		game.playerMakesShot();
-		game.playerMakesShot();
-		game.playerMakesShot();
-		game.playerMakesShot();
-		game.playerMakesShot();
-		game.playerMakesShot();
-		game.playerMakesShot();
-		game.playerMakesShot();
-		game.playerMakesShot();
-		game.playerMakesShot();
+		playerMakesSomeShots(14);
 		assertEquals(14, player1Spy.player1Score);
 		game.newRack();
 		assertEquals(14, player1Spy.player1Score);
 		assertEquals(0, player1Spy.player1RackScore);
-		assertEquals(0, player2Spy.player1RackScore);
-		
+		assertEquals(0, player2Spy.player1RackScore);		
+	}
+	
+	@Test
+	public void testGameStartsWithPlayerOneActive() {
+		assertPlayerOneActive();
+	}
+
+	@Test
+	public void testPlayerTwoActiveAfterPlayerOneMisses() {
+		game.playerMissesShot();
+		assertPlayerTwoActive();
+	}
+
+	@Test
+	public void testPlayerOneActiveAfterPlayerTwoMisses() {
+		game.playerMissesShot();
+		game.playerMissesShot();
+		assertPlayerOneActive();
+	}
+
+	private void playerMissesSomeShots(int numberOfShots) {
+		for (int i = 0; i< numberOfShots; i++)
+			game.playerMissesShot();
+	}
+	
+	private void playerMakesSomeShots(int numberOfShots) {
+		for (int i = 0; i< numberOfShots; i++)
+			game.playerMakesShot();
+	}
+	
+	private void assertPlayerOneActive() {
+		assertTrue(player1Spy.playerIsActive);
+		assertTrue(player2Spy.playerIsInactive);
+	}
+	
+	private void assertPlayerTwoActive() {
+		assertTrue(player1Spy.playerIsInactive);
+		assertTrue(player2Spy.playerIsActive);
 	}
 	
 	/*

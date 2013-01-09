@@ -30,6 +30,7 @@
                 style="@style/ScoreTableHeading"
                 android:text="@string/default_player1Name" >
 
+
                 <requestFocus />
             </EditText>
 

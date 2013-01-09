@@ -8,6 +8,8 @@ public class StraightPoolScorerViewSpy implements StraightPoolScorerView {
 	public int player1NeededToWin = 0;
 	public int player1ConsecutiveFouls;
 	public int player1TotalFouls;
+	public boolean playerIsActive = false;
+	public boolean playerIsInactive = false;
 
 	@Override
 	public void score(int i) {
@@ -32,6 +34,16 @@ public class StraightPoolScorerViewSpy implements StraightPoolScorerView {
 	@Override
 	public void fouls(int fouls) {
 		player1TotalFouls = fouls;
+	}
+
+	@Override
+	public void makeActive() {
+		playerIsActive = true;
+	}
+
+	@Override
+	public void makeInactive() {
+		playerIsInactive = true;
 	}
 
 }

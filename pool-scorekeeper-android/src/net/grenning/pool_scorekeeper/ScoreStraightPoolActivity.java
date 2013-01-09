@@ -41,6 +41,16 @@ public class ScoreStraightPoolActivity extends Activity {
 		@Override
 		public void consecutiveFouls(int count) {
 			setFieldById(R.id.player1ConsecutiveFouls, count);
+		}
+
+		@Override
+		public void makeActive() {
+			setActiveById(R.id.player1Name);
+		}
+
+		@Override
+		public void makeInactive() {
+			setInactiveById(R.id.player1Name);
 		}		
 	};
 	
@@ -70,6 +80,16 @@ public class ScoreStraightPoolActivity extends Activity {
 		@Override
 		public void consecutiveFouls(int count) {
 			setFieldById(R.id.player2ConsecutiveFouls, count);
+		}
+
+		@Override
+		public void makeActive() {
+			setActiveById(R.id.player2Name);
+		}
+
+		@Override
+		public void makeInactive() {
+			setInactiveById(R.id.player2Name);			
 		}		
 	};
 	
@@ -94,6 +114,16 @@ public class ScoreStraightPoolActivity extends Activity {
 		setFieldById(R.id.player2PointsToWin, getNumberFieldFromIntent("player2PointsToWin"));
 		setFieldById(R.id.player2ConsecutiveFouls, 0);
 		setFieldById(R.id.player2TotalFouls, 0);
+	}
+
+	protected void setActiveById(int id) {
+		TextView field = (TextView) findViewById(id);
+		field.setBackgroundColor(getResources().getColor(R.color.active_player));		
+	}
+
+	protected void setInactiveById(int id) {
+		TextView field = (TextView) findViewById(id);
+		field.setBackgroundColor(getResources().getColor(R.color.inactive_player));		
 	}
 
 	private void setFieldById(int id, int value) {

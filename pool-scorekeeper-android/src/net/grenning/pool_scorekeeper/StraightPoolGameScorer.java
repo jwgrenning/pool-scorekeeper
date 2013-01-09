@@ -10,7 +10,9 @@ public class StraightPoolGameScorer {
 			StraightPoolScorer player2Scorer) {
 		super();
 		this.player1Scorer = player1Scorer;
+		this.player1Scorer.makeActive();
 		this.player2Scorer = player2Scorer;
+		this.player2Scorer.makeInactive();
 		currentPlayer = player1Scorer;
 		currentPlayer.yourBreak();
 	}
@@ -30,10 +32,12 @@ public class StraightPoolGameScorer {
 	}
 
 	public void playerMissesShot() {
+		currentPlayer.makeInactive();
 		if (currentPlayer == player1Scorer)
 			currentPlayer = player2Scorer;
 		else
-			currentPlayer = player1Scorer;
+			currentPlayer = player1Scorer;			
+		currentPlayer.makeActive();
 	}
 
 	public void newRack() {
