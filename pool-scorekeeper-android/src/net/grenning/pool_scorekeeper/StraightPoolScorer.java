@@ -27,15 +27,16 @@ public class StraightPoolScorer {
 		rackScore++;
 		ballsNeededToWin--;
 		breakShotComing = false;
+		consecutiveFouls = 0;
 		updateView(view);
 	}
 
 	public void foul() {
 		if (breakShotComing)
 		{
+			breakShotComing = false;
 			ballsNeededToWin++;			
 			score--;
-			breakShotComing = false;
 		}
 		
 		score--;

@@ -26,23 +26,23 @@ public class StraightPoolScorerTest {
 	}
 
 	private void assertTotalFouls(int fouls) {
-		assertEquals(fouls, view.player1TotalFouls);
+		assertEquals(fouls, view.totalFouls);
 	}
 	
 	private void assertConsecutiveFouls(int fouls) {
-		assertEquals(fouls, view.player1ConsecutiveFouls);
+		assertEquals(fouls, view.consecutiveFouls);
 	}
 	
 	private void assertBallsNeededToWin(int balls) {
-		assertEquals(balls, view.player1NeededToWin);
+		assertEquals(balls, view.pointsNeededToWin);
 	}
 	
 	private void assertRackScore(int score) {
-		assertEquals(score, view.player1RackScore);
+		assertEquals(score, view.rackScore);
 	}
 	
 	private void assertPlayerScore(int score) {
-		assertEquals(score, view.player1Score);
+		assertEquals(score, view.score);
 	}
 	
 	@Test

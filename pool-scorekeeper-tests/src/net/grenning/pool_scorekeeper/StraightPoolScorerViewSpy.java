@@ -2,38 +2,37 @@ package net.grenning.pool_scorekeeper;
 
 public class StraightPoolScorerViewSpy implements StraightPoolScorerView {
 
-	public int player1Score;
-	public int player2Score = 0;
-	public int player1RackScore = 0;
-	public int player1NeededToWin = 0;
-	public int player1ConsecutiveFouls;
-	public int player1TotalFouls;
+	public int score;
+	public int rackScore = 0;
+	public int pointsNeededToWin = 0;
+	public int consecutiveFouls;
+	public int totalFouls;
 	public boolean playerIsActive = false;
 	public boolean playerIsInactive = false;
 
 	@Override
 	public void score(int i) {
-		player1Score = i;
+		score = i;
 	}
 
 	@Override
 	public void ballsNeededToWin(int ballsNeededToWin) {
-		this.player1NeededToWin = ballsNeededToWin;
+		this.pointsNeededToWin = ballsNeededToWin;
 	}
 
 	@Override
 	public void rackScore(int player1RackScore) {
-		this.player1RackScore = player1RackScore;
+		this.rackScore = player1RackScore;
 	}
 
 	@Override
-	public void consecutiveFouls(int consecutiveFouls) {
-		player1ConsecutiveFouls = consecutiveFouls;
+	public void consecutiveFouls(int fouls) {
+		consecutiveFouls = fouls;
 	}
 
 	@Override
 	public void fouls(int fouls) {
-		player1TotalFouls = fouls;
+		totalFouls = fouls;
 	}
 
 	@Override

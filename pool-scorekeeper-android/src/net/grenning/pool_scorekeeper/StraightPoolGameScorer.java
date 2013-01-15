@@ -18,13 +18,12 @@ public class StraightPoolGameScorer {
 	}
 
 	public int ballsOnTheTable() {
-		// TODO Auto-generated method stub
 		return 15;
 	}
 
 	public void foul() {
 		currentPlayer.foul();		
-		playerMissesShot();
+		switchPlayers();
 	}
 
 	public void playerMakesShot() {
@@ -32,6 +31,12 @@ public class StraightPoolGameScorer {
 	}
 
 	public void playerMissesShot() {
+		currentPlayer.missedShot();
+		switchPlayers();
+	}
+
+	private void switchPlayers() {
+		
 		currentPlayer.makeInactive();
 		if (currentPlayer == player1Scorer)
 			currentPlayer = player2Scorer;
@@ -42,8 +47,7 @@ public class StraightPoolGameScorer {
 
 	public void newRack() {
 		player1Scorer.newRack();
-		player2Scorer.newRack();
-		
+		player2Scorer.newRack();	
 	}
 
 }
