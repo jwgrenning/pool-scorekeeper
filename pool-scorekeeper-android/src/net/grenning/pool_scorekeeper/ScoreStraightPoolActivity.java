@@ -6,6 +6,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -116,6 +117,14 @@ public class ScoreStraightPoolActivity extends Activity {
 		setFieldById(R.id.player2TotalFouls, 0);
 	}
 
+	@Override
+	 public boolean onCreateOptionsMenu(Menu menu) {
+	     MenuInflater inflater = getMenuInflater();
+	     inflater.inflate(R.menu.activity_score_straight_pool, menu);
+	     return true;
+	}
+
+
 	protected void setActiveById(int id) {
 		TextView field = (TextView) findViewById(id);
 		field.setBackgroundColor(getResources().getColor(R.color.active_player));		
@@ -144,13 +153,6 @@ public class ScoreStraightPoolActivity extends Activity {
 	private int getNumberFieldFromIntent(String name) {
 		String number = getIntent().getStringExtra(name);
 		return Integer.valueOf(number);
-	}
-
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.activity_score_straight_pool, menu);
-		return true;
 	}
 
 	public void showGeneralPoolRules(View view) {
