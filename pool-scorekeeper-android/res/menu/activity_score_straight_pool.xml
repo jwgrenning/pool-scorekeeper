@@ -1,9 +1,21 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
 
     <item
-        android:id="@+id/menu_settings"
-        android:orderInCategory="100"
+        android:id="@+id/straight_pool_rules_button"
+        android:orderInCategory="1"
         android:showAsAction="never"
-        android:title="@string/menu_settings"/>
-
+        android:title="@string/straight_pool_rules_button"/>
+    <item 
+        android:id="@+id/general_pool_rules_button" 
+        android:title="@string/general_pool_rules_button"
+        android:orderInCategory="2"/>
+    <item 
+        android:id="@+id/game_summary_button" 
+        android:title="@string/game_summary_button"
+        android:orderInCategory="3"/>
+    <item 
+        android:id="@+id/email_game_summary_button" 
+        android:title="@string/email_game_summary_button"
+        android:orderInCategory="4"/>
+    
 </menu>

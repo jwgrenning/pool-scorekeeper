@@ -33,10 +33,12 @@
     <string name="points_to_win">Points to Win?</string>
     <string name="points_needed">Needed to Win</string>
     <string name="lets_play">Let\'s Play Pool</string>
-    <string name="general_pool_rules_button">General Pool Rules</string>
+    <string name="general_pool_rules_button">General Rules of Pool</string>
     <string name="new_game_button">New Game</string>
     <string name="hello_world">Hello world!</string>
     <string name="menu_settings">Straight Pool Rules and Extras</string>
     <string name="title_activity_score_straight_pool">Straight Pool Score Board</string>
 	<string name="new_rack">New Rack</string>
+	<string name="game_summary_button">Game Summary</string>
+	<string name="email_game_summary_button">Email Game Summary</string>
 </resources>
