@@ -11,6 +11,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class ScoreStraightPoolActivity extends Activity {
 
@@ -131,7 +132,11 @@ public class ScoreStraightPoolActivity extends Activity {
 		// Handle item selection
 		switch (item.getItemId()) {
 		case R.id.game_summary_button:
+			showSummary();
+			break;
 		case R.id.email_game_summary_button:
+			sendEmailSummary();
+			break;
 		case R.id.straight_pool_rules_button:
 			showStraightPoolRules();
 			break;
@@ -142,6 +147,22 @@ public class ScoreStraightPoolActivity extends Activity {
 		}
 		return true;
 	}
+
+	private void showSummary() {
+		Toast.makeText(this, "Game summary details\nGame summary details\nGame summary details\nGame summary details\nGame summary details\nGame summary details\nGame summary details\n", Toast.LENGTH_LONG).show();	
+	}
+
+	private void sendEmailSummary() {
+		Intent i = new Intent(Intent.ACTION_SEND);
+		i.setType("message/rfc822");
+		i.putExtra(Intent.EXTRA_EMAIL  , new String[]{"james@grenning.net"});
+		i.putExtra(Intent.EXTRA_SUBJECT, "game summary");
+		i.putExtra(Intent.EXTRA_TEXT   , "body of summary");
+		try {
+		    startActivity(Intent.createChooser(i, "Send mail..."));
+		} catch (android.content.ActivityNotFoundException ex) {
+		    Toast.makeText(this, "There are no email clients installed.", Toast.LENGTH_SHORT).show();
+		}	}
 
 	protected void setActiveById(int id) {
 		TextView field = (TextView) findViewById(id);
