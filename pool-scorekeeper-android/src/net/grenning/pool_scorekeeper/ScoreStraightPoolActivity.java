@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -16,8 +17,8 @@ public class ScoreStraightPoolActivity extends Activity {
 	StraightPoolGameScorer scorer;
 	StraightPoolScorer player1Scorer;
 	StraightPoolScorer player2Scorer;
-	
-	StraightPoolScorerView player1View = new  StraightPoolScorerView() {
+
+	StraightPoolScorerView player1View = new StraightPoolScorerView() {
 
 		@Override
 		public void score(int i) {
@@ -33,7 +34,7 @@ public class ScoreStraightPoolActivity extends Activity {
 		public void rackScore(int player1RackScore) {
 			setFieldById(R.id.player1BallsThisRack, player1RackScore);
 		}
-		
+
 		@Override
 		public void fouls(int count) {
 			setFieldById(R.id.player1TotalFouls, count);
@@ -52,11 +53,10 @@ public class ScoreStraightPoolActivity extends Activity {
 		@Override
 		public void makeInactive() {
 			setInactiveById(R.id.player1Name);
-		}		
+		}
 	};
-	
 
-	StraightPoolScorerView player2View = new  StraightPoolScorerView() {
+	StraightPoolScorerView player2View = new StraightPoolScorerView() {
 
 		@Override
 		public void score(int i) {
@@ -72,7 +72,7 @@ public class ScoreStraightPoolActivity extends Activity {
 		public void rackScore(int rackScore) {
 			setFieldById(R.id.player2BallsThisRack, rackScore);
 		}
-		
+
 		@Override
 		public void fouls(int count) {
 			setFieldById(R.id.player2TotalFouls, count);
@@ -90,10 +90,9 @@ public class ScoreStraightPoolActivity extends Activity {
 
 		@Override
 		public void makeInactive() {
-			setInactiveById(R.id.player2Name);			
-		}		
+			setInactiveById(R.id.player2Name);
+		}
 	};
-	
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -105,34 +104,54 @@ public class ScoreStraightPoolActivity extends Activity {
 				R.string.default_player1Name);
 		setPlayerName("player2Name", R.id.player2Name,
 				R.string.default_player2Name);
-				
-		player1Scorer = new StraightPoolScorer(player1View, getNumberFieldFromIntent("player1PointsToWin"));
-		player2Scorer = new StraightPoolScorer(player2View, getNumberFieldFromIntent("player2PointsToWin"));
+
+		player1Scorer = new StraightPoolScorer(player1View,
+				getNumberFieldFromIntent("player1PointsToWin"));
+		player2Scorer = new StraightPoolScorer(player2View,
+				getNumberFieldFromIntent("player2PointsToWin"));
 		scorer = new StraightPoolGameScorer(player1Scorer, player2Scorer);
-		
+
 		setFieldById(R.id.player2Score, 0);
 		setFieldById(R.id.player2BallsThisRack, 0);
-		setFieldById(R.id.player2PointsToWin, getNumberFieldFromIntent("player2PointsToWin"));
+		setFieldById(R.id.player2PointsToWin,
+				getNumberFieldFromIntent("player2PointsToWin"));
 		setFieldById(R.id.player2ConsecutiveFouls, 0);
 		setFieldById(R.id.player2TotalFouls, 0);
 	}
 
 	@Override
-	 public boolean onCreateOptionsMenu(Menu menu) {
-	     MenuInflater inflater = getMenuInflater();
-	     inflater.inflate(R.menu.activity_score_straight_pool, menu);
-	     return true;
+	public boolean onCreateOptionsMenu(Menu menu) {
+		MenuInflater inflater = getMenuInflater();
+		inflater.inflate(R.menu.activity_score_straight_pool, menu);
+		return true;
 	}
 
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		// Handle item selection
+		switch (item.getItemId()) {
+		case R.id.game_summary_button:
+		case R.id.email_game_summary_button:
+		case R.id.straight_pool_rules_button:
+			showStraightPoolRules();
+			break;
+		case R.id.general_pool_rules_button:
+			showGeneralPoolRules();
+			break;
+
+		}
+		return true;
+	}
 
 	protected void setActiveById(int id) {
 		TextView field = (TextView) findViewById(id);
-		field.setBackgroundColor(getResources().getColor(R.color.active_player));		
+		field.setBackgroundColor(getResources().getColor(R.color.active_player));
 	}
 
 	protected void setInactiveById(int id) {
 		TextView field = (TextView) findViewById(id);
-		field.setBackgroundColor(getResources().getColor(R.color.inactive_player));		
+		field.setBackgroundColor(getResources().getColor(
+				R.color.inactive_player));
 	}
 
 	private void setFieldById(int id, int value) {
@@ -155,13 +174,21 @@ public class ScoreStraightPoolActivity extends Activity {
 		return Integer.valueOf(number);
 	}
 
-	public void showGeneralPoolRules(View view) {
+	public void showGeneralPoolRules() {
 		Intent browserIntent = new Intent(Intent.ACTION_VIEW,
 				Uri.parse("http://www.wpa-pool.com/web/the_rules_of_play"));
 		startActivity(browserIntent);
 	}
 
+	public void showGeneralPoolRules(View view) {
+		showGeneralPoolRules();
+	}
+
 	public void showStraightPoolRules(View view) {
+		showStraightPoolRules();
+	}
+
+	private void showStraightPoolRules() {
 		Intent browserIntent = new Intent(
 				Intent.ACTION_VIEW,
 				Uri.parse("http://www.wpa-pool.com/web/index.asp?id=119&pagetype=rules"));
@@ -179,7 +206,7 @@ public class ScoreStraightPoolActivity extends Activity {
 	public void foulButtonClicked(View view) {
 		scorer.foul();
 	}
-	
+
 	public void newRackButtonClicked(View view) {
 		scorer.newRack();
 	}
