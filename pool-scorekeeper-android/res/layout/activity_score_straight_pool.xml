@@ -29,8 +29,6 @@
                 android:id="@+id/player1Name"
                 style="@style/ScoreTableHeading"
                 android:text="@string/default_player1Name" >
-
-
                 <requestFocus />
             </EditText>
 
@@ -62,7 +60,11 @@
             <TextView
                 android:id="@+id/player2BallsThisRack"
                 style="@style/ScoreTableNumberEntry" />
-        </TableRow>
+
+            <TextView
+                android:id="@+id/ballsOnTheTable"
+                style="@style/ScoreTableTextEntry" />
+            </TableRow>
 
         <TableRow
             android:id="@+id/totalScoreRow"
@@ -85,7 +87,11 @@
             <TextView
                 android:id="@+id/player2Score"
                 style="@style/ScoreTableNumberEntry" />
-        </TableRow>
+
+            <TextView
+                style="@style/ScoreTableBlankEntry" />
+
+            </TableRow>
 
         <TableRow
             android:id="@+id/pointsToWinRow"
@@ -108,6 +114,10 @@
             <TextView
                 android:id="@+id/player2PointsToWin"
                 style="@style/ScoreTableNumberEntry" />
+
+            <TextView
+                style="@style/ScoreTableBlankEntry" />
+            
         </TableRow>
 
         <TableRow
@@ -131,7 +141,11 @@
             <TextView
                 android:id="@+id/player2ConsecutiveFouls"
                 style="@style/ScoreTableNumberEntry" />
-        </TableRow>
+
+            <TextView
+                style="@style/ScoreTableBlankEntry" />
+
+            </TableRow>
 
         <TableRow
             android:id="@+id/totalFoulsRow"
@@ -151,7 +165,11 @@
             <TextView
                 android:id="@+id/player2TotalFouls"
                 style="@style/ScoreTableNumberEntry" />
-        </TableRow>
+
+            <TextView
+                style="@style/ScoreTableBlankEntry" />
+
+            </TableRow>
     </TableLayout>
 
  </RelativeLayout>

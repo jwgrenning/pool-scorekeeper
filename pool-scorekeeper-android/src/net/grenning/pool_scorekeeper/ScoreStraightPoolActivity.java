@@ -16,10 +16,22 @@ import android.widget.Toast;
 public class ScoreStraightPoolActivity extends Activity {
 
 	StraightPoolGameScorer scorer;
-	StraightPoolScorer player1Scorer;
-	StraightPoolScorer player2Scorer;
+	StraightPoolPlayerScorer player1Scorer;
+	StraightPoolPlayerScorer player2Scorer;
 
-	StraightPoolScorerView player1View = new StraightPoolScorerView() {
+	StraightPoolView gameView = new StraightPoolView() {
+		
+		@Override
+		public void suggestRerack() {
+		}
+		
+		@Override
+		public void ballsOnTheTable(int balls) {
+			String bs = Integer.toString(balls);
+			setFieldById(R.id.ballsOnTheTable, bs + " balls on the table");
+		}
+	};
+	StraightPoolPlayerView player1View = new StraightPoolPlayerView() {
 
 		@Override
 		public void score(int i) {
@@ -57,7 +69,7 @@ public class ScoreStraightPoolActivity extends Activity {
 		}
 	};
 
-	StraightPoolScorerView player2View = new StraightPoolScorerView() {
+	StraightPoolPlayerView player2View = new StraightPoolPlayerView() {
 
 		@Override
 		public void score(int i) {
@@ -106,11 +118,12 @@ public class ScoreStraightPoolActivity extends Activity {
 		setPlayerName("player2Name", R.id.player2Name,
 				R.string.default_player2Name);
 
-		player1Scorer = new StraightPoolScorer(player1View,
+		player1Scorer = new StraightPoolPlayerScorer(player1View,
 				getNumberFieldFromIntent("player1PointsToWin"));
-		player2Scorer = new StraightPoolScorer(player2View,
+		player2Scorer = new StraightPoolPlayerScorer(player2View,
 				getNumberFieldFromIntent("player2PointsToWin"));
-		scorer = new StraightPoolGameScorer(player1Scorer, player2Scorer);
+		
+		scorer = new StraightPoolGameScorer(gameView, player1Scorer, player2Scorer);
 
 		setFieldById(R.id.player2Score, 0);
 		setFieldById(R.id.player2BallsThisRack, 0);
@@ -143,21 +156,20 @@ public class ScoreStraightPoolActivity extends Activity {
 		case R.id.general_pool_rules_button:
 			showGeneralPoolRules();
 			break;
-
 		}
 		return true;
 	}
 
 	private void showSummary() {
-		Toast.makeText(this, "Game summary details\nGame summary details\nGame summary details\nGame summary details\nGame summary details\nGame summary details\nGame summary details\n", Toast.LENGTH_LONG).show();	
+		Toast.makeText(this, "Game summary details\n", Toast.LENGTH_LONG).show();	
 	}
 
 	private void sendEmailSummary() {
 		Intent i = new Intent(Intent.ACTION_SEND);
 		i.setType("message/rfc822");
-		i.putExtra(Intent.EXTRA_EMAIL  , new String[]{"james@grenning.net"});
-		i.putExtra(Intent.EXTRA_SUBJECT, "game summary");
-		i.putExtra(Intent.EXTRA_TEXT   , "body of summary");
+		i.putExtra(Intent.EXTRA_EMAIL  , new String[]{"James"});
+		i.putExtra(Intent.EXTRA_SUBJECT, "game summary subject");
+		i.putExtra(Intent.EXTRA_TEXT   , "body of game summary");
 		try {
 		    startActivity(Intent.createChooser(i, "Send mail..."));
 		} catch (android.content.ActivityNotFoundException ex) {
@@ -173,6 +185,11 @@ public class ScoreStraightPoolActivity extends Activity {
 		TextView field = (TextView) findViewById(id);
 		field.setBackgroundColor(getResources().getColor(
 				R.color.inactive_player));
+	}
+
+	private void setFieldById(int id, String value) {
+		TextView field = (TextView) findViewById(id);
+		field.setText(value);
 	}
 
 	private void setFieldById(int id, int value) {

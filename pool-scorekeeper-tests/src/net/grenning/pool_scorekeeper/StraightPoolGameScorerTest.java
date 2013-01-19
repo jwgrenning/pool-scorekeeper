@@ -6,15 +6,34 @@ import org.junit.Test;
 
 public class StraightPoolGameScorerTest {
 
-	StraightPoolScorerViewSpy player1Spy = new StraightPoolScorerViewSpy();
-	StraightPoolScorerViewSpy player2Spy = new StraightPoolScorerViewSpy();
-	StraightPoolScorer player1Scorer = new StraightPoolScorer(player1Spy, 50);
-	StraightPoolScorer player2Scorer = new StraightPoolScorer(player2Spy, 50);
-	StraightPoolGameScorer game = new StraightPoolGameScorer(player1Scorer, player2Scorer);
+	StraightPoolPlayerViewSpy player1Spy = new StraightPoolPlayerViewSpy();
+	StraightPoolPlayerViewSpy player2Spy = new StraightPoolPlayerViewSpy();
+	StraightPoolPlayerScorer player1Scorer = new StraightPoolPlayerScorer(player1Spy, 50);
+	StraightPoolPlayerScorer player2Scorer = new StraightPoolPlayerScorer(player2Spy, 50);
+	StraightPoolViewSpy gameViewSpy = new StraightPoolViewSpy();
+	StraightPoolGameScorer game = new StraightPoolGameScorer(gameViewSpy, player1Scorer, player2Scorer);
 	
 	@Test
 	public void testGameStartsAllBallsOnTheTable() {
-		assertEquals(15, game.ballsOnTheTable());
+		assertEquals(15, gameViewSpy.ballsOnTheTable);
+	}
+
+	@Test
+	public void testShotsMadeReduceBallsOnTable() {
+		game.playerMakesShot();
+		assertEquals(14, gameViewSpy.ballsOnTheTable);
+	}
+
+	@Test
+	public void testShotsMissedDontReduceBallsOnTable() {
+		game.playerMissesShot();
+		assertEquals(15, gameViewSpy.ballsOnTheTable);
+	}
+
+	@Test
+	public void testFoulsDontReduceBallsOnTable() {
+		game.foul();
+		assertEquals(15, gameViewSpy.ballsOnTheTable);
 	}
 
 	@Test
@@ -60,6 +79,7 @@ public class StraightPoolGameScorerTest {
 		assertEquals(14, player1Spy.score);
 		assertEquals(0, player1Spy.rackScore);
 		assertEquals(0, player2Spy.rackScore);		
+		assertEquals(15, gameViewSpy.ballsOnTheTable);
 	}
 	
 	@Test
@@ -90,6 +110,24 @@ public class StraightPoolGameScorerTest {
 		assertEquals(2, player2Spy.consecutiveFouls);
 		game.playerMissesShot();
 		assertEquals(0, player1Spy.consecutiveFouls);
+	}
+
+	@Test
+	public void testSuggestsRerackWhenOneBallLeft() {
+		playerMakesSomeShots(14);
+		assertEquals(1, gameViewSpy.reRackSuggestedCount);
+	}
+
+	@Test
+	public void testSuggestsRerackWhenNoBallsLeft() {
+		playerMakesSomeShots(15);
+		assertEquals(2, gameViewSpy.reRackSuggestedCount);
+	}
+
+	@Test
+	public void testDoesNotSuggestsRerackWithMoreThanOneBallLeft() {
+		playerMakesSomeShots(13);
+		assertEquals(0, gameViewSpy.reRackSuggestedCount);
 	}
 
 	private void playerMissesSomeShots(int numberOfShots) {
