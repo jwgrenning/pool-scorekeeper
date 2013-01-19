@@ -41,4 +41,8 @@
 	<string name="new_rack">New Rack</string>
 	<string name="game_summary_button">Game Summary</string>
 	<string name="email_game_summary_button">Email Game Summary</string>
+	<string name="balls_left_on_the_table">balls on the table</string>
+	<string name="one_ball_left_on_the_table">1 ball on the table</string>
+	<string name="huh">huh?</string>
+			
 </resources>

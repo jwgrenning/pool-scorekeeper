@@ -84,6 +84,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
     }
     public static final class string {
         public static final int app_name=0x7f060000;
+        public static final int balls_left_on_the_table=0x7f060028;
         public static final int consecutive_fouls=0x7f060011;
         public static final int cowboy_pool_button=0x7f060005;
         public static final int current_rack_total=0x7f06000c;
@@ -97,12 +98,14 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int game_total=0x7f06000d;
         public static final int general_pool_rules_button=0x7f060020;
         public static final int hello_world=0x7f060022;
+        public static final int huh=0x7f06002a;
         public static final int lets_play=0x7f06001f;
         public static final int menu_settings=0x7f060023;
         public static final int missed_shot=0x7f060013;
         public static final int missed_shot_total=0x7f060014;
         public static final int new_game_button=0x7f060021;
         public static final int new_rack=0x7f060025;
+        public static final int one_ball_left_on_the_table=0x7f060029;
         public static final int player1=0x7f060017;
         public static final int player2=0x7f060018;
         public static final int player3=0x7f060019;
@@ -111,27 +114,27 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int playing_straight_pool_screen_content=0x7f060006;
         public static final int points_needed=0x7f06001e;
         public static final int points_to_win=0x7f06001d;
-        public static final int pref_default_display_name=0x7f06002d;
-        public static final int pref_description_social_recommendations=0x7f06002b;
+        public static final int pref_default_display_name=0x7f060030;
+        public static final int pref_description_social_recommendations=0x7f06002e;
         /**  Example settings for Data & Sync 
          */
-        public static final int pref_header_data_sync=0x7f06002f;
+        public static final int pref_header_data_sync=0x7f060032;
         /**  Strings related to Settings 
  Example General settings 
          */
-        public static final int pref_header_general=0x7f060029;
+        public static final int pref_header_general=0x7f06002c;
         /**  Example settings for Notifications 
          */
-        public static final int pref_header_notifications=0x7f060032;
-        public static final int pref_ringtone_silent=0x7f060035;
-        public static final int pref_title_add_friends_to_messages=0x7f06002e;
-        public static final int pref_title_display_name=0x7f06002c;
-        public static final int pref_title_new_message_notifications=0x7f060033;
-        public static final int pref_title_ringtone=0x7f060034;
-        public static final int pref_title_social_recommendations=0x7f06002a;
-        public static final int pref_title_sync_frequency=0x7f060030;
-        public static final int pref_title_system_sync_settings=0x7f060031;
-        public static final int pref_title_vibrate=0x7f060036;
+        public static final int pref_header_notifications=0x7f060035;
+        public static final int pref_ringtone_silent=0x7f060038;
+        public static final int pref_title_add_friends_to_messages=0x7f060031;
+        public static final int pref_title_display_name=0x7f06002f;
+        public static final int pref_title_new_message_notifications=0x7f060036;
+        public static final int pref_title_ringtone=0x7f060037;
+        public static final int pref_title_social_recommendations=0x7f06002d;
+        public static final int pref_title_sync_frequency=0x7f060033;
+        public static final int pref_title_system_sync_settings=0x7f060034;
+        public static final int pref_title_vibrate=0x7f060039;
         public static final int shot_made=0x7f06000b;
         public static final int straight_pool_button=0x7f060007;
         public static final int straight_pool_default_points_to_win=0x7f06000a;
@@ -141,7 +144,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int title_activity_score_straight_pool=0x7f060024;
         public static final int title_activity_straight_pool=0x7f060003;
         public static final int title_activity_straight_pool_start=0x7f060004;
-        public static final int title_activity_striaght_pool_settings=0x7f060028;
+        public static final int title_activity_striaght_pool_settings=0x7f06002b;
         public static final int total_fouls=0x7f060012;
         public static final int undo=0x7f060015;
         public static final int whos_playing_title=0x7f06001c;

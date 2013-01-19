@@ -28,7 +28,20 @@ public class ScoreStraightPoolActivity extends Activity {
 		@Override
 		public void ballsOnTheTable(int balls) {
 			String bs = Integer.toString(balls);
-			setFieldById(R.id.ballsOnTheTable, bs + " balls on the table");
+			String message = bs + " " + getString(R.string.balls_left_on_the_table);
+			if (balls == 1)
+				message = " " + getString(R.string.one_ball_left_on_the_table);
+			else if (balls < 1)
+				message = getString(R.string.huh) + " " + message;
+				
+			setFieldById(R.id.ballsOnTheTable, message);
+
+		/*
+		 * 	<string name="balls_left_on_the_table">balls left on the table</string>
+	<string name="one_ball_left_on_the_table">1 ball left on the table</string>
+	<string name="huh">huh?</string>
+
+		 */
 		}
 	};
 	StraightPoolPlayerView player1View = new StraightPoolPlayerView() {
