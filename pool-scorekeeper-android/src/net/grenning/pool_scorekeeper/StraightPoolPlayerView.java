@@ -1,5 +1,6 @@
 package net.grenning.pool_scorekeeper;
 
+
 public interface StraightPoolPlayerView {
 
 	void score(int i);

@@ -4,15 +4,8 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-public class StraightPoolGameScorerTest {
+public class StraightPoolGameScorerTest extends StraightPoolGameScorerTestBase {
 
-	StraightPoolPlayerViewSpy player1Spy = new StraightPoolPlayerViewSpy();
-	StraightPoolPlayerViewSpy player2Spy = new StraightPoolPlayerViewSpy();
-	StraightPoolPlayerScorer player1Scorer = new StraightPoolPlayerScorer(player1Spy, 50);
-	StraightPoolPlayerScorer player2Scorer = new StraightPoolPlayerScorer(player2Spy, 50);
-	StraightPoolViewSpy gameViewSpy = new StraightPoolViewSpy();
-	StraightPoolGameScorer game = new StraightPoolGameScorer(gameViewSpy, player1Scorer, player2Scorer);
-	
 	@Test
 	public void testGameStartsAllBallsOnTheTable() {
 		assertEquals(15, gameViewSpy.ballsOnTheTable);
@@ -70,7 +63,7 @@ public class StraightPoolGameScorerTest {
 		assertEquals(1, player1Spy.score);
 		assertEquals(0, player2Spy.score);
 	}
-	
+
 	@Test
 	public void testNewRack() {
 		playerMakesSomeShots(14);
@@ -78,10 +71,10 @@ public class StraightPoolGameScorerTest {
 		game.newRack();
 		assertEquals(14, player1Spy.score);
 		assertEquals(0, player1Spy.rackScore);
-		assertEquals(0, player2Spy.rackScore);		
+		assertEquals(0, player2Spy.rackScore);
 		assertEquals(15, gameViewSpy.ballsOnTheTable);
 	}
-	
+
 	@Test
 	public void testGameStartsWithPlayerOneActive() {
 		assertPlayerOneActive();
@@ -130,34 +123,10 @@ public class StraightPoolGameScorerTest {
 		assertEquals(0, gameViewSpy.reRackSuggestedCount);
 	}
 
-	private void playerMissesSomeShots(int numberOfShots) {
-		for (int i = 0; i< numberOfShots; i++)
-			game.playerMissesShot();
-	}
-	
-	private void playerMakesSomeShots(int numberOfShots) {
-		for (int i = 0; i< numberOfShots; i++)
-			game.playerMakesShot();
-	}
-	
-	private void assertPlayerOneActive() {
-		assertTrue(player1Spy.playerIsActive);
-		assertTrue(player2Spy.playerIsInactive);
-	}
-	
-	private void assertPlayerTwoActive() {
-		assertTrue(player1Spy.playerIsInactive);
-		assertTrue(player2Spy.playerIsActive);
-	}
-	
 	/*
-	 * game view, racks, runs, innings
-	 * multiple balls in one shot
-	 * 14:1 re rack
-	 * Undo
-	 * Move rules into the options menu
-	 * Add settings, default players, points
-	 * 
+	 * game view, racks, runs, innings multiple balls in one shot 14:1 re rack
+	 * Undo Move rules into the options menu Add settings, default players,
+	 * points
 	 */
 
 }

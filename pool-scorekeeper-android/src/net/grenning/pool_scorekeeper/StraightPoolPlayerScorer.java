@@ -1,6 +1,8 @@
 package net.grenning.pool_scorekeeper;
 
-public class StraightPoolPlayerScorer {
+
+public class StraightPoolPlayerScorer  {
+
 	StraightPoolPlayerView view;
 	private int ballsNeededToWin = 0;
 	private int score = 0;

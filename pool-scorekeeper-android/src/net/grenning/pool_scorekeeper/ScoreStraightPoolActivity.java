@@ -23,6 +23,7 @@ public class ScoreStraightPoolActivity extends Activity {
 		
 		@Override
 		public void suggestRerack() {
+			showRerackSuggestion();
 		}
 		
 		@Override
@@ -35,13 +36,6 @@ public class ScoreStraightPoolActivity extends Activity {
 				message = getString(R.string.huh) + " " + message;
 				
 			setFieldById(R.id.ballsOnTheTable, message);
-
-		/*
-		 * 	<string name="balls_left_on_the_table">balls left on the table</string>
-	<string name="one_ball_left_on_the_table">1 ball left on the table</string>
-	<string name="huh">huh?</string>
-
-		 */
 		}
 	};
 	StraightPoolPlayerView player1View = new StraightPoolPlayerView() {
@@ -175,6 +169,10 @@ public class ScoreStraightPoolActivity extends Activity {
 
 	private void showSummary() {
 		Toast.makeText(this, "Game summary details\n", Toast.LENGTH_LONG).show();	
+	}
+
+	private void showRerackSuggestion() {
+		Toast.makeText(this, "Maybe you should rerack", Toast.LENGTH_LONG).show();	
 	}
 
 	private void sendEmailSummary() {

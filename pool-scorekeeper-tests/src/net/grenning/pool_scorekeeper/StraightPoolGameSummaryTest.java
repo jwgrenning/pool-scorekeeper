@@ -9,6 +9,7 @@ public class StraightPoolGameSummaryTest {
 
 	@Before
 	public void setUp() throws Exception {
+		assertTrue(true);
 	}
 
 	@Test

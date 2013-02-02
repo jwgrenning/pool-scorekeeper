@@ -38,11 +38,13 @@ public class StraightPoolPlayerViewSpy implements StraightPoolPlayerView {
 	@Override
 	public void makeActive() {
 		playerIsActive = true;
+		playerIsInactive = false;
 	}
 
 	@Override
 	public void makeInactive() {
 		playerIsInactive = true;
+		playerIsActive = false;
 	}
 
 }
