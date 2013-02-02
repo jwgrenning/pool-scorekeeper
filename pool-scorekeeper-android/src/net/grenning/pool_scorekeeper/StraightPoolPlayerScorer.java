@@ -1,5 +1,10 @@
 package net.grenning.pool_scorekeeper;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.Writer;
+import java.util.Scanner;
+
 
 public class StraightPoolPlayerScorer  {
 
@@ -70,5 +75,41 @@ public class StraightPoolPlayerScorer  {
 	public void makeInactive() {
 		view.makeInactive();
 	}
+
+	public boolean save(Writer writer) {
+		try {
+			writeInt(writer, ballsNeededToWin);
+			writeInt(writer, score);
+			writeInt(writer, rackScore);
+			writeInt(writer, consecutiveFouls);
+			writeInt(writer, fouls);
+			writeBoolean(writer, breakShotComing);
+			return true;
+		} catch (IOException e) {
+			return false;
+		}
+		
+	}
+	private void writeInt(Writer writer, int value) throws IOException {
+		writer.write(String.valueOf(value));
+		writer.write(" ");
+	}
+
+	private void writeBoolean(Writer writer, boolean value) throws IOException {
+		writer.write(String.valueOf(value));
+		writer.write(" ");
+	}
+
+	public void restore(InputStream savedScore) {
+		Scanner s = new Scanner(savedScore);
+		ballsNeededToWin = s.nextInt();
+		score = s.nextInt();
+		rackScore = s.nextInt();
+		consecutiveFouls = s.nextInt();
+		fouls = s.nextInt();
+		breakShotComing = s.nextBoolean();
+		updateView(view);
+	}
+
 
 }
