@@ -1,9 +1,6 @@
 package net.grenning.pool_scorekeeper;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.Writer;
-import java.util.Scanner;
+import java.util.prefs.Preferences;
 
 public class StraightPoolGameScorer {
 
@@ -73,28 +70,19 @@ public class StraightPoolGameScorer {
 			gameView.suggestRerack();
 	}
 
-	public boolean save(Writer writer) {
-		try {
-			writeInt(writer, currentPlayerNumber);
-			writeInt(writer, ballsOnTheTable);
-			return true;
-		} catch (IOException e) {
-			return false;
-		}
+	public void save() {
+		Preferences gameState;
+		gameState = Preferences.userRoot().node(this.getClass().getName());
+		gameState.putInt("currentPlayerNumber", currentPlayerNumber);
+		gameState.putInt("ballsOnTheTable", ballsOnTheTable);
 	}
 
-	private void writeInt(Writer writer, int value) throws IOException {
-		writer.write(String.valueOf(value));
-		writer.write(" ");
-	}
-
-	public boolean restore(InputStream savedScore) {
-		Scanner s = new Scanner(savedScore);
-		currentPlayerNumber = s.nextInt();
-		ballsOnTheTable = s.nextInt();
+	public void restore() {
+		Preferences gameState;
+		gameState = Preferences.userRoot().node(this.getClass().getName());
+		currentPlayerNumber = gameState.getInt("currentPlayerNumber", currentPlayerNumber);
+		ballsOnTheTable = gameState.getInt("ballsOnTheTable", ballsOnTheTable);
 		gameView.ballsOnTheTable(ballsOnTheTable);
 		updateActivePlayer();
-		return true;
 	}
-
 }

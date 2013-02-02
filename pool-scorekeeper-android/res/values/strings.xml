@@ -32,7 +32,8 @@
     <string name="whos_playing_title">Who\'s playing?</string>
     <string name="points_to_win">Points to Win?</string>
     <string name="points_needed">Needed to Win</string>
-    <string name="lets_play">Let\'s Play Pool</string>
+    <string name="play_new_game">Start New Game</string>
+    <string name="resume_game">Resume Game</string>
     <string name="general_pool_rules_button">General Rules of Pool</string>
     <string name="new_game_button">New Game</string>
     <string name="hello_world">Hello world!</string>

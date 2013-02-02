@@ -171,14 +171,23 @@ public class StraightPoolStartActivity extends Activity {
     	intent.putExtra(name, value);
 	}
 
-	public void launchPlayStraightPoolScreen(View view) {
-    	Intent i = new Intent( this, ScoreStraightPoolActivity.class );
-       	addToIntent(i, "player1Name", R.id.player1Name);
-       	addToIntent(i, "player2Name", R.id.player2Name);
-       	addToIntent(i, "player1PointsToWin", R.id.player1PointsToWin);
-       	addToIntent(i, "player2PointsToWin", R.id.player2PointsToWin);
-        startActivity( i );    
+	public void startStraightPool(View view) {
+       	playStraightPool(false);    
     }
+
+	public void resumeStraightPool(View view) {
+       	playStraightPool(true);    
+    }
+	
+	private void playStraightPool(boolean resume) {
+		Intent intent = new Intent( this, ScoreStraightPoolActivity.class );
+		addToIntent(intent, "player1Name", R.id.player1Name);
+       	addToIntent(intent, "player2Name", R.id.player2Name);
+       	addToIntent(intent, "player1PointsToWin", R.id.player1PointsToWin);
+       	addToIntent(intent, "player2PointsToWin", R.id.player2PointsToWin);
+    	intent.putExtra("resume", resume);
+    	startActivity(intent);
+	}
 	
 	private void swapText(int id1, int id2) {
 		EditText text1 = (EditText)findViewById(id1);
@@ -187,7 +196,6 @@ public class StraightPoolStartActivity extends Activity {
 		String s2 = text2.getText().toString();
 		text1.setText(s2);
 		text2.setText(s1);
-		
 	}
 
 	public void swapPlayers(View view) {

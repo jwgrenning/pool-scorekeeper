@@ -1,12 +1,8 @@
 package net.grenning.pool_scorekeeper;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.Writer;
-import java.util.Scanner;
+import java.util.prefs.Preferences;
 
-
-public class StraightPoolPlayerScorer  {
+public class StraightPoolPlayerScorer {
 
 	StraightPoolPlayerView view;
 	private int ballsNeededToWin = 0;
@@ -15,12 +11,23 @@ public class StraightPoolPlayerScorer  {
 	private int consecutiveFouls = 0;
 	private int fouls = 0;
 	private boolean breakShotComing = false;
-	public StraightPoolPlayerScorer(StraightPoolPlayerView view, int ballsNeededToWin) {
+
+	public StraightPoolPlayerScorer(StraightPoolPlayerView view,
+			int ballsNeededToWin) {
 		this.view = view;
+		reset(ballsNeededToWin);
+	}
+
+	public void reset(int ballsNeededToWin) {
 		this.ballsNeededToWin = ballsNeededToWin;
+		score = 0;
+		rackScore = 0;
+		consecutiveFouls = 0;
+		fouls = 0;
+		breakShotComing = false;
 		updateView(view);
 	}
-	
+
 	private void updateView(StraightPoolPlayerView view) {
 		view.score(score);
 		view.rackScore(rackScore);
@@ -39,13 +46,12 @@ public class StraightPoolPlayerScorer  {
 	}
 
 	public void foul() {
-		if (breakShotComing)
-		{
+		if (breakShotComing) {
 			breakShotComing = false;
-			ballsNeededToWin++;			
+			ballsNeededToWin++;
 			score--;
 		}
-		
+
 		score--;
 		ballsNeededToWin++;
 		consecutiveFouls++;
@@ -60,7 +66,7 @@ public class StraightPoolPlayerScorer  {
 	}
 
 	public void yourBreak() {
-		breakShotComing  = true;
+		breakShotComing = true;
 	}
 
 	public void newRack() {
@@ -76,40 +82,29 @@ public class StraightPoolPlayerScorer  {
 		view.makeInactive();
 	}
 
-	public boolean save(Writer writer) {
-		try {
-			writeInt(writer, ballsNeededToWin);
-			writeInt(writer, score);
-			writeInt(writer, rackScore);
-			writeInt(writer, consecutiveFouls);
-			writeInt(writer, fouls);
-			writeBoolean(writer, breakShotComing);
-			return true;
-		} catch (IOException e) {
-			return false;
-		}
-		
-	}
-	private void writeInt(Writer writer, int value) throws IOException {
-		writer.write(String.valueOf(value));
-		writer.write(" ");
+	public void save(int playerNumber) {
+		Preferences gameState;
+		gameState = Preferences.userRoot().node(this.getClass().getName() + playerNumber);
+		gameState.putInt("ballsNeededToWin", ballsNeededToWin);
+		gameState.putInt("score", score);
+		gameState.putInt("rackScore", rackScore);
+		gameState.putInt("consecutiveFouls", consecutiveFouls);
+		gameState.putInt("fouls", fouls);
+		gameState.putBoolean("breakShotComing", breakShotComing);
+
+
 	}
 
-	private void writeBoolean(Writer writer, boolean value) throws IOException {
-		writer.write(String.valueOf(value));
-		writer.write(" ");
-	}
-
-	public void restore(InputStream savedScore) {
-		Scanner s = new Scanner(savedScore);
-		ballsNeededToWin = s.nextInt();
-		score = s.nextInt();
-		rackScore = s.nextInt();
-		consecutiveFouls = s.nextInt();
-		fouls = s.nextInt();
-		breakShotComing = s.nextBoolean();
+	public void restore(int playerNumber) {
+		Preferences gameState;
+		gameState = Preferences.userRoot().node(this.getClass().getName() + playerNumber);
+		ballsNeededToWin = gameState.getInt("ballsNeededToWin", 999);
+		score = gameState.getInt("score", score);
+		rackScore = gameState.getInt("rackScore", rackScore);
+		consecutiveFouls = gameState.getInt("consecutiveFouls", consecutiveFouls);
+		fouls = gameState.getInt("fouls", fouls);
+		breakShotComing = gameState.getBoolean("breakShotComing", breakShotComing);
 		updateView(view);
 	}
-
 
 }

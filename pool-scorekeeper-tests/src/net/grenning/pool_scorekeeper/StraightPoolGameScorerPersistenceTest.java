@@ -18,9 +18,9 @@ public class StraightPoolGameScorerPersistenceTest extends StraightPoolGameScore
 	@Test
 	public void testGameStateSavesAndRestoresBallsOnTable() throws IOException {
 		playerMakesSomeShots(3);
-		saveGame();
+		game.save();
 		playerMakesSomeShots(4);
-		restoreGame();
+		game.restore();
 
 		assertEquals(12, gameViewSpy.ballsOnTheTable);
 	}
@@ -28,23 +28,11 @@ public class StraightPoolGameScorerPersistenceTest extends StraightPoolGameScore
 	@Test
 	public void testGameStateSavesAndRestoresCurrentPlayer() throws IOException {
 		assertPlayerOneActive();
-		saveGame();
+		game.save();
 		game.playerMissesShot();
 		assertPlayerTwoActive();
-		restoreGame();
+		game.restore();
 		assertPlayerOneActive();
-	}
-
-	private void saveGame() throws IOException {
-		testWriter = new StringWriter();
-		game.save(testWriter);
-		testWriter.close();
-	}
-
-	private void restoreGame() throws IOException {
-		input = new ByteArrayInputStream(testWriter.toString().getBytes());		
-		game.restore(input);
-		input.close();
 	}
 
 	/*

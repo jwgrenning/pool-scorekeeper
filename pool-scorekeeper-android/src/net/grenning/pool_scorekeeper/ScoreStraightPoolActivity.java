@@ -138,6 +138,19 @@ public class ScoreStraightPoolActivity extends Activity {
 				getNumberFieldFromIntent("player2PointsToWin"));
 		setFieldById(R.id.player2ConsecutiveFouls, 0);
 		setFieldById(R.id.player2TotalFouls, 0);
+		if (getBooleanFieldFromIntent("resume"))
+			resume(scorer);
+	}
+	
+	@Override
+	protected void onPause() {
+		super.onPause();
+		scorer.save();
+	}
+	
+	
+	private void resume(StraightPoolGameScorer scorer) {
+		scorer.restore();
 	}
 
 	@Override
@@ -221,6 +234,10 @@ public class ScoreStraightPoolActivity extends Activity {
 	private int getNumberFieldFromIntent(String name) {
 		String number = getIntent().getStringExtra(name);
 		return Integer.valueOf(number);
+	}
+
+	private boolean getBooleanFieldFromIntent(String name) {
+		return getIntent().getBooleanExtra(name, false);
 	}
 
 	public void showGeneralPoolRules() {
