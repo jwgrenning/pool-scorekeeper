@@ -4,6 +4,8 @@ import java.util.prefs.Preferences;
 
 public class StraightPoolGameScorer {
 
+	private static final String BALLS_ON_THE_TABLE = "ballsOnTheTable";
+	private static final String CURRENT_PLAYER_NUMBER = "currentPlayerNumber";
 	StraightPoolPlayerScorer player1Scorer;
 	StraightPoolPlayerScorer player2Scorer;
 	StraightPoolPlayerScorer playerScorer[] = new StraightPoolPlayerScorer[2];
@@ -70,18 +72,34 @@ public class StraightPoolGameScorer {
 			gameView.suggestRerack();
 	}
 
-	public void save() {
-		Preferences gameState;
-		gameState = Preferences.userRoot().node(this.getClass().getName());
-		gameState.putInt("currentPlayerNumber", currentPlayerNumber);
-		gameState.putInt("ballsOnTheTable", ballsOnTheTable);
+//	public void save() {
+//		Preferences gameState = Preferences.userNodeForPackage(this.getClass());
+//		gameState.putInt(CURRENT_PLAYER_NUMBER, currentPlayerNumber);
+//		gameState.putInt(BALLS_ON_THE_TABLE, ballsOnTheTable);
+//		playerScorer[0].save(1);
+//		playerScorer[1].save(2);
+//	}
+//
+//	public void restore() {
+//		Preferences gameState = Preferences.userNodeForPackage(this.getClass());
+//		currentPlayerNumber = gameState.getInt(CURRENT_PLAYER_NUMBER, currentPlayerNumber);
+//		ballsOnTheTable = gameState.getInt(BALLS_ON_THE_TABLE, ballsOnTheTable);
+//		gameView.ballsOnTheTable(ballsOnTheTable);
+//		updateActivePlayer();
+//		playerScorer[0].restore(1);
+//		playerScorer[1].restore(2);
+//	}
+//
+	public void save(GameFieldSaver saver) {
+		saver.save(CURRENT_PLAYER_NUMBER, currentPlayerNumber);
+		saver.save(BALLS_ON_THE_TABLE, ballsOnTheTable);
+//		playerScorer[0].save(1);
+//		playerScorer[1].save(2);
 	}
 
-	public void restore() {
-		Preferences gameState;
-		gameState = Preferences.userRoot().node(this.getClass().getName());
-		currentPlayerNumber = gameState.getInt("currentPlayerNumber", currentPlayerNumber);
-		ballsOnTheTable = gameState.getInt("ballsOnTheTable", ballsOnTheTable);
+	public void restore(GameFieldSaver saver) {
+		currentPlayerNumber = saver.getInt(CURRENT_PLAYER_NUMBER, currentPlayerNumber);
+		ballsOnTheTable = saver.getInt(BALLS_ON_THE_TABLE, 999);
 		gameView.ballsOnTheTable(ballsOnTheTable);
 		updateActivePlayer();
 	}

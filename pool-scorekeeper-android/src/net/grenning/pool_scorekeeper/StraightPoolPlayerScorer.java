@@ -91,14 +91,12 @@ public class StraightPoolPlayerScorer {
 		gameState.putInt("consecutiveFouls", consecutiveFouls);
 		gameState.putInt("fouls", fouls);
 		gameState.putBoolean("breakShotComing", breakShotComing);
-
-
 	}
 
 	public void restore(int playerNumber) {
 		Preferences gameState;
 		gameState = Preferences.userRoot().node(this.getClass().getName() + playerNumber);
-		ballsNeededToWin = gameState.getInt("ballsNeededToWin", 999);
+		ballsNeededToWin = gameState.getInt("ballsNeededToWin", ballsNeededToWin);
 		score = gameState.getInt("score", score);
 		rackScore = gameState.getInt("rackScore", rackScore);
 		consecutiveFouls = gameState.getInt("consecutiveFouls", consecutiveFouls);

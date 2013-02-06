@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -18,7 +19,9 @@ public class ScoreStraightPoolActivity extends Activity {
 	StraightPoolGameScorer scorer;
 	StraightPoolPlayerScorer player1Scorer;
 	StraightPoolPlayerScorer player2Scorer;
-
+	public static final String PREFS_NAME = "ScoreStraightPoolActivity";
+	private GameFieldSaver gameSaver;
+	
 	StraightPoolView gameView = new StraightPoolView() {
 		
 		@Override
@@ -116,6 +119,7 @@ public class ScoreStraightPoolActivity extends Activity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+		Log.d(this.getClass().getName(), ".onCreate()");
 		super.onCreate(savedInstanceState);
 		this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
 		setContentView(R.layout.activity_score_straight_pool);
@@ -138,21 +142,30 @@ public class ScoreStraightPoolActivity extends Activity {
 				getNumberFieldFromIntent("player2PointsToWin"));
 		setFieldById(R.id.player2ConsecutiveFouls, 0);
 		setFieldById(R.id.player2TotalFouls, 0);
+		gameSaver = new AndroidGameFieldSaver(getPreferences(MODE_PRIVATE));
 		if (getBooleanFieldFromIntent("resume"))
-			resume(scorer);
+			scorer.restore(gameSaver);
+		scorer.save(gameSaver);
+	}
+	
+	@Override
+	protected void onResume() {
+		Log.d(this.getClass().getName(), ".onResume()");
+		super.onResume();
+//		gameSaver = new AndroidGameFieldSaver(getSharedPreferences(PREFS_NAME, MODE_PRIVATE));
+		scorer.restore(gameSaver);
 	}
 	
 	@Override
 	protected void onPause() {
 		super.onPause();
-		scorer.save();
+		Log.d(this.getClass().getName(), ".onPause()");
+//		gameSaver = new AndroidGameFieldSaver(getSharedPreferences(PREFS_NAME, MODE_PRIVATE));
+		scorer.save(gameSaver);
+		scorer.restore(gameSaver);
 	}
 	
 	
-	private void resume(StraightPoolGameScorer scorer) {
-		scorer.restore();
-	}
-
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		MenuInflater inflater = getMenuInflater();
