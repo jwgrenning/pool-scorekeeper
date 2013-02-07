@@ -93,13 +93,13 @@ public class StraightPoolGameScorer {
 	public void save(GameFieldSaver saver) {
 		saver.save(CURRENT_PLAYER_NUMBER, currentPlayerNumber);
 		saver.save(BALLS_ON_THE_TABLE, ballsOnTheTable);
-//		playerScorer[0].save(1);
-//		playerScorer[1].save(2);
+//		playerScorer[0].save(saver, 1);
+//		playerScorer[1].save(saver, 2);
 	}
 
 	public void restore(GameFieldSaver saver) {
 		currentPlayerNumber = saver.getInt(CURRENT_PLAYER_NUMBER, currentPlayerNumber);
-		ballsOnTheTable = saver.getInt(BALLS_ON_THE_TABLE, 999);
+		ballsOnTheTable = saver.getInt(BALLS_ON_THE_TABLE, 49);
 		gameView.ballsOnTheTable(ballsOnTheTable);
 		updateActivePlayer();
 	}

@@ -2,8 +2,10 @@ package net.grenning.pool_scorekeeper;
 
 import android.net.Uri;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.util.Log;
 import android.view.Menu;
@@ -15,11 +17,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class ScoreStraightPoolActivity extends Activity {
-
+	public static final String PREFS_NAME = "ScoreStraightPoolActivity";
 	StraightPoolGameScorer scorer;
 	StraightPoolPlayerScorer player1Scorer;
 	StraightPoolPlayerScorer player2Scorer;
-	public static final String PREFS_NAME = "ScoreStraightPoolActivity";
 	private GameFieldSaver gameSaver;
 	
 	StraightPoolView gameView = new StraightPoolView() {
@@ -142,17 +143,18 @@ public class ScoreStraightPoolActivity extends Activity {
 				getNumberFieldFromIntent("player2PointsToWin"));
 		setFieldById(R.id.player2ConsecutiveFouls, 0);
 		setFieldById(R.id.player2TotalFouls, 0);
-		gameSaver = new AndroidGameFieldSaver(getPreferences(MODE_PRIVATE));
-		if (getBooleanFieldFromIntent("resume"))
-			scorer.restore(gameSaver);
-		scorer.save(gameSaver);
 	}
 	
 	@Override
-	protected void onResume() {
-		Log.d(this.getClass().getName(), ".onResume()");
+	protected void onStart() {
+		Log.d(this.getClass().getName(), ".onStart()");
 		super.onResume();
-//		gameSaver = new AndroidGameFieldSaver(getSharedPreferences(PREFS_NAME, MODE_PRIVATE));
+		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+		gameSaver = new AndroidGameFieldSaver(prefs);//getSharedPreferences(PREFS_NAME, MODE_APPEND)
+//		gameSaver = new AndroidGameFieldSaver(getPreferences(MODE_PRIVATE));
+		if (getBooleanFieldFromIntent("resume"))
+			scorer.restore(gameSaver);
+		scorer.save(gameSaver);
 		scorer.restore(gameSaver);
 	}
 	
@@ -160,7 +162,9 @@ public class ScoreStraightPoolActivity extends Activity {
 	protected void onPause() {
 		super.onPause();
 		Log.d(this.getClass().getName(), ".onPause()");
-//		gameSaver = new AndroidGameFieldSaver(getSharedPreferences(PREFS_NAME, MODE_PRIVATE));
+		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+		gameSaver = new AndroidGameFieldSaver(prefs);//getSharedPreferences(PREFS_NAME, MODE_APPEND)
+//		gameSaver = new AndroidGameFieldSaver(getSharedPreferences(PREFS_NAME, MODE_APPEND));
 		scorer.save(gameSaver);
 		scorer.restore(gameSaver);
 	}

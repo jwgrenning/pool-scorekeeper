@@ -11,6 +11,8 @@ public class AndroidGameFieldSaver implements GameFieldSaver {
 	public AndroidGameFieldSaver(SharedPreferences prefs) {
 		super();
 		this.prefs = prefs;
+		prefs.edit().putInt("junk", 0);
+		prefs.edit().commit();
 	}
 
 	@Override
