@@ -1,7 +1,5 @@
 package net.grenning.pool_scorekeeper;
 
-import java.util.prefs.Preferences;
-
 public class StraightPoolGameScorer {
 
 	private static final String BALLS_ON_THE_TABLE = "ballsOnTheTable";

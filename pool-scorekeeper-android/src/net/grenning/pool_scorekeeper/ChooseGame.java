@@ -125,6 +125,10 @@ public class ChooseGame extends Activity {
     	Intent i = new Intent( this, StraightPoolStartActivity.class );
     	startActivity( i );    }
 
+    public void launchCowboyPoolScreen(View view) {
+    	Intent i = new Intent( this, CowboyPoolStartActivity.class );
+    	startActivity( i );    }
+
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);

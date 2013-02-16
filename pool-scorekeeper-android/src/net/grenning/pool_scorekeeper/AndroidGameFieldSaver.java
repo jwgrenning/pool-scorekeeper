@@ -11,8 +11,10 @@ public class AndroidGameFieldSaver implements GameFieldSaver {
 	public AndroidGameFieldSaver(SharedPreferences prefs) {
 		super();
 		this.prefs = prefs;
-		prefs.edit().putInt("junk", 0);
+		prefs.edit().putInt("junk", -42);
 		prefs.edit().commit();
+		int value = prefs.getInt("junk", 42);
+		Log.d(this.getClass().getName(), "Create, put -42, commit, getString(" + "junk" + ", " + 42 +") = " + value);
 	}
 
 	@Override

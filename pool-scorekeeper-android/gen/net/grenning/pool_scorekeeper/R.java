@@ -35,53 +35,57 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int ic_launcher=0x7f020000;
     }
     public static final class id {
-        public static final int HeaderRow=0x7f0a0004;
-        public static final int ballsOnTheTable=0x7f0a000b;
-        public static final int consecutiveFoulsRow=0x7f0a0014;
+        public static final int HeaderRow=0x7f0a0005;
+        public static final int ballsOnTheTable=0x7f0a000c;
+        public static final int consecutiveFoulsRow=0x7f0a0015;
         public static final int cowboy_pool_button=0x7f0a0003;
-        public static final int currentRackRow=0x7f0a0007;
-        public static final int email_game_summary_button=0x7f0a0026;
-        public static final int foulButton=0x7f0a0011;
+        public static final int currentRackRow=0x7f0a0008;
+        public static final int email_game_summary_button=0x7f0a0028;
+        public static final int foulButton=0x7f0a0012;
         public static final int fullscreen_content=0x7f0a0000;
         public static final int fullscreen_content_controls=0x7f0a0001;
-        public static final int game_summary_button=0x7f0a0025;
-        public static final int general_pool_rules_button=0x7f0a0024;
-        public static final int missedShotButton=0x7f0a000d;
-        public static final int playStraightPoolButton=0x7f0a0020;
-        public static final int player1BallsThisRack=0x7f0a0009;
-        public static final int player1ConsecutiveFouls=0x7f0a0016;
-        public static final int player1Name=0x7f0a0005;
-        public static final int player1PointsToWin=0x7f0a0012;
-        public static final int player1Score=0x7f0a000e;
-        public static final int player1TotalFouls=0x7f0a0019;
-        public static final int player2BallsThisRack=0x7f0a000a;
-        public static final int player2ConsecutiveFouls=0x7f0a0017;
-        public static final int player2Name=0x7f0a0006;
-        public static final int player2PointsToWin=0x7f0a0013;
-        public static final int player2Score=0x7f0a000f;
-        public static final int player2TotalFouls=0x7f0a001a;
-        public static final int pointsToWinRow=0x7f0a0010;
-        public static final int resumeStraightPoolButton=0x7f0a0021;
-        public static final int shotMadeButton=0x7f0a0008;
-        public static final int straightPoolPlayer1Row=0x7f0a001e;
-        public static final int straightPoolPlayer2Row=0x7f0a001f;
-        public static final int straightPoolPlayersTitle=0x7f0a001c;
-        public static final int straightPoolPointsToWinTitle=0x7f0a001d;
-        public static final int straightPoolStartHeaderRow=0x7f0a001b;
+        public static final int game_summary_button=0x7f0a0027;
+        public static final int general_pool_rules_button=0x7f0a0026;
+        public static final int menu_settings=0x7f0a0024;
+        public static final int missedShotButton=0x7f0a000e;
+        public static final int playStraightPoolButton=0x7f0a0021;
+        public static final int player1BallsThisRack=0x7f0a000a;
+        public static final int player1ConsecutiveFouls=0x7f0a0017;
+        public static final int player1Name=0x7f0a0006;
+        public static final int player1PointsToWin=0x7f0a0013;
+        public static final int player1Score=0x7f0a000f;
+        public static final int player1TotalFouls=0x7f0a001a;
+        public static final int player2BallsThisRack=0x7f0a000b;
+        public static final int player2ConsecutiveFouls=0x7f0a0018;
+        public static final int player2Name=0x7f0a0007;
+        public static final int player2PointsToWin=0x7f0a0014;
+        public static final int player2Score=0x7f0a0010;
+        public static final int player2TotalFouls=0x7f0a001b;
+        public static final int pointsToWinRow=0x7f0a0011;
+        public static final int resumeStraightPoolButton=0x7f0a0022;
+        public static final int shotMadeButton=0x7f0a0009;
+        public static final int straightPoolPlayer1Row=0x7f0a001f;
+        public static final int straightPoolPlayer2Row=0x7f0a0020;
+        public static final int straightPoolPlayersTitle=0x7f0a001d;
+        public static final int straightPoolPointsToWinTitle=0x7f0a001e;
+        public static final int straightPoolStartHeaderRow=0x7f0a001c;
         public static final int straight_pool_button=0x7f0a0002;
-        public static final int straight_pool_rules_button=0x7f0a0023;
-        public static final int swapPlayersButton=0x7f0a0022;
-        public static final int totalFoulsRow=0x7f0a0018;
-        public static final int totalScoreRow=0x7f0a000c;
-        public static final int undoButton=0x7f0a0015;
+        public static final int straight_pool_rules_button=0x7f0a0025;
+        public static final int swapPlayersButton=0x7f0a0023;
+        public static final int textView1=0x7f0a0004;
+        public static final int totalFoulsRow=0x7f0a0019;
+        public static final int totalScoreRow=0x7f0a000d;
+        public static final int undoButton=0x7f0a0016;
     }
     public static final class layout {
         public static final int activity_choose_game=0x7f030000;
-        public static final int activity_score_straight_pool=0x7f030001;
-        public static final int activity_straight_pool_start=0x7f030002;
+        public static final int activity_cowboy_pool_start=0x7f030001;
+        public static final int activity_score_straight_pool=0x7f030002;
+        public static final int activity_straight_pool_start=0x7f030003;
     }
     public static final class menu {
-        public static final int activity_score_straight_pool=0x7f090000;
+        public static final int activity_cowboy_pool_start=0x7f090000;
+        public static final int activity_score_straight_pool=0x7f090001;
     }
     public static final class string {
         public static final int app_name=0x7f060000;
@@ -115,27 +119,27 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int playing_straight_pool_screen_content=0x7f060006;
         public static final int points_needed=0x7f06001e;
         public static final int points_to_win=0x7f06001d;
-        public static final int pref_default_display_name=0x7f060031;
-        public static final int pref_description_social_recommendations=0x7f06002f;
+        public static final int pref_default_display_name=0x7f060032;
+        public static final int pref_description_social_recommendations=0x7f060030;
         /**  Example settings for Data & Sync 
          */
-        public static final int pref_header_data_sync=0x7f060033;
+        public static final int pref_header_data_sync=0x7f060034;
         /**  Strings related to Settings 
  Example General settings 
          */
-        public static final int pref_header_general=0x7f06002d;
+        public static final int pref_header_general=0x7f06002e;
         /**  Example settings for Notifications 
          */
-        public static final int pref_header_notifications=0x7f060036;
-        public static final int pref_ringtone_silent=0x7f060039;
-        public static final int pref_title_add_friends_to_messages=0x7f060032;
-        public static final int pref_title_display_name=0x7f060030;
-        public static final int pref_title_new_message_notifications=0x7f060037;
-        public static final int pref_title_ringtone=0x7f060038;
-        public static final int pref_title_social_recommendations=0x7f06002e;
-        public static final int pref_title_sync_frequency=0x7f060034;
-        public static final int pref_title_system_sync_settings=0x7f060035;
-        public static final int pref_title_vibrate=0x7f06003a;
+        public static final int pref_header_notifications=0x7f060037;
+        public static final int pref_ringtone_silent=0x7f06003a;
+        public static final int pref_title_add_friends_to_messages=0x7f060033;
+        public static final int pref_title_display_name=0x7f060031;
+        public static final int pref_title_new_message_notifications=0x7f060038;
+        public static final int pref_title_ringtone=0x7f060039;
+        public static final int pref_title_social_recommendations=0x7f06002f;
+        public static final int pref_title_sync_frequency=0x7f060035;
+        public static final int pref_title_system_sync_settings=0x7f060036;
+        public static final int pref_title_vibrate=0x7f06003b;
         public static final int resume_game=0x7f060020;
         public static final int shot_made=0x7f06000b;
         public static final int straight_pool_button=0x7f060007;
@@ -143,10 +147,11 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int straight_pool_rules_button=0x7f060009;
         public static final int straight_pool_start_content=0x7f060008;
         public static final int swap_players=0x7f06001b;
+        public static final int title_activity_cowboy_pool_start=0x7f06002c;
         public static final int title_activity_score_straight_pool=0x7f060025;
         public static final int title_activity_straight_pool=0x7f060003;
         public static final int title_activity_straight_pool_start=0x7f060004;
-        public static final int title_activity_striaght_pool_settings=0x7f06002c;
+        public static final int title_activity_striaght_pool_settings=0x7f06002d;
         public static final int total_fouls=0x7f060012;
         public static final int undo=0x7f060015;
         public static final int whos_playing_title=0x7f06001c;

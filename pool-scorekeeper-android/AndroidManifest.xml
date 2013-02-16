@@ -39,6 +39,10 @@
             android:name="net.grenning.pool_scorekeeper.StriaghtPoolSettingsActivity"
             android:label="@string/title_activity_striaght_pool_settings" >
         </activity>
+        <activity
+            android:name="net.grenning.pool_scorekeeper.CowboyPoolStartActivity"
+            android:label="@string/title_activity_cowboy_pool_start" >
+        </activity>
     </application>
 
 </manifest>
