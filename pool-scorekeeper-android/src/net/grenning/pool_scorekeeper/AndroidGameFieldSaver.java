@@ -1,7 +1,6 @@
 package net.grenning.pool_scorekeeper;
 
 import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
 import android.util.Log;
 
 public class AndroidGameFieldSaver implements GameFieldSaver {
@@ -12,9 +11,9 @@ public class AndroidGameFieldSaver implements GameFieldSaver {
 	public AndroidGameFieldSaver(SharedPreferences prefs) {
 		super();
 		this.prefs = prefs;
-		SharedPreferences.Editor editor = prefs.edit();
-		editor.putInt("junk", -42);
-		editor.commit();
+//		SharedPreferences.Editor editor = prefs.edit();
+		prefs.edit().putInt("junk", -42).commit();
+//		editor.commit();
 		int value = prefs.getInt("junk", 42);
 		Log.d(this.getClass().getName(), "Create, put -42, commit, getString(" + "junk" + ", " + 42 +") = " + value);
 	}

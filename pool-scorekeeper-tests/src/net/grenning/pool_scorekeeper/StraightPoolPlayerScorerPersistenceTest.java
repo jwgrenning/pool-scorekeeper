@@ -1,6 +1,9 @@
 package net.grenning.pool_scorekeeper;
 
-import java.io.IOException;
+import static org.mockito.Matchers.anyInt;
+import static org.mockito.Matchers.eq;
+import static org.mockito.Mockito.*;
+
 import java.io.InputStream;
 import java.io.Writer;
 
@@ -17,6 +20,8 @@ public class StraightPoolPlayerScorerPersistenceTest extends StraightPoolPlayerS
 	Writer testWriter;
 	InputStream input;
 
+	GameFieldSaver saver = mock(GameFieldSaver.class);
+
 	@Before
 	public void setUp() throws Exception {
 		view = new StraightPoolPlayerViewSpy();
@@ -28,49 +33,33 @@ public class StraightPoolPlayerScorerPersistenceTest extends StraightPoolPlayerS
 	}
 
 	@Test
-	public void testRestoreAtBeginningOfGame() throws IOException {
-		scorer.save(1);
-		scorer.goodShot();
-		scorer.restore(1);
-		assertBallsNeededToWin(50);
-		assertPlayerScore(0);
-		assertRackScore(0);
-		assertConsecutiveFouls(0);
-		assertTotalFouls(0);
+	public void allValuesSaved() {
+		scorer.save(saver, 1);
+		verify(saver, times(1)).save("ballsNeededToWin" + 1, 50);
+		verify(saver, times(1)).save("score" + 1, 0);
+		verify(saver, times(1)).save("rackScore" + 1, 0);
+		verify(saver, times(1)).save("consecutiveFouls" + 1, 0);
+		verify(saver, times(1)).save("fouls" + 1, 0);
+		verify(saver, times(1)).save("breakShotComing" + 1, false);
+		verifyNoMoreInteractions(saver);		
 	}
 
 	@Test
-	public void testRestoreYourBreak() throws IOException {
-		scorer.yourBreak();
-		scorer.save(1);
-		scorer.goodShot();
-		scorer.restore(1);
-		scorer.foul();
-		assertPlayerScore(-2);
-	}
+	public void allValuesRestored() {
+		when(saver.getInt(eq("ballsNeededToWin" + 1), anyInt())).thenReturn(99);
+		when(saver.getInt(eq("score" + 1), anyInt())).thenReturn(42);
+		when(saver.getInt(eq("rackScore" + 1), anyInt())).thenReturn(15);
+		when(saver.getInt(eq("consecutiveFouls" + 1), anyInt())).thenReturn(1);
+		when(saver.getInt(eq("fouls" + 1), anyInt())).thenReturn(2);
+		when(saver.getBoolean(eq("breakShotComing" + 1), anyBoolean())).thenReturn(false);
+		scorer.restore(saver, 1);
+		
+		assertPlayerScore(42);
+		assertRackScore(15);
+		assertBallsNeededToWin(99);
+		assertConsecutiveFouls(1);
+		assertTotalFouls(2);
 
-	@Test
-	public void testRestorebadBreak() throws IOException {
-		scorer.yourBreak();
-		scorer.foul();
-		scorer.save(2);
-		scorer.goodShot();
-		scorer.foul();
-		scorer.restore(2);
-		assertPlayerScore(-2);
-	}
-
-	@Test
-	public void testRestore2Shots() throws IOException {
-		scorer.goodShot();
-		scorer.goodShot();
-		scorer.save(1);
-		scorer.restore(1);
-		assertPlayerScore(2);
-		assertRackScore(2);
-		assertBallsNeededToWin(48);
-		assertConsecutiveFouls(0);
-		assertTotalFouls(0);
 	}
 
 }

@@ -70,35 +70,19 @@ public class StraightPoolGameScorer {
 			gameView.suggestRerack();
 	}
 
-//	public void save() {
-//		Preferences gameState = Preferences.userNodeForPackage(this.getClass());
-//		gameState.putInt(CURRENT_PLAYER_NUMBER, currentPlayerNumber);
-//		gameState.putInt(BALLS_ON_THE_TABLE, ballsOnTheTable);
-//		playerScorer[0].save(1);
-//		playerScorer[1].save(2);
-//	}
-//
-//	public void restore() {
-//		Preferences gameState = Preferences.userNodeForPackage(this.getClass());
-//		currentPlayerNumber = gameState.getInt(CURRENT_PLAYER_NUMBER, currentPlayerNumber);
-//		ballsOnTheTable = gameState.getInt(BALLS_ON_THE_TABLE, ballsOnTheTable);
-//		gameView.ballsOnTheTable(ballsOnTheTable);
-//		updateActivePlayer();
-//		playerScorer[0].restore(1);
-//		playerScorer[1].restore(2);
-//	}
-//
 	public void save(GameFieldSaver saver) {
 		saver.save(CURRENT_PLAYER_NUMBER, currentPlayerNumber);
 		saver.save(BALLS_ON_THE_TABLE, ballsOnTheTable);
-//		playerScorer[0].save(saver, 1);
-//		playerScorer[1].save(saver, 2);
+		playerScorer[0].save(saver, 1);
+		playerScorer[1].save(saver, 2);
 	}
 
 	public void restore(GameFieldSaver saver) {
 		currentPlayerNumber = saver.getInt(CURRENT_PLAYER_NUMBER, currentPlayerNumber);
 		ballsOnTheTable = saver.getInt(BALLS_ON_THE_TABLE, 49);
 		gameView.ballsOnTheTable(ballsOnTheTable);
+		playerScorer[0].restore(saver, 1);
+		playerScorer[1].restore(saver, 2);
 		updateActivePlayer();
 	}
 }

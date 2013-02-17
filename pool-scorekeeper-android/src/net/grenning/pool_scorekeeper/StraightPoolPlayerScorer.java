@@ -1,7 +1,5 @@
 package net.grenning.pool_scorekeeper;
 
-import java.util.prefs.Preferences;
-
 public class StraightPoolPlayerScorer {
 
 	StraightPoolPlayerView view;
@@ -82,26 +80,22 @@ public class StraightPoolPlayerScorer {
 		view.makeInactive();
 	}
 
-	public void save(int playerNumber) {
-		Preferences gameState;
-		gameState = Preferences.userRoot().node(this.getClass().getName() + playerNumber);
-		gameState.putInt("ballsNeededToWin", ballsNeededToWin);
-		gameState.putInt("score", score);
-		gameState.putInt("rackScore", rackScore);
-		gameState.putInt("consecutiveFouls", consecutiveFouls);
-		gameState.putInt("fouls", fouls);
-		gameState.putBoolean("breakShotComing", breakShotComing);
+	public void save(GameFieldSaver saver, int playerNumber) {
+		saver.save("ballsNeededToWin" + playerNumber, ballsNeededToWin);
+		saver.save("score" + playerNumber, score);
+		saver.save("rackScore" + playerNumber, rackScore);
+		saver.save("consecutiveFouls" + playerNumber, consecutiveFouls);
+		saver.save("fouls" + playerNumber, fouls);
+		saver.save("breakShotComing" + playerNumber, breakShotComing);
 	}
 
-	public void restore(int playerNumber) {
-		Preferences gameState;
-		gameState = Preferences.userRoot().node(this.getClass().getName() + playerNumber);
-		ballsNeededToWin = gameState.getInt("ballsNeededToWin", ballsNeededToWin);
-		score = gameState.getInt("score", score);
-		rackScore = gameState.getInt("rackScore", rackScore);
-		consecutiveFouls = gameState.getInt("consecutiveFouls", consecutiveFouls);
-		fouls = gameState.getInt("fouls", fouls);
-		breakShotComing = gameState.getBoolean("breakShotComing", breakShotComing);
+	public void restore(GameFieldSaver saver, int playerNumber) {
+		ballsNeededToWin = saver.getInt("ballsNeededToWin" + playerNumber, ballsNeededToWin);
+		score = saver.getInt("score" + playerNumber, score);
+		rackScore = saver.getInt("rackScore" + playerNumber, rackScore);
+		consecutiveFouls = saver.getInt("consecutiveFouls" + playerNumber, consecutiveFouls);
+		fouls = saver.getInt("fouls" + playerNumber, fouls);
+		breakShotComing = saver.getBoolean("breakShotComing" + playerNumber, breakShotComing);
 		updateView(view);
 	}
 

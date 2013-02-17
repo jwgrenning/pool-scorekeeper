@@ -151,7 +151,6 @@ public class ScoreStraightPoolActivity extends Activity {
 		super.onResume();
 		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 		gameSaver = new AndroidGameFieldSaver(prefs);//getSharedPreferences(PREFS_NAME, MODE_APPEND)
-//		gameSaver = new AndroidGameFieldSaver(getPreferences(MODE_PRIVATE));
 		if (getBooleanFieldFromIntent("resume"))
 			scorer.restore(gameSaver);
 		scorer.save(gameSaver);
@@ -164,11 +163,9 @@ public class ScoreStraightPoolActivity extends Activity {
 		Log.d(this.getClass().getName(), ".onPause()");
 		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 		gameSaver = new AndroidGameFieldSaver(prefs);//getSharedPreferences(PREFS_NAME, MODE_APPEND)
-//		gameSaver = new AndroidGameFieldSaver(getSharedPreferences(PREFS_NAME, MODE_APPEND));
 		scorer.save(gameSaver);
 		scorer.restore(gameSaver);
 	}
-	
 	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
