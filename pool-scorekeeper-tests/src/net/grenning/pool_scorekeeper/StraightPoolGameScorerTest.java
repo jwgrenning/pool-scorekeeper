@@ -123,6 +123,12 @@ public class StraightPoolGameScorerTest extends StraightPoolGameScorerTestBase {
 		assertEquals(0, gameViewSpy.reRackSuggestedCount);
 	}
 
+	@Test
+	public void testWinningGetsApplause() {
+		playerMakesSomeShots(50);
+		assertEquals(1, gameViewSpy.gameOverApplause);
+	}
+
 	/*
 	 * game view, racks, runs, innings multiple balls in one shot 14:1 re rack
 	 * Undo Move rules into the options menu Add settings, default players,

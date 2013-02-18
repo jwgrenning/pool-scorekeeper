@@ -38,6 +38,8 @@ public class StraightPoolGameScorer {
 	public void playerMakesShot() {
 		currentPlayerScorer.goodShot();
 		oneLessBallOnTheTable();
+		if (currentPlayerScorer.wins())
+			gameView.gameOverApplause();
 	}
 
 	public void playerMissesShot() {

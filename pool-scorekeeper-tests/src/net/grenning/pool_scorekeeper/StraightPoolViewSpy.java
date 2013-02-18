@@ -4,6 +4,7 @@ public class StraightPoolViewSpy implements StraightPoolView {
 
 	public int ballsOnTheTable;
 	public int reRackSuggestedCount = 0;
+	public int gameOverApplause = 0;
 
 	@Override
 	public void ballsOnTheTable(int balls) {
@@ -17,6 +18,11 @@ public class StraightPoolViewSpy implements StraightPoolView {
 	@Override
 	public void suggestRerack() {
 		reRackSuggestedCount++;
+	}
+
+	@Override
+	public void gameOverApplause() {
+		gameOverApplause++;
 	}
 
 }

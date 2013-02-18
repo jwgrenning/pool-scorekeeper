@@ -99,4 +99,8 @@ public class StraightPoolPlayerScorer {
 		updateView(view);
 	}
 
+	public boolean wins() {
+		return ballsNeededToWin == 0;
+	}
+
 }

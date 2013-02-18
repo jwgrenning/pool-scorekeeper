@@ -1,5 +1,6 @@
 package net.grenning.pool_scorekeeper;
 
+import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -40,6 +41,12 @@ public class ScoreStraightPoolActivity extends Activity {
 				message = getString(R.string.huh) + " " + message;
 				
 			setFieldById(R.id.ballsOnTheTable, message);
+		}
+
+		@Override
+		public void gameOverApplause() {
+			MediaPlayer mp = MediaPlayer.create(getApplicationContext(), net.grenning.pool_scorekeeper.R.raw.applause);	
+			mp.start();
 		}
 	};
 	StraightPoolPlayerView player1View = new StraightPoolPlayerView() {

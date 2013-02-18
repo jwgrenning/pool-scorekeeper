@@ -6,5 +6,7 @@ public interface StraightPoolView {
 	public void ballsOnTheTable(int balls);
 
 	public void suggestRerack();
+	
+	public void gameOverApplause();
 
 }
