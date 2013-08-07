@@ -1,6 +1,7 @@
 package net.grenning.pool_scorekeeper;
 
 import static org.junit.Assert.assertEquals;
+import net.grenning.pool_scorekeeper.StraightPoolPlayerScorer;
 
 public class StraightPoolPlayerScorerBase {
 

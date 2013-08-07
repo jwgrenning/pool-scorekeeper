@@ -1,6 +1,7 @@
 package net.grenning.pool_scorekeeper;
 
 
+import static org.junit.Assert.assertEquals;
 import net.grenning.pool_scorekeeper.StraightPoolPlayerScorer;
 import net.grenning.pool_scorekeeper.StraightPoolPlayerViewSpy;
 
@@ -92,7 +93,7 @@ public class StraightPoolPlayerScorerTest extends StraightPoolPlayerScorerBase {
 		assertPlayerScore(-2);
 		assertRackScore(0);
 		assertBallsNeededToWin(52);
-		assertConsecutiveFouls(1);
+		assertConsecutiveFouls(0);
 		assertTotalFouls(1);
 	}
 
@@ -104,7 +105,7 @@ public class StraightPoolPlayerScorerTest extends StraightPoolPlayerScorerBase {
 		assertPlayerScore(-3);
 		assertRackScore(0);
 		assertBallsNeededToWin(53);
-		assertConsecutiveFouls(2);
+		assertConsecutiveFouls(1);
 		assertTotalFouls(2);
 	}
 
@@ -154,5 +155,26 @@ public class StraightPoolPlayerScorerTest extends StraightPoolPlayerScorerBase {
 		assertConsecutiveFouls(0);
 	}
 	
+	@Test
+	public void testThreeConsequtiveFoulsCost15Points() {
+		scorer.missedShot();
+		scorer.foul();
+		scorer.foul();
+		scorer.foul();
+		assertEquals(-18, view.score);
+		assertEquals(3, view.consecutiveFouls);
+	}
+
+	@Test
+	public void testFirstFouldIsNotCountedForThreeConsequtiveFouls() {
+		scorer.yourBreak();
+		scorer.foul();
+		scorer.foul();
+		scorer.foul();
+		assertEquals(-4, view.score);
+		assertEquals(2, view.consecutiveFouls);
+	}
+	
+	//test for required re-rack after 3 consecutive fouls
 
 }

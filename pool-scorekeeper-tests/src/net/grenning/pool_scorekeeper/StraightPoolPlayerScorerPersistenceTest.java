@@ -7,6 +7,7 @@ import static org.mockito.Mockito.*;
 import java.io.InputStream;
 import java.io.Writer;
 
+import net.grenning.pool_scorekeeper.NameValueSaver;
 import net.grenning.pool_scorekeeper.StraightPoolPlayerScorer;
 import net.grenning.pool_scorekeeper.StraightPoolPlayerViewSpy;
 
@@ -20,7 +21,7 @@ public class StraightPoolPlayerScorerPersistenceTest extends StraightPoolPlayerS
 	Writer testWriter;
 	InputStream input;
 
-	GameFieldSaver saver = mock(GameFieldSaver.class);
+	NameValueSaver saver = mock(NameValueSaver.class);
 
 	@Before
 	public void setUp() throws Exception {

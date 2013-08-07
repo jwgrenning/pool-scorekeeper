@@ -1,5 +1,7 @@
 package net.grenning.pool_scorekeeper;
 
+import net.grenning.pool_scorekeeper.StraightPoolPlayerView;
+
 public class StraightPoolPlayerViewSpy implements StraightPoolPlayerView {
 
 	public int score;

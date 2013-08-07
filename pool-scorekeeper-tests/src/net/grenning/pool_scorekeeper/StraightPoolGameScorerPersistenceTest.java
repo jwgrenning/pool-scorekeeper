@@ -2,6 +2,8 @@ package net.grenning.pool_scorekeeper;
 
 import static org.junit.Assert.*;
 
+import net.grenning.pool_scorekeeper.NameValueSaver;
+
 import org.junit.After;
 import org.junit.Test;
 import static org.mockito.Mockito.*;
@@ -9,7 +11,7 @@ import static org.mockito.Mockito.*;
 public class StraightPoolGameScorerPersistenceTest extends
 		StraightPoolGameScorerTestBase {
 
-	GameFieldSaver saver = mock(GameFieldSaver.class);
+	NameValueSaver saver = mock(NameValueSaver.class);
 	
 	@After
 	public void verifyNoUncheckedInterations() {
@@ -29,7 +31,7 @@ public class StraightPoolGameScorerPersistenceTest extends
 	public void testRestore() {
 		when(saver.getInt(eq("ballsOnTheTable"), anyInt())).thenReturn(99);
 		when(saver.getInt(eq("currentPlayerNumber"), anyInt())).thenReturn(0);
-		game.restore(saver);
+		game.populateFromPersistence(saver);
 		verify(saver, times(2*6)).getInt(anyString(), anyInt());
 		verify(saver, times(2*1)).getBoolean(anyString(), anyBoolean());
 		assertPlayerOneActive();

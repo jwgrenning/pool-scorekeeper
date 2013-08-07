@@ -99,7 +99,7 @@ public class StraightPoolGameScorerTest extends StraightPoolGameScorerTestBase {
 		game.foul();
 		game.foul();
 		game.foul();
-		assertEquals(2, player1Spy.consecutiveFouls);
+		assertEquals(1, player1Spy.consecutiveFouls);
 		assertEquals(2, player2Spy.consecutiveFouls);
 		game.playerMissesShot();
 		assertEquals(0, player1Spy.consecutiveFouls);

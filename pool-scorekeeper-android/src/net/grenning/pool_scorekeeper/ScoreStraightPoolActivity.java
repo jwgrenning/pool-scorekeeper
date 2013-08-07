@@ -1,5 +1,6 @@
 package net.grenning.pool_scorekeeper;
 
+import net.grenning.pool_scorekeeper.R;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
@@ -22,7 +23,7 @@ public class ScoreStraightPoolActivity extends Activity {
 	StraightPoolGameScorer scorer;
 	StraightPoolPlayerScorer player1Scorer;
 	StraightPoolPlayerScorer player2Scorer;
-	private GameFieldSaver gameSaver;
+	private NameValueSaver gameSaver;
 	
 	StraightPoolView gameView = new StraightPoolView() {
 		
@@ -155,13 +156,13 @@ public class ScoreStraightPoolActivity extends Activity {
 	@Override
 	protected void onStart() {
 		Log.d(this.getClass().getName(), ".onStart()");
-		super.onResume();
+		super.onStart();
 		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 		gameSaver = new AndroidGameFieldSaver(prefs);//getSharedPreferences(PREFS_NAME, MODE_APPEND)
 		if (getBooleanFieldFromIntent("resume"))
-			scorer.restore(gameSaver);
+			scorer.populateFromPersistence(gameSaver);
 		scorer.save(gameSaver);
-		scorer.restore(gameSaver);
+		scorer.populateFromPersistence(gameSaver);
 	}
 	
 	@Override
@@ -171,7 +172,7 @@ public class ScoreStraightPoolActivity extends Activity {
 		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 		gameSaver = new AndroidGameFieldSaver(prefs);//getSharedPreferences(PREFS_NAME, MODE_APPEND)
 		scorer.save(gameSaver);
-		scorer.restore(gameSaver);
+		scorer.populateFromPersistence(gameSaver);
 	}
 	
 	@Override

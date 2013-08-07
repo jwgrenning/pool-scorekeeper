@@ -49,11 +49,16 @@ public class StraightPoolPlayerScorer {
 			ballsNeededToWin++;
 			score--;
 		}
+		else
+		{
+			consecutiveFouls++;
+		}
 
 		score--;
 		ballsNeededToWin++;
-		consecutiveFouls++;
 		fouls++;
+		if (consecutiveFouls == 3)
+			score -= 15;
 		updateView(view);
 	}
 
@@ -80,7 +85,7 @@ public class StraightPoolPlayerScorer {
 		view.makeInactive();
 	}
 
-	public void save(GameFieldSaver saver, int playerNumber) {
+	public void save(NameValueSaver saver, int playerNumber) {
 		saver.save("ballsNeededToWin" + playerNumber, ballsNeededToWin);
 		saver.save("score" + playerNumber, score);
 		saver.save("rackScore" + playerNumber, rackScore);
@@ -89,7 +94,7 @@ public class StraightPoolPlayerScorer {
 		saver.save("breakShotComing" + playerNumber, breakShotComing);
 	}
 
-	public void restore(GameFieldSaver saver, int playerNumber) {
+	public void restore(NameValueSaver saver, int playerNumber) {
 		ballsNeededToWin = saver.getInt("ballsNeededToWin" + playerNumber, ballsNeededToWin);
 		score = saver.getInt("score" + playerNumber, score);
 		rackScore = saver.getInt("rackScore" + playerNumber, rackScore);

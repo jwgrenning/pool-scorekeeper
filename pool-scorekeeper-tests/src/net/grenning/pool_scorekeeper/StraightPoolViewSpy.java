@@ -1,5 +1,7 @@
 package net.grenning.pool_scorekeeper;
 
+import net.grenning.pool_scorekeeper.StraightPoolView;
+
 public class StraightPoolViewSpy implements StraightPoolView {
 
 	public int ballsOnTheTable;

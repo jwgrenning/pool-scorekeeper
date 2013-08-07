@@ -3,7 +3,7 @@ package net.grenning.pool_scorekeeper;
 import android.content.SharedPreferences;
 import android.util.Log;
 
-public class AndroidGameFieldSaver implements GameFieldSaver {
+public class AndroidGameFieldSaver implements NameValueSaver {
 
 	SharedPreferences prefs;
 	
