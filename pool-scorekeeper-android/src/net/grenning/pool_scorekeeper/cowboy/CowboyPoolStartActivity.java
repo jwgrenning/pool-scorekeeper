@@ -1,6 +1,8 @@
-package net.grenning.pool_scorekeeper;
+package net.grenning.pool_scorekeeper.cowboy;
 
 import net.grenning.pool_scorekeeper.R;
+import net.grenning.pool_scorekeeper.R.layout;
+import net.grenning.pool_scorekeeper.R.menu;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.app.Activity;

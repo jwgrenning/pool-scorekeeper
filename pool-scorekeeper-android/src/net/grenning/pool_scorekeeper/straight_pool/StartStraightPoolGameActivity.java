@@ -1,6 +1,8 @@
-package net.grenning.pool_scorekeeper;
+package net.grenning.pool_scorekeeper.straight_pool;
 
 import net.grenning.pool_scorekeeper.R;
+import net.grenning.pool_scorekeeper.R.id;
+import net.grenning.pool_scorekeeper.R.layout;
 import net.grenning.pool_scorekeeper.util.SystemUiHider;
 
 import android.annotation.TargetApi;
@@ -20,7 +22,7 @@ import android.widget.EditText;
  * 
  * @see SystemUiHider
  */
-public class StraightPoolStartActivity extends Activity {
+public class StartStraightPoolGameActivity extends Activity {
 	/**
 	 * Whether or not the system UI should be auto-hidden after
 	 * {@link #AUTO_HIDE_DELAY_MILLIS} milliseconds.
@@ -181,7 +183,7 @@ public class StraightPoolStartActivity extends Activity {
     }
 	
 	private void playStraightPool(boolean resume) {
-		Intent intent = new Intent( this, ScoreStraightPoolActivity.class );
+		Intent intent = new Intent( this, GameScoreActivity.class );
 		addToIntent(intent, "player1Name", R.id.player1Name);
        	addToIntent(intent, "player2Name", R.id.player2Name);
        	addToIntent(intent, "player1PointsToWin", R.id.player1PointsToWin);

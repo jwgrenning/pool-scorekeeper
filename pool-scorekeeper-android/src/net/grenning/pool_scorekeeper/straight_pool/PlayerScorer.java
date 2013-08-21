@@ -1,8 +1,10 @@
-package net.grenning.pool_scorekeeper;
+package net.grenning.pool_scorekeeper.straight_pool;
 
-public class StraightPoolPlayerScorer {
+import net.grenning.pool_scorekeeper.NameValueSaver;
 
-	StraightPoolPlayerView view;
+public class PlayerScorer {
+
+	PlayerView view;
 	private int ballsNeededToWin = 0;
 	private int score = 0;
 	private int rackScore = 0;
@@ -10,7 +12,7 @@ public class StraightPoolPlayerScorer {
 	private int fouls = 0;
 	private boolean breakShotComing = false;
 
-	public StraightPoolPlayerScorer(StraightPoolPlayerView view,
+	public PlayerScorer(PlayerView view,
 			int ballsNeededToWin) {
 		this.view = view;
 		reset(ballsNeededToWin);
@@ -26,7 +28,7 @@ public class StraightPoolPlayerScorer {
 		updateView(view);
 	}
 
-	private void updateView(StraightPoolPlayerView view) {
+	private void updateView(PlayerView view) {
 		view.score(score);
 		view.rackScore(rackScore);
 		view.ballsNeededToWin(ballsNeededToWin);

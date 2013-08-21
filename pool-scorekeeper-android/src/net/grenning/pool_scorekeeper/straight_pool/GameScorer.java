@@ -1,20 +1,22 @@
-package net.grenning.pool_scorekeeper;
+package net.grenning.pool_scorekeeper.straight_pool;
 
-public class StraightPoolGameScorer {
+import net.grenning.pool_scorekeeper.NameValueSaver;
+
+public class GameScorer {
 
 	private static final String BALLS_ON_THE_TABLE = "ballsOnTheTable";
 	private static final String CURRENT_PLAYER_NUMBER = "currentPlayerNumber";
-	StraightPoolPlayerScorer player1Scorer;
-	StraightPoolPlayerScorer player2Scorer;
-	StraightPoolPlayerScorer playerScorer[] = new StraightPoolPlayerScorer[2];
+	PlayerScorer player1Scorer;
+	PlayerScorer player2Scorer;
+	PlayerScorer playerScorer[] = new PlayerScorer[2];
 	int currentPlayerNumber = 0;
-	StraightPoolPlayerScorer currentPlayerScorer;
-	StraightPoolView gameView;
+	PlayerScorer currentPlayerScorer;
+	GameView gameView;
 	int ballsOnTheTable = 15;
 
-	public StraightPoolGameScorer(StraightPoolView gameView,
-			StraightPoolPlayerScorer player1Scorer,
-			StraightPoolPlayerScorer player2Scorer) {
+	public GameScorer(GameView gameView,
+			PlayerScorer player1Scorer,
+			PlayerScorer player2Scorer) {
 		super();
 		this.gameView = gameView;
 		gameView.ballsOnTheTable(ballsOnTheTable);

@@ -1,8 +1,8 @@
 package net.grenning.pool_scorekeeper;
 
-import net.grenning.pool_scorekeeper.StraightPoolPlayerView;
+import net.grenning.pool_scorekeeper.straight_pool.PlayerView;
 
-public class StraightPoolPlayerViewSpy implements StraightPoolPlayerView {
+public class StraightPoolPlayerViewSpy implements PlayerView {
 
 	public int score;
 	public int rackScore = 0;

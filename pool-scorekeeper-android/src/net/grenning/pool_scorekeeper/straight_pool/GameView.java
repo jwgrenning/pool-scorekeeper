@@ -1,7 +1,7 @@
-package net.grenning.pool_scorekeeper;
+package net.grenning.pool_scorekeeper.straight_pool;
 
 
-public interface StraightPoolView {
+public interface GameView {
 
 	public void ballsOnTheTable(int balls);
 

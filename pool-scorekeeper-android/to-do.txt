@@ -2,3 +2,13 @@ Add preferences storage for straight pool start activity
 Monetize? adds?
 Double check the rules for consecutive fouls and the break - better check out the 3 fouls rule
 stop using the intent for passing to the game, make it persistent
+
+Bigger buttons
+Button placement
+Button color
+Special shot button
+	- safe
+	- multiple balls down
+	- enter correction
+Undo
+Persist the straight pool start page

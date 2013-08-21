@@ -2,8 +2,8 @@ package net.grenning.pool_scorekeeper;
 
 
 import static org.junit.Assert.assertEquals;
-import net.grenning.pool_scorekeeper.StraightPoolPlayerScorer;
 import net.grenning.pool_scorekeeper.StraightPoolPlayerViewSpy;
+import net.grenning.pool_scorekeeper.straight_pool.PlayerScorer;
 
 import org.junit.After;
 import org.junit.Before;
@@ -15,7 +15,7 @@ public class StraightPoolPlayerScorerTest extends StraightPoolPlayerScorerBase {
 	@Before
 	public void setUp() throws Exception {
 		view = new StraightPoolPlayerViewSpy();
-		scorer = new StraightPoolPlayerScorer(view, 50);
+		scorer = new PlayerScorer(view, 50);
 	}
 
 	@After

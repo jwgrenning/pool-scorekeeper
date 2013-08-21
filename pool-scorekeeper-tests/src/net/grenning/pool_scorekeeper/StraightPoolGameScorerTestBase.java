@@ -1,19 +1,19 @@
 package net.grenning.pool_scorekeeper;
 
 import static org.junit.Assert.assertTrue;
-import net.grenning.pool_scorekeeper.StraightPoolGameScorer;
-import net.grenning.pool_scorekeeper.StraightPoolPlayerScorer;
+import net.grenning.pool_scorekeeper.straight_pool.GameScorer;
+import net.grenning.pool_scorekeeper.straight_pool.PlayerScorer;
 
 public class StraightPoolGameScorerTestBase {
 
 	protected StraightPoolPlayerViewSpy player1Spy = new StraightPoolPlayerViewSpy();
 	protected StraightPoolPlayerViewSpy player2Spy = new StraightPoolPlayerViewSpy();
-	StraightPoolPlayerScorer player1Scorer = new StraightPoolPlayerScorer(
+	PlayerScorer player1Scorer = new PlayerScorer(
 				player1Spy, 50);
-	StraightPoolPlayerScorer player2Scorer = new StraightPoolPlayerScorer(
+	PlayerScorer player2Scorer = new PlayerScorer(
 				player2Spy, 50);
 	protected StraightPoolViewSpy gameViewSpy = new StraightPoolViewSpy();
-	protected StraightPoolGameScorer game = new StraightPoolGameScorer(gameViewSpy,
+	protected GameScorer game = new GameScorer(gameViewSpy,
 				player1Scorer, player2Scorer);
 
 	public StraightPoolGameScorerTestBase() {

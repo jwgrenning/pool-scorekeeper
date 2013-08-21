@@ -1,12 +1,12 @@
 package net.grenning.pool_scorekeeper;
 
 import static org.junit.Assert.assertEquals;
-import net.grenning.pool_scorekeeper.StraightPoolPlayerScorer;
+import net.grenning.pool_scorekeeper.straight_pool.PlayerScorer;
 
 public class StraightPoolPlayerScorerBase {
 
 	protected StraightPoolPlayerViewSpy view;
-	protected StraightPoolPlayerScorer scorer;
+	protected PlayerScorer scorer;
 
 	public StraightPoolPlayerScorerBase() {
 		super();

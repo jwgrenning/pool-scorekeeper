@@ -8,8 +8,8 @@ import java.io.InputStream;
 import java.io.Writer;
 
 import net.grenning.pool_scorekeeper.NameValueSaver;
-import net.grenning.pool_scorekeeper.StraightPoolPlayerScorer;
 import net.grenning.pool_scorekeeper.StraightPoolPlayerViewSpy;
+import net.grenning.pool_scorekeeper.straight_pool.PlayerScorer;
 
 import org.junit.After;
 import org.junit.Before;
@@ -26,7 +26,7 @@ public class StraightPoolPlayerScorerPersistenceTest extends StraightPoolPlayerS
 	@Before
 	public void setUp() throws Exception {
 		view = new StraightPoolPlayerViewSpy();
-		scorer = new StraightPoolPlayerScorer(view, 50);
+		scorer = new PlayerScorer(view, 50);
 	}
 
 	@After

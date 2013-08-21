@@ -3,6 +3,8 @@ package net.grenning.pool_scorekeeper;
 import java.util.List;
 
 import net.grenning.pool_scorekeeper.R;
+import net.grenning.pool_scorekeeper.R.string;
+import net.grenning.pool_scorekeeper.R.xml;
 
 import android.annotation.TargetApi;
 import android.content.Context;
@@ -31,7 +33,7 @@ import android.text.TextUtils;
  * href="http://developer.android.com/guide/topics/ui/settings.html">Settings
  * API Guide</a> for more information on developing a Settings UI.
  */
-public class StriaghtPoolSettingsActivity extends PreferenceActivity {
+public class SettingsActivity extends PreferenceActivity {
 	/**
 	 * Determines whether to always show the simplified settings UI, where
 	 * settings are presented in a single list. When false, settings are shown

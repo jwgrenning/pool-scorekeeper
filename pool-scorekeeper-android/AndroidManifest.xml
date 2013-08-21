@@ -25,22 +25,22 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="net.grenning.pool_scorekeeper.StraightPoolStartActivity"
+            android:name="net.grenning.pool_scorekeeper.straight_pool.StartStraightPoolGameActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_straight_pool_start"
             android:theme="@style/FullscreenTheme" >
         </activity>
         <activity
-            android:name="net.grenning.pool_scorekeeper.ScoreStraightPoolActivity"
+            android:name="net.grenning.pool_scorekeeper.straight_pool.GameScoreActivity"
             android:label="@string/title_activity_score_straight_pool" >
             android:theme="@style/FullscreenTheme" >
         </activity>
         <activity
-            android:name="net.grenning.pool_scorekeeper.StriaghtPoolSettingsActivity"
+            android:name="net.grenning.pool_scorekeeper.straight_pool.StriaghtPoolSettingsActivity"
             android:label="@string/title_activity_striaght_pool_settings" >
         </activity>
         <activity
-            android:name="net.grenning.pool_scorekeeper.CowboyPoolStartActivity"
+            android:name="net.grenning.pool_scorekeeper.cowboy.CowboyPoolStartActivity"
             android:label="@string/title_activity_cowboy_pool_start" >
         </activity>
     </application>

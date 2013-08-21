@@ -1,6 +1,14 @@
-package net.grenning.pool_scorekeeper;
+package net.grenning.pool_scorekeeper.straight_pool;
 
+import net.grenning.pool_scorekeeper.AndroidGameFieldSaver;
+import net.grenning.pool_scorekeeper.NameValueSaver;
 import net.grenning.pool_scorekeeper.R;
+import net.grenning.pool_scorekeeper.R.color;
+import net.grenning.pool_scorekeeper.R.id;
+import net.grenning.pool_scorekeeper.R.layout;
+import net.grenning.pool_scorekeeper.R.menu;
+import net.grenning.pool_scorekeeper.R.raw;
+import net.grenning.pool_scorekeeper.R.string;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
@@ -18,14 +26,14 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class ScoreStraightPoolActivity extends Activity {
+public class GameScoreActivity extends Activity {
 	public static final String PREFS_NAME = "ScoreStraightPoolActivity";
-	StraightPoolGameScorer scorer;
-	StraightPoolPlayerScorer player1Scorer;
-	StraightPoolPlayerScorer player2Scorer;
+	GameScorer scorer;
+	PlayerScorer player1Scorer;
+	PlayerScorer player2Scorer;
 	private NameValueSaver gameSaver;
 	
-	StraightPoolView gameView = new StraightPoolView() {
+	GameView gameView = new GameView() {
 		
 		@Override
 		public void suggestRerack() {
@@ -50,7 +58,7 @@ public class ScoreStraightPoolActivity extends Activity {
 			mp.start();
 		}
 	};
-	StraightPoolPlayerView player1View = new StraightPoolPlayerView() {
+	PlayerView player1View = new PlayerView() {
 
 		@Override
 		public void score(int i) {
@@ -88,7 +96,7 @@ public class ScoreStraightPoolActivity extends Activity {
 		}
 	};
 
-	StraightPoolPlayerView player2View = new StraightPoolPlayerView() {
+	PlayerView player2View = new PlayerView() {
 
 		@Override
 		public void score(int i) {
@@ -138,12 +146,12 @@ public class ScoreStraightPoolActivity extends Activity {
 		setPlayerName("player2Name", R.id.player2Name,
 				R.string.default_player2Name);
 
-		player1Scorer = new StraightPoolPlayerScorer(player1View,
+		player1Scorer = new PlayerScorer(player1View,
 				getNumberFieldFromIntent("player1PointsToWin"));
-		player2Scorer = new StraightPoolPlayerScorer(player2View,
+		player2Scorer = new PlayerScorer(player2View,
 				getNumberFieldFromIntent("player2PointsToWin"));
 		
-		scorer = new StraightPoolGameScorer(gameView, player1Scorer, player2Scorer);
+		scorer = new GameScorer(gameView, player1Scorer, player2Scorer);
 
 		setFieldById(R.id.player2Score, 0);
 		setFieldById(R.id.player2BallsThisRack, 0);

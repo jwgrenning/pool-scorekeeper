@@ -1,7 +1,7 @@
-package net.grenning.pool_scorekeeper;
+package net.grenning.pool_scorekeeper.straight_pool;
 
 
-public interface StraightPoolPlayerView {
+public interface PlayerView {
 
 	void score(int i);
 

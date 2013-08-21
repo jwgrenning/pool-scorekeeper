@@ -1,6 +1,8 @@
 package net.grenning.pool_scorekeeper;
 
 import net.grenning.pool_scorekeeper.R;
+import net.grenning.pool_scorekeeper.cowboy.CowboyPoolStartActivity;
+import net.grenning.pool_scorekeeper.straight_pool.StartStraightPoolGameActivity;
 import net.grenning.pool_scorekeeper.util.SystemUiHider;
 
 import android.annotation.TargetApi;
@@ -122,7 +124,7 @@ public class ChooseGame extends Activity {
     
 
     public void launchStraightPoolScreen(View view) {
-    	Intent i = new Intent( this, StraightPoolStartActivity.class );
+    	Intent i = new Intent( this, StartStraightPoolGameActivity.class );
     	startActivity( i );    }
 
     public void launchCowboyPoolScreen(View view) {
