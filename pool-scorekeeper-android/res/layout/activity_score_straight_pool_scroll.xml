@@ -26,7 +26,7 @@
                 style="@style/ScoreTableBlankEntry" />
 
             <EditText
-                android:id="@+id/player1Name"
+                android:id="@+id/straightPool.player1.Name"
                 style="@style/ScoreTableHeading"
                 android:text="@string/default_player1Name" >
                 <requestFocus />
