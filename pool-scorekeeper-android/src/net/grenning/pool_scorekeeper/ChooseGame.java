@@ -131,6 +131,10 @@ public class ChooseGame extends Activity {
     	Intent i = new Intent( this, CowboyPoolStartActivity.class );
     	startActivity( i );    }
 
+    public void launchScreenFlipper(View view) {
+    	Intent i = new Intent( this, ScreenFlipper.class );
+    	startActivity( i );    }
+
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
