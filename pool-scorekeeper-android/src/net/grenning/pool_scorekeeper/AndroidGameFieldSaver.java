@@ -6,16 +6,16 @@ import android.util.Log;
 public class AndroidGameFieldSaver implements NameValueSaver {
 
 	SharedPreferences prefs;
-	
+	SharedPreferences.Editor editor;
 	
 	public AndroidGameFieldSaver(SharedPreferences prefs) {
 		super();
 		this.prefs = prefs;
+		editor = prefs.edit();
 	}
 
 	@Override
 	public void save(String name, String value) {
-		SharedPreferences.Editor editor = prefs.edit();
 		Log.d(this.getClass().getName(), "save(" + name + ", " + value +")");
 		editor.putString(name, value);
 		editor.commit();
@@ -23,7 +23,6 @@ public class AndroidGameFieldSaver implements NameValueSaver {
 
 	@Override
 	public void save(String name, int index, String value) {
-		SharedPreferences.Editor editor = prefs.edit();
 		name += Integer.valueOf(index).toString();
 		Log.d(this.getClass().getName(), "save(" + name + ", " + value +")");
 		editor.putString(name, value);
@@ -32,7 +31,6 @@ public class AndroidGameFieldSaver implements NameValueSaver {
 
 	@Override
 	public void save(String name, int value) {
-		SharedPreferences.Editor editor = prefs.edit();
 		Log.d(this.getClass().getName(), "save(" + name + ", " + value +")");
 		editor.putInt(name, value);
 		editor.commit();
@@ -40,7 +38,6 @@ public class AndroidGameFieldSaver implements NameValueSaver {
 
 	@Override
 	public void save(String name, int index, int value) {
-		SharedPreferences.Editor editor = prefs.edit();
 		name += Integer.valueOf(index).toString();
 		Log.d(this.getClass().getName(), "save(" + name + ", " + value +")");
 		editor.putInt(name, value);
