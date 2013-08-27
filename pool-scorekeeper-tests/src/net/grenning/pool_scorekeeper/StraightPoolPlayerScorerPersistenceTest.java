@@ -36,12 +36,12 @@ public class StraightPoolPlayerScorerPersistenceTest extends StraightPoolPlayerS
 	@Test
 	public void allValuesSaved() {
 		scorer.save(saver, 1);
-		verify(saver, times(1)).save("ballsNeededToWin" + 1, 50);
-		verify(saver, times(1)).save("score" + 1, 0);
-		verify(saver, times(1)).save("rackScore" + 1, 0);
-		verify(saver, times(1)).save("consecutiveFouls" + 1, 0);
-		verify(saver, times(1)).save("fouls" + 1, 0);
-		verify(saver, times(1)).save("breakShotComing" + 1, false);
+		verify(saver, times(1)).save("ballsNeededToWin", 1, 50);
+		verify(saver, times(1)).save("score", 1, 0);
+		verify(saver, times(1)).save("rackScore", 1, 0);
+		verify(saver, times(1)).save("consecutiveFouls", 1, 0);
+		verify(saver, times(1)).save("fouls", 1, 0);
+		verify(saver, times(1)).save("breakShotComing", 1, false);
 		verifyNoMoreInteractions(saver);		
 	}
 

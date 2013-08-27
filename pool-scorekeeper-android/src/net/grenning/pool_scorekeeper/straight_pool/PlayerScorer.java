@@ -88,12 +88,12 @@ public class PlayerScorer {
 	}
 
 	public void save(NameValueSaver saver, int playerNumber) {
-		saver.save("ballsNeededToWin" + playerNumber, ballsNeededToWin);
-		saver.save("score" + playerNumber, score);
-		saver.save("rackScore" + playerNumber, rackScore);
-		saver.save("consecutiveFouls" + playerNumber, consecutiveFouls);
-		saver.save("fouls" + playerNumber, fouls);
-		saver.save("breakShotComing" + playerNumber, breakShotComing);
+		saver.save("ballsNeededToWin", playerNumber, ballsNeededToWin);
+		saver.save("score", playerNumber, score);
+		saver.save("rackScore", playerNumber, rackScore);
+		saver.save("consecutiveFouls", playerNumber, consecutiveFouls);
+		saver.save("fouls", playerNumber, fouls);
+		saver.save("breakShotComing", playerNumber, breakShotComing);
 	}
 
 	public void restore(NameValueSaver saver, int playerNumber) {

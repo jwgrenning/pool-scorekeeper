@@ -22,8 +22,10 @@ public class StraightPoolGameScorerPersistenceTest extends
 		game.save(saver);
 		verify(saver, times(1)).save("ballsOnTheTable", 15);
 		verify(saver, times(1)).save("currentPlayerNumber", 0);
-		verify(saver, times(2*6)).save(anyString(), anyInt());
-		verify(saver, times(2*1)).save(anyString(), anyBoolean());
+		verify(saver, times(5)).save(anyString(), eq(1), anyInt());
+		verify(saver, times(1)).save(anyString(), eq(1), anyBoolean());
+		verify(saver, times(5)).save(anyString(), eq(2), anyInt());
+		verify(saver, times(1)).save(anyString(), eq(2), anyBoolean());
 		verifyNoMoreInteractions(saver);		
 	}
 

@@ -1,10 +1,7 @@
 package net.grenning.pool_scorekeeper.straight_pool;
 
 import net.grenning.pool_scorekeeper.R;
-import net.grenning.pool_scorekeeper.R.id;
-import net.grenning.pool_scorekeeper.R.layout;
 import net.grenning.pool_scorekeeper.util.SystemUiHider;
-
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Intent;
