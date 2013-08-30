@@ -23,10 +23,7 @@ public class AndroidGameFieldSaver implements NameValueSaver {
 
 	@Override
 	public void save(String name, int index, String value) {
-		name += Integer.valueOf(index).toString();
-		Log.d(this.getClass().getName(), "save(" + name + ", " + value +")");
-		editor.putString(name, value);
-		editor.commit();
+		save(name + Integer.valueOf(index).toString(), value);
 	}
 
 	@Override
@@ -38,10 +35,7 @@ public class AndroidGameFieldSaver implements NameValueSaver {
 
 	@Override
 	public void save(String name, int index, int value) {
-		name += Integer.valueOf(index).toString();
-		Log.d(this.getClass().getName(), "save(" + name + ", " + value +")");
-		editor.putInt(name, value);
-		editor.commit();
+		save(name + Integer.valueOf(index).toString(), value);
 	}
 
 	@Override
@@ -53,10 +47,7 @@ public class AndroidGameFieldSaver implements NameValueSaver {
 
 	@Override
 	public void save(String name, int index, boolean value) {
-		name += Integer.valueOf(index).toString();
-		Log.d(this.getClass().getName(), "save(" + name + ", " + value +")");
-		prefs.edit().putBoolean(name, value);
-		prefs.edit().commit();
+		save(name + Integer.valueOf(index).toString(), value);
 	}
 
 	@Override
@@ -68,10 +59,7 @@ public class AndroidGameFieldSaver implements NameValueSaver {
 
 	@Override
 	public String getString(String name, int index, String defaultValue) {
-		name += Integer.valueOf(index).toString();
-		String value = prefs.getString(name, defaultValue);
-		Log.d(this.getClass().getName(), "getString(" + name + ", " + defaultValue +") = " + value);
-		return value;
+		return getString(name + Integer.valueOf(index).toString(), defaultValue);
 	}
 
 	@Override
@@ -83,10 +71,7 @@ public class AndroidGameFieldSaver implements NameValueSaver {
 
 	@Override
 	public int getInt(String name, int index, int defaultValue) {
-		name += Integer.valueOf(index).toString();
-		int value = prefs.getInt(name, defaultValue);
-		Log.d(this.getClass().getName(), "getString(" + name + ", " + defaultValue +") = " + value);
-		return value;
+		return getInt(name + Integer.valueOf(index).toString(), defaultValue);
 	}
 
 	@Override
@@ -98,10 +83,7 @@ public class AndroidGameFieldSaver implements NameValueSaver {
 
 	@Override
 	public boolean getBoolean(String name, int index, boolean defaultValue) {
-		name += Integer.valueOf(index).toString();
-		boolean value = prefs.getBoolean(name, defaultValue);
-		Log.d(this.getClass().getName(), "getString(" + name + ", " + defaultValue +") = " + value);
-		return value;
+		return getBoolean(name + Integer.valueOf(index).toString(), defaultValue);
 	}
 
 }
