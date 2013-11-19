@@ -19,8 +19,11 @@
             android:id="@+id/HeaderRow"
             style="@style/ScoreTableRow" >
 
-            <TextView
-                style="@style/ScoreTableBlankEntry" />
+            <Button
+                android:id="@+id/shotMadeButton"
+                style="@style/ScoreTableButton"
+                android:onClick="shotMadeButtonClicked"
+                android:text="@string/shot_made" />
 
             <TextView
                 style="@style/ScoreTableBlankEntry" />
@@ -37,6 +40,14 @@
                 style="@style/ScoreTableHeading"
                 android:text="@string/default_player2Name" >
             </EditText>
+
+            <Button
+                android:id="@+id/newRackButton"
+                style="@style/ScoreTableButton"
+                android:onClick="newRackButtonClicked"
+                android:text="@string/new_rack" />
+
+            
         </TableRow>
 
         <TableRow
@@ -44,10 +55,9 @@
             style="@style/ScoreTableRow" >
 
             <Button
-                android:id="@+id/shotMadeButton"
+                android:id="@+id/blankButton1"
                 style="@style/ScoreTableButton"
-                android:onClick="shotMadeButtonClicked"
-                android:text="@string/shot_made" />
+                android:text="@string/blank_button" />
 
             <TextView
                 style="@style/ScoreTableTextEntry"
@@ -98,10 +108,9 @@
             style="@style/ScoreTableRow" >
 
             <Button
-                android:id="@+id/foulButton"
+                android:id="@+id/blankButton2"
                 style="@style/ScoreTableButton"
-                android:onClick="foulButtonClicked"
-                android:text="@string/foul" />
+                android:text="@string/blank_button" />
 
             <TextView
                 style="@style/ScoreTableTextEntry"
@@ -115,9 +124,12 @@
                 android:id="@+id/player2PointsToWin"
                 style="@style/ScoreTableNumberEntry" />
 
-            <TextView
-                style="@style/ScoreTableBlankEntry" />
-            
+            <Button
+                android:id="@+id/newRackButton"
+                style="@style/ScoreTableButton"
+                android:onClick="newRackButtonClicked"
+                android:text="@string/new_rack" />
+
         </TableRow>
 
         <TableRow
@@ -125,10 +137,10 @@
             style="@style/ScoreTableRow" >
 
             <Button
-                android:id="@+id/undoButton"
+                android:id="@+id/foulButton"
                 style="@style/ScoreTableButton"
-                android:onClick="newRackButtonClicked"
-                android:text="@string/new_rack" />
+                android:onClick="foulButtonClicked"
+                android:text="@string/foul" />
 
             <TextView
                 style="@style/ScoreTableTextEntry"
@@ -144,15 +156,17 @@
 
             <TextView
                 style="@style/ScoreTableBlankEntry" />
-
-            </TableRow>
+            
+        </TableRow>
 
         <TableRow
             android:id="@+id/totalFoulsRow"
             style="@style/ScoreTableRow" >
 
-            <TextView
-                style="@style/ScoreTableBlankEntry" />
+            <Button
+                android:id="@+id/blankButton3"
+                style="@style/ScoreTableButton"
+                android:text="@string/blank_button" />
 
             <TextView
                 style="@style/ScoreTableTextEntry"

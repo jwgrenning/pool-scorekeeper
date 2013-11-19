@@ -24,6 +24,7 @@ public class GameScoreActivity extends Activity {
 	GameScorer scorer;
 	PlayerScorer player1Scorer;
 	PlayerScorer player2Scorer;
+	SharedPreferences prefs;
 	private NameValueSaver gameSaver;
 	
 	GameView gameView = new GameView() {
@@ -158,8 +159,8 @@ public class GameScoreActivity extends Activity {
 	protected void onStart() {
 		Log.d(this.getClass().getName(), ".onStart()");
 		super.onStart();
-		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-		gameSaver = new AndroidGameFieldSaver(prefs);//getSharedPreferences(PREFS_NAME, MODE_APPEND)
+		prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+		gameSaver = new AndroidGameFieldSaver(prefs);
 		if (getBooleanFieldFromIntent("resume"))
 			scorer.populateFromPersistence(gameSaver);
 		scorer.save(gameSaver);
@@ -170,8 +171,8 @@ public class GameScoreActivity extends Activity {
 	protected void onPause() {
 		super.onPause();
 		Log.d(this.getClass().getName(), ".onPause()");
-		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-		gameSaver = new AndroidGameFieldSaver(prefs);//getSharedPreferences(PREFS_NAME, MODE_APPEND)
+		prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+		gameSaver = new AndroidGameFieldSaver(prefs);
 		scorer.save(gameSaver);
 		scorer.populateFromPersistence(gameSaver);
 	}

@@ -2,10 +2,6 @@ package net.grenning.pool_scorekeeper;
 
 import java.util.List;
 
-import net.grenning.pool_scorekeeper.R;
-import net.grenning.pool_scorekeeper.R.string;
-import net.grenning.pool_scorekeeper.R.xml;
-
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.res.Configuration;

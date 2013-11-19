@@ -19,7 +19,7 @@ import android.widget.EditText;
  * 
  * @see SystemUiHider
  */
-public class StartStraightPoolGameActivity extends Activity {
+public class StartGameActivity extends Activity {
 	/**
 	 * Whether or not the system UI should be auto-hidden after
 	 * {@link #AUTO_HIDE_DELAY_MILLIS} milliseconds.

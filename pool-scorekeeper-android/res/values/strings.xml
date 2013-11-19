@@ -40,6 +40,7 @@
     <string name="menu_settings">Straight Pool Rules and Extras</string>
     <string name="title_activity_score_straight_pool">Straight Pool Score Board</string>
     <string name="new_rack">New Rack</string>
+    <string name="blank_button"></string>
     <string name="game_summary_button">Game Summary</string>
     <string name="email_game_summary_button">Email Game Summary</string>
     <string name="balls_left_on_the_table">balls on the table</string>
