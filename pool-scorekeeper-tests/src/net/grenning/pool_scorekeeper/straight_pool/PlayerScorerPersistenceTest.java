@@ -1,4 +1,4 @@
-package net.grenning.pool_scorekeeper;
+package net.grenning.pool_scorekeeper.straight_pool;
 
 import static org.mockito.Matchers.anyInt;
 import static org.mockito.Matchers.eq;
@@ -8,15 +8,15 @@ import java.io.InputStream;
 import java.io.Writer;
 
 import net.grenning.pool_scorekeeper.NameValueSaver;
-import net.grenning.pool_scorekeeper.StraightPoolPlayerViewSpy;
 import net.grenning.pool_scorekeeper.straight_pool.PlayerScorer;
+import net.grenning.pool_scorekeeper.straight_pool.PlayerViewSpy;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
 
-public class StraightPoolPlayerScorerPersistenceTest extends StraightPoolPlayerScorerBase {
+public class PlayerScorerPersistenceTest extends PlayerScorerBase {
 
 	Writer testWriter;
 	InputStream input;
@@ -25,7 +25,7 @@ public class StraightPoolPlayerScorerPersistenceTest extends StraightPoolPlayerS
 
 	@Before
 	public void setUp() throws Exception {
-		view = new StraightPoolPlayerViewSpy();
+		view = new PlayerViewSpy();
 		scorer = new PlayerScorer(view, 50);
 	}
 

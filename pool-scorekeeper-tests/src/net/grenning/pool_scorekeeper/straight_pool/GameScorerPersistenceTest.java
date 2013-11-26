@@ -1,4 +1,4 @@
-package net.grenning.pool_scorekeeper;
+package net.grenning.pool_scorekeeper.straight_pool;
 
 import static org.junit.Assert.*;
 
@@ -8,8 +8,8 @@ import org.junit.After;
 import org.junit.Test;
 import static org.mockito.Mockito.*;
 
-public class StraightPoolGameScorerPersistenceTest extends
-		StraightPoolGameScorerTestBase {
+public class GameScorerPersistenceTest extends
+		GameScorerTestBase {
 
 	NameValueSaver saver = mock(NameValueSaver.class);
 	

@@ -1,8 +1,8 @@
-package net.grenning.pool_scorekeeper;
+package net.grenning.pool_scorekeeper.straight_pool;
 
 import net.grenning.pool_scorekeeper.straight_pool.GameView;
 
-public class StraightPoolViewSpy implements GameView {
+public class ViewSpy implements GameView {
 
 	public int ballsOnTheTable;
 	public int reRackSuggestedCount = 0;

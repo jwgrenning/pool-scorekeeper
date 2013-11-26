@@ -1,20 +1,20 @@
-package net.grenning.pool_scorekeeper;
+package net.grenning.pool_scorekeeper.straight_pool;
 
 
 import static org.junit.Assert.assertEquals;
-import net.grenning.pool_scorekeeper.StraightPoolPlayerViewSpy;
 import net.grenning.pool_scorekeeper.straight_pool.PlayerScorer;
+import net.grenning.pool_scorekeeper.straight_pool.PlayerViewSpy;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
 
-public class StraightPoolPlayerScorerTest extends StraightPoolPlayerScorerBase {
+public class PlayerScorerTest extends PlayerScorerBase {
 
 	@Before
 	public void setUp() throws Exception {
-		view = new StraightPoolPlayerViewSpy();
+		view = new PlayerViewSpy();
 		scorer = new PlayerScorer(view, 50);
 	}
 
@@ -134,7 +134,7 @@ public class StraightPoolPlayerScorerTest extends StraightPoolPlayerScorerBase {
 	}
 
 	@Test
-	public void trestNewRack() {
+	public void testNewRack() {
 		scorer.yourBreak();
 		scorer.goodShot();
 		scorer.missedShot();

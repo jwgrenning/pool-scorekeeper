@@ -1,10 +1,10 @@
-package net.grenning.pool_scorekeeper;
+package net.grenning.pool_scorekeeper.straight_pool;
 
 import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-public class StraightPoolGameScorerTest extends StraightPoolGameScorerTestBase {
+public class GameScorerTest extends GameScorerTestBase {
 
 	@Test
 	public void testGameStartsAllBallsOnTheTable() {
