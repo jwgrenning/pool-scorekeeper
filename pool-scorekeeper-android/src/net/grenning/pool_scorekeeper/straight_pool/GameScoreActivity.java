@@ -133,7 +133,7 @@ public class GameScoreActivity extends Activity {
 		Log.d(this.getClass().getName(), ".onCreate()");
 		super.onCreate(savedInstanceState);
 		this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
-		setContentView(R.layout.activity_score_straight_pool);
+		setContentView(R.layout.activity_score_straight_pool_2);
 
 		setPlayerName("player1Name", R.id.player1Name,
 				R.string.default_player1Name);

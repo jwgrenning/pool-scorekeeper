@@ -46,6 +46,9 @@
         <item name="android:text"></item>
     </style>
     
+    <style name="VerticalButton" parent="ScoreTable">
+    </style>
+    
     <style name="ScoreTableRow">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
