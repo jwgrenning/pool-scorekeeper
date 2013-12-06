@@ -34,29 +34,18 @@
 
         <LinearLayout
             android:id="@+id/fullscreen_content_controls"
-            style="@style/ButtonBarButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom|center_horizontal"
-            android:background="@color/black_overlay"
-            android:orientation="horizontal"
-            tools:ignore="UselessParent" >
+            style="@style/ButtonBar"
+            android:background="@color/black_overlay" >
 
             <Button
                 android:id="@+id/straight_pool_button"
                 style="@style/ButtonBarButton"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
                 android:onClick="launchStraightPoolScreen"
                 android:text="@string/straight_pool_button" />
 
             <Button
                 android:id="@+id/cowboy_pool_button"
                 style="@style/ButtonBarButton"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
                 android:onClick="launchCowboyPoolScreen"
                 android:text="@string/cowboy_pool_button" />
 

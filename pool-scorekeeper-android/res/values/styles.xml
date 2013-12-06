@@ -20,13 +20,21 @@
         <item name="android:textColor">#FFFFFF</item>
 "</style>
 
-    <style name="ButtonBarButton" />
+    <style name="ButtonBarButton" parent="@style/AppTheme"> 
+		<item name="android:layout_width">0dp</item>        
+		<item name="android:layout_height">wrap_content</item>        
+		<item name="android:layout_weight">1</item>        
+	</style>
 
     <style name="ButtonBar">
         <item name="android:paddingLeft">2dp</item>
         <item name="android:paddingTop">5dp</item>
         <item name="android:paddingRight">2dp</item>
         <item name="android:paddingBottom">0dp</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">bottom|center_horizontal</item>
+        <item name="android:orientation">horizontal</item>
         <item name="android:background">@android:drawable/bottom_bar</item>
     </style>
 

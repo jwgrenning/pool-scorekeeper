@@ -124,40 +124,36 @@
         </TableLayout>
 
         <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom|center_horizontal"
-            android:orientation="horizontal" >
+            style="@style/ButtonBar"
+            android:background="@color/black_overlay" >
 
             <Button
                 android:id="@+id/shotMadeButton"
-                style="@style/VerticalButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                style="@style/ButtonBarButton"
                 android:onClick="shotMadeButtonClicked"
                 android:text="@string/shot_made" />
 
             <Button
                 android:id="@+id/safeButton"
-                style="@style/ScoreTableButton"
+                style="@style/ButtonBarButton"
                 android:onClick="shotMadeButtonClicked"
                 android:text="@string/safe" />
 
             <Button
                 android:id="@+id/missedShotButton"
-                style="@style/ScoreTableButton"
+                style="@style/ButtonBarButton"
                 android:onClick="missedShotButtonClicked"
                 android:text="@string/missed_shot" />
 
             <Button
                 android:id="@+id/foulButton"
-                style="@style/ScoreTableButton"
+                style="@style/ButtonBarButton"
                 android:onClick="foulButtonClicked"
                 android:text="@string/foul" />
 
             <Button
                 android:id="@+id/newRackButton"
-                style="@style/ScoreTableButton"
+                style="@style/ButtonBarButton"
                 android:onClick="newRackButtonClicked"
                 android:text="@string/new_rack" />
         </LinearLayout>
