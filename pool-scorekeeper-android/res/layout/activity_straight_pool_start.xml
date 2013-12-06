@@ -145,28 +145,19 @@
             <Button
                 android:id="@+id/playStraightPoolButton"
                 style="@style/ButtonBarButton"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
                 android:onClick="startStraightPool"
-                android:layout_weight="1"
                 android:text="@string/play_new_game" />
 
             <Button
                 android:id="@+id/resumeStraightPoolButton"
                 style="@style/ButtonBarButton"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
                 android:onClick="resumeStraightPool"
-                android:layout_weight="1"
                 android:text="@string/resume_game" />
 
             <Button
                 android:id="@+id/swapPlayersButton"
                 style="@style/ButtonBarButton"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
                 android:onClick="swapPlayers"
-                android:layout_weight="1"
                 android:text="@string/swap_players" />
 
             </LinearLayout>
