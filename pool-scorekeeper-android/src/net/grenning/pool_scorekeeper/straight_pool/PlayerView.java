@@ -4,6 +4,8 @@ package net.grenning.pool_scorekeeper.straight_pool;
 public interface PlayerView {
 
 	void score(int i);
+	
+//	void longestRun(int count);
 
 	void ballsNeededToWin(int ballsNeededToWin);
 

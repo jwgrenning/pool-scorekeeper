@@ -89,6 +89,74 @@
             </TableRow>
 
             <TableRow
+                android:id="@+id/ConsecutiveBallsRow"
+                style="@style/ScoreTableRow" >
+
+                <TextView
+                    style="@style/ScoreTableTextEntry"
+                    android:text="@string/consecutive_shots_made" />
+
+                <TextView
+                    android:id="@+id/player1ConsecutiveBalls"
+                    style="@style/ScoreTableNumberEntry" />
+
+                <TextView
+                    android:id="@+id/player2ConsecutiveBalls"
+                    style="@style/ScoreTableNumberEntry" />
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/safesRow"
+                style="@style/ScoreTableRow" >
+
+                <TextView
+                    style="@style/ScoreTableTextEntry"
+                    android:text="@string/safes_made" />
+
+                <TextView
+                    android:id="@+id/player1SafesMade"
+                    style="@style/ScoreTableNumberEntry" />
+
+                <TextView
+                    android:id="@+id/player2SafesMade"
+                    style="@style/ScoreTableNumberEntry" />
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/consecutiveSafesRow"
+                style="@style/ScoreTableRow" >
+
+                <TextView
+                    style="@style/ScoreTableTextEntry"
+                    android:text="@string/consecutive_safes_made" />
+
+                <TextView
+                    android:id="@+id/player1ConsecutiveSafesMade"
+                    style="@style/ScoreTableNumberEntry" />
+
+                <TextView
+                    android:id="@+id/player2ConsecutiveSafesMade"
+                    style="@style/ScoreTableNumberEntry" />
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/SafesMissedRow"
+                style="@style/ScoreTableRow" >
+
+                <TextView
+                    style="@style/ScoreTableTextEntry"
+                    android:text="@string/safes_missed" />
+
+                <TextView
+                    android:id="@+id/player1SafesMissed"
+                    style="@style/ScoreTableNumberEntry" />
+
+                <TextView
+                    android:id="@+id/player2SafesMissed"
+                    style="@style/ScoreTableNumberEntry" />
+            </TableRow>
+
+            <TableRow
                 android:id="@+id/consecutiveFoulsRow"
                 style="@style/ScoreTableRow" >
 
@@ -134,20 +202,26 @@
                 android:text="@string/shot_made" />
 
             <Button
-                android:id="@+id/safeButton"
+                android:id="@+id/safeMadeButton"
                 style="@style/ButtonBarButton"
-                android:onClick="shotMadeButtonClicked"
-                android:text="@string/safe" />
+                android:onClick="safeMadeButtonClicked"
+                android:text="@string/safe_made" />
 
             <Button
                 android:id="@+id/missedShotButton"
-                style="@style/ButtonBarButton"
+                style="@style/MissButton"
                 android:onClick="missedShotButtonClicked"
                 android:text="@string/missed_shot" />
 
             <Button
+                android:id="@+id/missedSafeButton"
+                style="@style/MissButton"
+                android:onClick="missedSafeButtonClicked"
+                android:text="@string/safe_missed" />
+
+            <Button
                 android:id="@+id/foulButton"
-                style="@style/ButtonBarButton"
+                style="@style/MissButton"
                 android:onClick="foulButtonClicked"
                 android:text="@string/foul" />
 

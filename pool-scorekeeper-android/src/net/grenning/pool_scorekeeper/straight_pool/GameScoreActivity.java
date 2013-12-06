@@ -293,6 +293,14 @@ public class GameScoreActivity extends Activity {
 		scorer.playerMissesShot();
 	}
 
+	public void safeMadeButtonClicked(View view) {
+		scorer.playerMakesSafe();
+	}
+
+	public void safeMissedShotButtonClicked(View view) {
+		scorer.playerMissesSafe();
+	}
+//safeMadeButtonClicked
 	public void foulButtonClicked(View view) {
 		scorer.foul();
 	}

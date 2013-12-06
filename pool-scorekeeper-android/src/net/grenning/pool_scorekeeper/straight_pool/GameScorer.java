@@ -89,4 +89,14 @@ public class GameScorer {
 		playerScorer[1].restore(saver, 2);
 		updateActivePlayer();
 	}
+
+	public void playerMakesSafe() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void playerMissesSafe() {
+		// TODO Auto-generated method stub
+		
+	}
 }
