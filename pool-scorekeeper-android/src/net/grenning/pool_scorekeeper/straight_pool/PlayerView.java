@@ -5,11 +5,19 @@ public interface PlayerView {
 
 	void score(int i);
 	
-//	void longestRun(int count);
-
 	void ballsNeededToWin(int ballsNeededToWin);
 
 	void rackScore(int player1RackScore);
+
+	void currentRun(int count);
+
+	void longestRun(int count);
+	
+	void safesMade(int count);
+
+	void safesMissed(int count);
+
+	void consecutiveSafes(int count);
 
 	void consecutiveFouls(int consecutiveFouls);
 

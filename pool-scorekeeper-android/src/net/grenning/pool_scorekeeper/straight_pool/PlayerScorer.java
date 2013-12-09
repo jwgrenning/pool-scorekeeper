@@ -5,12 +5,17 @@ import net.grenning.pool_scorekeeper.NameValueSaver;
 public class PlayerScorer {
 
 	PlayerView view;
-	private int ballsNeededToWin = 0;
-	private int score = 0;
-	private int rackScore = 0;
-	private int consecutiveFouls = 0;
-	private int fouls = 0;
+	private int ballsNeededToWin = -1;
+	private int score = -1;
+	private int rackScore = -1;
+	private int consecutiveFouls = -1;
+	private int fouls = -1;
 	private boolean breakShotComing = false;
+	private int currentRun = -1;
+	private int longestRun = -1;
+	private int safesMade = -1;
+	private int safesMissed = -1;
+	private int consecutiveSafes = -1;
 
 	public PlayerScorer(PlayerView view,
 			int ballsNeededToWin) {
@@ -25,6 +30,11 @@ public class PlayerScorer {
 		consecutiveFouls = 0;
 		fouls = 0;
 		breakShotComing = false;
+		currentRun = 0;
+		longestRun = 0;
+		safesMade = 0;
+		safesMissed = 0;
+		consecutiveSafes = 0;
 		updateView(view);
 	}
 
@@ -34,6 +44,11 @@ public class PlayerScorer {
 		view.ballsNeededToWin(ballsNeededToWin);
 		view.consecutiveFouls(consecutiveFouls);
 		view.fouls(fouls);
+		view.currentRun(currentRun);
+		view.longestRun(longestRun);
+		view.safesMade(safesMade);
+		view.safesMissed(safesMissed);
+		view.consecutiveSafes(consecutiveSafes);
 	}
 
 	public void goodShot() {
@@ -42,6 +57,9 @@ public class PlayerScorer {
 		ballsNeededToWin--;
 		breakShotComing = false;
 		consecutiveFouls = 0;
+		currentRun++;
+		if (currentRun > longestRun)
+			longestRun = currentRun;
 		updateView(view);
 	}
 
@@ -67,6 +85,7 @@ public class PlayerScorer {
 	public void missedShot() {
 		breakShotComing = false;
 		consecutiveFouls = 0;
+		currentRun = 0;
 		updateView(view);
 	}
 
@@ -108,6 +127,16 @@ public class PlayerScorer {
 
 	public boolean wins() {
 		return ballsNeededToWin == 0;
+	}
+
+	public void safeMade() {
+		safesMade++;
+		updateView(view);		
+	}
+
+	public void safeMissed() {
+		safesMissed++;
+		updateView(view);		
 	}
 
 }

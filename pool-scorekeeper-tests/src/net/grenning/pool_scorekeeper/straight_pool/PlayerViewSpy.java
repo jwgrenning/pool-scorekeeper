@@ -4,13 +4,18 @@ import net.grenning.pool_scorekeeper.straight_pool.PlayerView;
 
 public class PlayerViewSpy implements PlayerView {
 
-	public int score;
-	public int rackScore = 0;
+	public int score = -1;
+	public int rackScore = -1;
 	public int pointsNeededToWin = 0;
-	public int consecutiveFouls;
-	public int totalFouls;
+	public int consecutiveFouls = -1;;
+	public int totalFouls = -1;
 	public boolean playerIsActive = false;
 	public boolean playerIsInactive = false;
+	public int longestRun = -1;
+	public int currentRun = -1;
+	public int safesMade = -1;;
+	public int safesMissed = -1;
+	public int consecutiveSafes = -1;
 
 	@Override
 	public void score(int i) {
@@ -47,6 +52,32 @@ public class PlayerViewSpy implements PlayerView {
 	public void makeInactive() {
 		playerIsInactive = true;
 		playerIsActive = false;
+	}
+
+	@Override
+	public void longestRun(int count) {
+		longestRun = count;
+		
+	}
+
+	@Override
+	public void currentRun(int count) {
+		currentRun = count;	
+	}
+
+	@Override
+	public void safesMade(int count) {
+		safesMade = count;
+	}
+
+	@Override
+	public void safesMissed(int count) {
+		safesMissed = count;		
+	}
+
+	@Override
+	public void consecutiveSafes(int count) {
+		consecutiveSafes = count;
 	}
 
 }

@@ -2,8 +2,6 @@ package net.grenning.pool_scorekeeper.straight_pool;
 
 
 import static org.junit.Assert.assertEquals;
-import net.grenning.pool_scorekeeper.straight_pool.PlayerScorer;
-import net.grenning.pool_scorekeeper.straight_pool.PlayerViewSpy;
 
 import org.junit.After;
 import org.junit.Before;
@@ -21,26 +19,32 @@ public class PlayerScorerTest extends PlayerScorerBase {
 	@After
 	public void tearDown() throws Exception {
 	}
-
-	@Test
-	public void testCreate() {
+	
+	private void assertStartingNumbers(int ballsNeededToWin) {
 		assertPlayerScore(0);
 		assertRackScore(0);
-		assertBallsNeededToWin(50);
+		assertBallsNeededToWin(ballsNeededToWin);
 		assertConsecutiveFouls(0);
 		assertTotalFouls(0);
+		assertCurrentRun(0);
+		assertLongestRun(0);
+		assertSafesMade(0);
+		assertSafesMissed(0);
+		assertConsecutiveSafes(0);
 	}
 
 	@Test
-	public void testRestart() {
+	public void testCreate() {
+		assertStartingNumbers(50);
+	}
+
+	@Test
+	public void testRestartWithCustomBallsNeededToWin() {
+		int ballsNeededToWin = 100;
 		scorer.missedShot();
 		scorer.foul();
-		scorer.reset(100);
-		assertPlayerScore(0);
-		assertRackScore(0);
-		assertBallsNeededToWin(100);
-		assertConsecutiveFouls(0);
-		assertTotalFouls(0);
+		scorer.reset(ballsNeededToWin);
+		assertStartingNumbers(ballsNeededToWin);
 	}
 
 	@Test
@@ -174,6 +178,55 @@ public class PlayerScorerTest extends PlayerScorerBase {
 		assertEquals(-4, view.score);
 		assertEquals(2, view.consecutiveFouls);
 	}
+	
+	@Test
+	public void testCurrentRun() {
+		runSomeBalls(3);
+		assertCurrentRun(3);
+	}
+	
+	@Test
+	public void testInitialLongestRun() {
+		runSomeBalls(3);
+		assertLongestRun(3);
+	}
+
+	@Test
+	public void testNewLongestRun() {
+		runSomeBalls(3);
+		scorer.missedShot();
+		runSomeBalls(6);
+		assertLongestRun(6);
+	}
+
+	@Test
+	public void testLongestRunPreserverd() {
+		runSomeBalls(3);
+		scorer.missedShot();
+		runSomeBalls(2);
+		assertLongestRun(3);
+	}
+
+	@Test
+	public void testSafeMade() {
+		scorer.safeMade();
+		assertSafesMade(1);
+	}
+
+	@Test
+	public void testSafeMissed() {
+		scorer.safeMissed();
+		assertSafesMissed(1);
+	}
+
+	private void runSomeBalls(int runLength) {
+		for (int i = 0; i < runLength ; i++)
+			scorer.goodShot();
+	}
+	
+	
+	
+	
 	
 	//test for required re-rack after 3 consecutive fouls
 

@@ -30,6 +30,14 @@ public class GameScorerTestBase {
 			game.playerMakesShot();
 	}
 
+	protected void playerMakesSafe() {
+			game.playerMakesSafe();
+	}
+
+	protected void playerMissesSafe() {
+			game.playerMissesSafe();
+	}
+
 	protected void assertPlayerOneActive() {
 		assertTrue(player1Spy.playerIsActive);
 		assertTrue(player2Spy.playerIsInactive);

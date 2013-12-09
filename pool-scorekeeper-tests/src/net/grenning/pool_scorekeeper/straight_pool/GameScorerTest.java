@@ -129,6 +129,32 @@ public class GameScorerTest extends GameScorerTestBase {
 		assertEquals(1, gameViewSpy.gameOverApplause);
 	}
 
+	@Test
+	public void testPlayerMakesSafeIsTotaled() {
+		playerMakesSafe();
+		assertEquals(1, player1Spy.safesMade);
+	}
+
+	@Test
+	public void testPlayerMakesSafeEndsTurn() {
+		assertPlayerOneActive();
+		playerMakesSafe();
+		assertPlayerTwoActive();
+	}
+
+	@Test
+	public void testPlayerMissesSafeIsTotaled() {
+		playerMissesSafe();
+		assertEquals(1, player1Spy.safesMissed);
+	}
+
+	@Test
+	public void testPlayerMissesSafeEndsTurn() {
+		assertPlayerOneActive();
+		playerMissesSafe();
+		assertPlayerTwoActive();
+	}
+
 	/*
 	 * game view, racks, runs, innings multiple balls in one shot 14:1 re rack
 	 * Undo Move rules into the options menu Add settings, default players,

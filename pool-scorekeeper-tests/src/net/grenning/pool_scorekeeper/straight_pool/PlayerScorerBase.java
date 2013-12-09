@@ -32,4 +32,24 @@ public class PlayerScorerBase {
 		assertEquals(score, view.score);
 	}
 
+	protected void assertConsecutiveSafes(int safes) {
+		assertEquals(safes, view.consecutiveSafes);		
+	}
+
+	protected void assertSafesMissed(int safes) {
+		assertEquals(safes, view.safesMissed);		
+	}
+
+	protected void assertSafesMade(int safes) {
+		assertEquals(safes, view.safesMade);		
+	}
+
+	protected void assertLongestRun(int run) {
+		assertEquals(run, view.longestRun);				
+	}
+
+	protected void assertCurrentRun(int run) {
+		assertEquals(run, view.currentRun);				
+	}
+
 }

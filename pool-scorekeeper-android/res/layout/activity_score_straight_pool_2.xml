@@ -89,19 +89,36 @@
             </TableRow>
 
             <TableRow
-                android:id="@+id/ConsecutiveBallsRow"
+                android:id="@+id/CurrentRunRow"
                 style="@style/ScoreTableRow" >
 
                 <TextView
                     style="@style/ScoreTableTextEntry"
-                    android:text="@string/consecutive_shots_made" />
+                    android:text="@string/current_run" />
 
                 <TextView
-                    android:id="@+id/player1ConsecutiveBalls"
+                    android:id="@+id/player1CurrentRun"
                     style="@style/ScoreTableNumberEntry" />
 
                 <TextView
-                    android:id="@+id/player2ConsecutiveBalls"
+                    android:id="@+id/player2CurrentRun"
+                    style="@style/ScoreTableNumberEntry" />
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/LongestRunRow"
+                style="@style/ScoreTableRow" >
+
+                <TextView
+                    style="@style/ScoreTableTextEntry"
+                    android:text="@string/longest_run" />
+
+                <TextView
+                    android:id="@+id/player1LongestRun"
+                    style="@style/ScoreTableNumberEntry" />
+
+                <TextView
+                    android:id="@+id/player2LongestRun"
                     style="@style/ScoreTableNumberEntry" />
             </TableRow>
 
@@ -119,23 +136,6 @@
 
                 <TextView
                     android:id="@+id/player2SafesMade"
-                    style="@style/ScoreTableNumberEntry" />
-            </TableRow>
-
-            <TableRow
-                android:id="@+id/consecutiveSafesRow"
-                style="@style/ScoreTableRow" >
-
-                <TextView
-                    style="@style/ScoreTableTextEntry"
-                    android:text="@string/consecutive_safes_made" />
-
-                <TextView
-                    android:id="@+id/player1ConsecutiveSafesMade"
-                    style="@style/ScoreTableNumberEntry" />
-
-                <TextView
-                    android:id="@+id/player2ConsecutiveSafesMade"
                     style="@style/ScoreTableNumberEntry" />
             </TableRow>
 

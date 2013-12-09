@@ -91,12 +91,12 @@ public class GameScorer {
 	}
 
 	public void playerMakesSafe() {
-		// TODO Auto-generated method stub
-		
+		currentPlayerScorer.safeMade();	
+		switchPlayers();
 	}
 
 	public void playerMissesSafe() {
-		// TODO Auto-generated method stub
-		
+		currentPlayerScorer.safeMissed();	
+		switchPlayers();
 	}
 }

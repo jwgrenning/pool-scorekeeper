@@ -8,7 +8,6 @@ public class DomainTest {
 
 	@Test
 	public void test() {
-		fail("Not yet implemented");
 	}
 
 }

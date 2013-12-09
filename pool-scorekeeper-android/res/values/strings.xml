@@ -21,7 +21,8 @@
     <string name="safes_made">Safes Made</string>
     <string name="safes_missed">Safes Missed</string>
     <string name="consecutive_safes_made">Consecutive Safes</string>
-    <string name="consecutive_shots_made">Longest Run</string>
+    <string name="current_run">Current Run</string>
+    <string name="longest_run">Longest Run</string>
     <string name="consecutive_balls">Consecutive Balls</string>
     <string name="game_total">Current Totals</string>
     <string name="default_player1Name">Minnesota Fats</string>

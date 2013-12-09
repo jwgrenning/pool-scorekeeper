@@ -88,6 +88,30 @@ public class GameScoreActivity extends Activity {
 		public void makeInactive() {
 			setInactiveById(R.id.player1Name);
 		}
+
+		@Override
+		public void currentRun(int count) {
+			setFieldById(R.id.player1CurrentRun, count);			
+		}
+
+		@Override
+		public void longestRun(int count) {
+			setFieldById(R.id.player1LongestRun, count);			
+		}
+
+		@Override
+		public void safesMade(int count) {
+			setFieldById(R.id.player1SafesMade, count);			
+		}
+
+		@Override
+		public void safesMissed(int count) {
+			setFieldById(R.id.player1SafesMissed, count);			
+		}
+
+		@Override
+		public void consecutiveSafes(int count) {
+		}
 	};
 
 	PlayerView player2View = new PlayerView() {
@@ -125,6 +149,30 @@ public class GameScoreActivity extends Activity {
 		@Override
 		public void makeInactive() {
 			setInactiveById(R.id.player2Name);
+		}
+
+		@Override
+		public void currentRun(int count) {
+			setFieldById(R.id.player2CurrentRun, count);			
+		}
+
+		@Override
+		public void longestRun(int count) {
+			setFieldById(R.id.player2LongestRun, count);			
+		}
+
+		@Override
+		public void safesMade(int count) {
+			setFieldById(R.id.player2SafesMade, count);			
+		}
+
+		@Override
+		public void safesMissed(int count) {
+			setFieldById(R.id.player2SafesMissed, count);			
+		}
+
+		@Override
+		public void consecutiveSafes(int count) {
 		}
 	};
 
@@ -297,10 +345,10 @@ public class GameScoreActivity extends Activity {
 		scorer.playerMakesSafe();
 	}
 
-	public void safeMissedShotButtonClicked(View view) {
+	public void missedSafeButtonClicked(View view) {
 		scorer.playerMissesSafe();
 	}
-//safeMadeButtonClicked
+
 	public void foulButtonClicked(View view) {
 		scorer.foul();
 	}
