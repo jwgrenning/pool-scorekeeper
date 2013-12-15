@@ -18,9 +18,9 @@
                 style="@style/ScoreTableRow" >
 
                 <TextView
-                    android:id="@+id/inning"
+                    android:id="@+id/ballsOnTheTable"
                     style="@style/ScoreTableTextEntry"
-                    android:text="@string/default_inning_text" />
+                    android:text="@string/default_balls_left_on_the_table" />
 
                 <EditText
                     android:id="@+id/player1Name"
@@ -35,9 +35,6 @@
                     style="@style/ScoreTableHeading"
                     android:text="@string/default_player2Name" >
                 </EditText>
-                
-                
-                
             </TableRow>
 
             <TableRow
@@ -55,14 +52,7 @@
                 <TextView
                     android:id="@+id/player2BallsThisRack"
                     style="@style/ScoreTableNumberEntry" />
-
-                <TextView
-                    android:id="@+id/ballsOnTheTable"
-                    style="@style/ScoreTableTextEntry"
-                    android:text="@string/default_balls_left_on_the_table" />
-
-                
-                </TableRow>
+            </TableRow>
 
             <TableRow
                 android:id="@+id/totalScoreRow"

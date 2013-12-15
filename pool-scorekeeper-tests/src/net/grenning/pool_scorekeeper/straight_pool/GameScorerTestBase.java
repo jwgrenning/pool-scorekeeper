@@ -12,7 +12,7 @@ public class GameScorerTestBase {
 				player1Spy, 50);
 	PlayerScorer player2Scorer = new PlayerScorer(
 				player2Spy, 50);
-	protected ViewSpy gameViewSpy = new ViewSpy();
+	protected GameViewSpy gameViewSpy = new GameViewSpy();
 	protected GameScorer game = new GameScorer(gameViewSpy,
 				player1Scorer, player2Scorer);
 

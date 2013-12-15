@@ -76,6 +76,20 @@ public class GameScorerTest extends GameScorerTestBase {
 	}
 
 	@Test
+	public void testSpeacialReportingOfOneBallLeft() {
+		playerMakesSomeShots(15);
+		assertEquals(0, gameViewSpy.ballsOnTheTable);
+		assertFalse(gameViewSpy.onlyOneBallLeft);
+		assertTrue(gameViewSpy.reRackSuggested());
+	}
+
+	@Test
+	public void testRejectsShotsWentZeroBallsOnTheTable() {
+		playerMakesSomeShots(14);
+		assertTrue(gameViewSpy.onlyOneBallLeft);
+	}
+
+	@Test
 	public void testGameStartsWithPlayerOneActive() {
 		assertPlayerOneActive();
 	}
@@ -124,9 +138,20 @@ public class GameScorerTest extends GameScorerTestBase {
 	}
 
 	@Test
+	public void testRejectShotsWhenNoBallsLeft() {
+		playerMakesSomeShots(16);
+		assertEquals(15, player1Spy.longestRun);
+		assertEquals(15, player1Spy.rackScore);
+		assertEquals(15, player1Spy.currentRun);
+		assertEquals(15, player1Spy.score);
+	}
+
+	@Test
 	public void testWinningGetsApplause() {
-		playerMakesSomeShots(50);
+		player1Scorer.reset(10);
+		playerMakesSomeShots(10);
 		assertEquals(1, gameViewSpy.gameOverApplause);
+		assertEquals(0, gameViewSpy.winningPlayer);
 	}
 
 	@Test
@@ -154,6 +179,21 @@ public class GameScorerTest extends GameScorerTestBase {
 		playerMissesSafe();
 		assertPlayerTwoActive();
 	}
+	
+	@Test
+	public void testStartsInInningOne() {
+		assertEquals(1, gameViewSpy.inning);
+	}
+	
+	@Test
+	public void testInningsCount() {
+		game.playerMissesShot();
+		assertEquals(1, gameViewSpy.inning);
+		game.playerMissesShot();
+		assertEquals(2, gameViewSpy.inning);
+	}
+	
+	
 
 	/*
 	 * game view, racks, runs, innings multiple balls in one shot 14:1 re rack

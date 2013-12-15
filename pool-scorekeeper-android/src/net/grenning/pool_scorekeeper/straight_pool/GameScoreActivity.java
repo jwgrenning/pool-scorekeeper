@@ -16,6 +16,8 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -30,19 +32,26 @@ public class GameScoreActivity extends Activity {
 	GameView gameView = new GameView() {
 		
 		@Override
+		public void inning(int inning) {
+			String count = Integer.toString(inning);
+			String message = getString(R.string.inning_title) + count;
+			setFieldById(R.id.inning, message);
+		}
+
+		@Override
 		public void suggestRerack() {
 			showRerackSuggestion();
 		}
 		
 		@Override
+		public void oneBallOnTheTable() {
+			String message = getString(R.string.one_ball_left_on_the_table);
+			setFieldById(R.id.ballsOnTheTable, message);
+		}
+		@Override
 		public void ballsOnTheTable(int balls) {
-			String bs = Integer.toString(balls);
-			String message = bs + " " + getString(R.string.balls_left_on_the_table);
-			if (balls == 1)
-				message = " " + getString(R.string.one_ball_left_on_the_table);
-			else if (balls < 1)
-				message = getString(R.string.huh) + " " + message;
-				
+			String count = Integer.toString(balls);
+			String message = count + " " + getString(R.string.balls_left_on_the_table);
 			setFieldById(R.id.ballsOnTheTable, message);
 		}
 
@@ -51,6 +60,18 @@ public class GameScoreActivity extends Activity {
 			MediaPlayer mp = MediaPlayer.create(getApplicationContext(), net.grenning.pool_scorekeeper.R.raw.applause);	
 			mp.start();
 		}
+
+		@Override
+		public void theWinnerIs(int playerNumber) {
+			Animation anim = new AlphaAnimation(0.0f, 1.0f);
+			anim.setDuration(50); //You can manage the time of the blink with this parameter
+			anim.setStartOffset(20);
+			anim.setRepeatMode(Animation.REVERSE);
+			anim.setRepeatCount(Animation.INFINITE);
+//			myText.startAnimation(anim);		// TODO Auto-generated method stub
+			
+		}
+
 	};
 	PlayerView player1View = new PlayerView() {
 

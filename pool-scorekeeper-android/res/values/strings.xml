@@ -56,5 +56,7 @@
     <string name="one_ball_left_on_the_table">1 ball on the table</string>
     <string name="huh">huh?</string>
     <string name="title_activity_cowboy_pool_start">CowboyPoolStartActivity</string>
-
+    <string name="default_inning_text">Inning #1</string>
+    <string name="inning_title">Inning #</string>
+    
 </resources>

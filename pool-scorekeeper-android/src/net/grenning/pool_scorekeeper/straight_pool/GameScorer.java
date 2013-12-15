@@ -13,13 +13,14 @@ public class GameScorer {
 	PlayerScorer currentPlayerScorer;
 	GameView gameView;
 	int ballsOnTheTable = 15;
+	int inning = 1;
 
-	public GameScorer(GameView gameView,
-			PlayerScorer player1Scorer,
+	public GameScorer(GameView gameView, PlayerScorer player1Scorer,
 			PlayerScorer player2Scorer) {
 		super();
 		this.gameView = gameView;
 		gameView.ballsOnTheTable(ballsOnTheTable);
+		gameView.inning(inning);
 
 		playerScorer[0] = player1Scorer;
 		playerScorer[1] = player2Scorer;
@@ -38,10 +39,16 @@ public class GameScorer {
 	}
 
 	public void playerMakesShot() {
-		currentPlayerScorer.goodShot();
-		oneLessBallOnTheTable();
-		if (currentPlayerScorer.wins())
-			gameView.gameOverApplause();
+		if (ballsOnTheTable == 0) {
+			gameView.suggestRerack();
+		} else {
+			currentPlayerScorer.goodShot();
+			oneLessBallOnTheTable();
+			if (currentPlayerScorer.wins()) {
+				gameView.theWinnerIs(currentPlayerNumber);
+				gameView.gameOverApplause();
+			}
+		}
 	}
 
 	public void playerMissesShot() {
@@ -53,11 +60,14 @@ public class GameScorer {
 		currentPlayerNumber ^= 1;
 		currentPlayerScorer = playerScorer[currentPlayerNumber];
 		updateActivePlayer();
+		if (currentPlayerNumber == 0)
+			inning++;
+		gameView.inning(inning);
 	}
 
 	private void updateActivePlayer() {
 		playerScorer[currentPlayerNumber].makeActive();
-		playerScorer[currentPlayerNumber^1].makeInactive();
+		playerScorer[currentPlayerNumber ^ 1].makeInactive();
 	}
 
 	public void newRack() {
@@ -69,7 +79,10 @@ public class GameScorer {
 
 	private void oneLessBallOnTheTable() {
 		ballsOnTheTable--;
-		gameView.ballsOnTheTable(ballsOnTheTable);
+		if (ballsOnTheTable == 1)
+			gameView.oneBallOnTheTable();
+		else
+			gameView.ballsOnTheTable(ballsOnTheTable);
 		if (ballsOnTheTable <= 1)
 			gameView.suggestRerack();
 	}
@@ -82,8 +95,9 @@ public class GameScorer {
 	}
 
 	public void populateFromPersistence(NameValueSaver saver) {
-		currentPlayerNumber = saver.getInt(CURRENT_PLAYER_NUMBER, currentPlayerNumber);
-		ballsOnTheTable = saver.getInt(BALLS_ON_THE_TABLE, 49);
+		currentPlayerNumber = saver.getInt(CURRENT_PLAYER_NUMBER,
+				currentPlayerNumber);
+		ballsOnTheTable = saver.getInt(BALLS_ON_THE_TABLE, 50);
 		gameView.ballsOnTheTable(ballsOnTheTable);
 		playerScorer[0].restore(saver, 1);
 		playerScorer[1].restore(saver, 2);
@@ -91,12 +105,12 @@ public class GameScorer {
 	}
 
 	public void playerMakesSafe() {
-		currentPlayerScorer.safeMade();	
+		currentPlayerScorer.safeMade();
 		switchPlayers();
 	}
 
 	public void playerMissesSafe() {
-		currentPlayerScorer.safeMissed();	
+		currentPlayerScorer.safeMissed();
 		switchPlayers();
 	}
 }
