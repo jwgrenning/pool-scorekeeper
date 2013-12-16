@@ -45,7 +45,7 @@ public class GameScorer {
 			currentPlayerScorer.goodShot();
 			oneLessBallOnTheTable();
 			if (currentPlayerScorer.wins()) {
-				gameView.theWinnerIs(currentPlayerNumber);
+				gameView.theWinnerIs(currentPlayerNumber+1);
 				gameView.gameOverApplause();
 			}
 		}

@@ -63,13 +63,7 @@ public class GameScoreActivity extends Activity {
 
 		@Override
 		public void theWinnerIs(int playerNumber) {
-			Animation anim = new AlphaAnimation(0.0f, 1.0f);
-			anim.setDuration(50); //You can manage the time of the blink with this parameter
-			anim.setStartOffset(20);
-			anim.setRepeatMode(Animation.REVERSE);
-			anim.setRepeatCount(Animation.INFINITE);
-//			myText.startAnimation(anim);		// TODO Auto-generated method stub
-			
+			setBlinkingByPlayerNumber(playerNumber);
 		}
 
 	};
@@ -292,6 +286,21 @@ public class GameScoreActivity extends Activity {
 		} catch (android.content.ActivityNotFoundException ex) {
 		    Toast.makeText(this, "There are no email clients installed.", Toast.LENGTH_SHORT).show();
 		}	}
+
+	protected void setBlinkingByPlayerNumber(int id) {
+		TextView field;
+		if (id == 1) 
+			field = (TextView) findViewById(R.id.player1Name);
+		else
+			field = (TextView) findViewById(R.id.player2Name);
+			
+		Animation anim = new AlphaAnimation(0.0f, 1.0f);
+		anim.setDuration(100); //You can manage the time of the blink with this parameter
+		anim.setStartOffset(20);
+		anim.setRepeatMode(Animation.REVERSE);
+		anim.setRepeatCount(Animation.INFINITE);
+		field.startAnimation(anim);
+	}
 
 	protected void setActiveById(int id) {
 		TextView field = (TextView) findViewById(id);
