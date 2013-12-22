@@ -77,6 +77,7 @@ public class PlayerScorer {
 		score--;
 		ballsNeededToWin++;
 		fouls++;
+		currentRun = 0;
 		if (consecutiveFouls == 3)
 			score -= 15;
 		updateView(view);
@@ -113,6 +114,11 @@ public class PlayerScorer {
 		saver.save("consecutiveFouls", playerNumber, consecutiveFouls);
 		saver.save("fouls", playerNumber, fouls);
 		saver.save("breakShotComing", playerNumber, breakShotComing);
+		saver.save("currentRun", playerNumber, currentRun);
+		saver.save("longestRun", playerNumber, longestRun);
+		saver.save("safesMade", playerNumber, safesMade);
+		saver.save("safesMissed", playerNumber, safesMissed);
+		saver.save("consecutiveSafes", playerNumber, consecutiveSafes);
 	}
 
 	public void restore(NameValueSaver saver, int playerNumber) {
@@ -122,6 +128,11 @@ public class PlayerScorer {
 		consecutiveFouls = saver.getInt("consecutiveFouls" + playerNumber, consecutiveFouls);
 		fouls = saver.getInt("fouls" + playerNumber, fouls);
 		breakShotComing = saver.getBoolean("breakShotComing" + playerNumber, breakShotComing);
+		currentRun = saver.getInt("currentRun" + playerNumber, 0);
+		longestRun = saver.getInt("longestRun"+ playerNumber, 0);
+		safesMade = saver.getInt("safesMade" + playerNumber, 0);
+		safesMissed = saver.getInt("safesMissed" + playerNumber, 0);
+		consecutiveSafes = saver.getInt("consecutiveSafes" + playerNumber, 0);
 		updateView(view);
 	}
 
@@ -131,11 +142,13 @@ public class PlayerScorer {
 
 	public void safeMade() {
 		safesMade++;
+		currentRun = 0;
 		updateView(view);		
 	}
 
 	public void safeMissed() {
 		safesMissed++;
+		currentRun = 0;
 		updateView(view);		
 	}
 

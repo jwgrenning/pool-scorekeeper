@@ -198,6 +198,19 @@ public class GameScoreActivity extends Activity {
 		this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
 		setContentView(R.layout.activity_score_straight_pool_2);
 
+//		setContentView(R.layout.activity_straight_pool_tabbed);
+//		TabHost tabs = (TabHost) findViewById(R.id.straight_pool_tabhost);
+//		tabs.setup();
+//		TabHost.TabSpec spec = tabs.newTabSpec("score");
+//		spec.setContent(R.id.straight_pool_score_tab);
+//		spec.setIndicator("Score");
+//		tabs.addTab(spec);
+//		spec = tabs.newTabSpec("stats");
+//		spec.setContent(R.id.straight_pool_stats);
+//		spec.setIndicator("Stats");
+//		tabs.addTab(spec);
+//		tabs.setCurrentTab(0);
+
 		setPlayerName("player1Name", R.id.player1Name,
 				R.string.default_player1Name);
 		setPlayerName("player2Name", R.id.player2Name,

@@ -43,6 +43,10 @@
             android:name="net.grenning.pool_scorekeeper.cowboy.CowboyPoolStartActivity"
             android:label="@string/title_activity_cowboy_pool_start" >
         </activity>
+        <activity
+            android:name="net.grenning.pool_scorekeeper.StraightPoolMultiViews"
+            android:label="@string/title_activity_straight_pool_multi_views" >
+        </activity>
     </application>
 
 </manifest>

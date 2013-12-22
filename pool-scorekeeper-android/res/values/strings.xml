@@ -58,5 +58,7 @@
     <string name="title_activity_cowboy_pool_start">CowboyPoolStartActivity</string>
     <string name="default_inning_text">Inning #1</string>
     <string name="inning_title">Inning #</string>
-    
+    <string name="title_activity_straight_pool_multi_views">StraightPoolMultiViews</string>
+    <string name="action_settings">Settings</string>
+
 </resources>

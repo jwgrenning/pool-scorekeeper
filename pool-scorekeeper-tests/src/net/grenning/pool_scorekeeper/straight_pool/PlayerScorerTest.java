@@ -186,6 +186,27 @@ public class PlayerScorerTest extends PlayerScorerBase {
 	}
 	
 	@Test
+	public void testCurrentRunResetBySafeMade() {
+		runSomeBalls(3);
+		scorer.safeMade();
+		assertCurrentRun(0);
+	}
+	
+	@Test
+	public void testCurrentRunResetBySafeMissed() {
+		runSomeBalls(3);
+		scorer.safeMissed();
+		assertCurrentRun(0);
+	}
+	
+	@Test
+	public void testCurrentRunResetByFoul() {
+		runSomeBalls(3);
+		scorer.foul();
+		assertCurrentRun(0);
+	}
+	
+	@Test
 	public void testInitialLongestRun() {
 		runSomeBalls(3);
 		assertLongestRun(3);

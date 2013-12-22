@@ -242,4 +242,5 @@
                 android:text="@string/new_rack" />
         </LinearLayout>
 
+        
 </FrameLayout>

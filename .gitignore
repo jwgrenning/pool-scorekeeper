@@ -2,4 +2,6 @@ bin
 .metadata
 *.dat
 .DS_Store
+*.apk
+
 

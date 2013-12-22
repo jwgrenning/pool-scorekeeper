@@ -11,7 +11,12 @@ import static org.mockito.Mockito.*;
 public class GameScorerPersistenceTest extends
 		GameScorerTestBase {
 
+	private static final int INT_FIELDS_PER_PLAYER = 10;
+	private static final int BOOL_FIELDS_PER_PLAYER = 1;
+	private static final int NONSAVED_FIELDS_PER_PLAYER = 1;
+	
 	NameValueSaver saver = mock(NameValueSaver.class);
+	
 	
 	@After
 	public void verifyNoUncheckedInterations() {
@@ -22,10 +27,11 @@ public class GameScorerPersistenceTest extends
 		game.save(saver);
 		verify(saver, times(1)).save("ballsOnTheTable", 15);
 		verify(saver, times(1)).save("currentPlayerNumber", 0);
-		verify(saver, times(5)).save(anyString(), eq(1), anyInt());
-		verify(saver, times(1)).save(anyString(), eq(1), anyBoolean());
-		verify(saver, times(5)).save(anyString(), eq(2), anyInt());
-		verify(saver, times(1)).save(anyString(), eq(2), anyBoolean());
+		verify(saver, times(1)).save("inning", 1);
+		verify(saver, times(INT_FIELDS_PER_PLAYER)).save(anyString(), eq(1), anyInt());
+		verify(saver, times(BOOL_FIELDS_PER_PLAYER)).save(anyString(), eq(1), anyBoolean());
+		verify(saver, times(INT_FIELDS_PER_PLAYER)).save(anyString(), eq(2), anyInt());
+		verify(saver, times(BOOL_FIELDS_PER_PLAYER)).save(anyString(), eq(2), anyBoolean());
 		verifyNoMoreInteractions(saver);		
 	}
 
@@ -33,11 +39,24 @@ public class GameScorerPersistenceTest extends
 	public void testRestore() {
 		when(saver.getInt(eq("ballsOnTheTable"), anyInt())).thenReturn(99);
 		when(saver.getInt(eq("currentPlayerNumber"), anyInt())).thenReturn(0);
+		when(saver.getInt(eq("inning"), eq(1))).thenReturn(13);
 		game.populateFromPersistence(saver);
-		verify(saver, times(2*6)).getInt(anyString(), anyInt());
-		verify(saver, times(2*1)).getBoolean(anyString(), anyBoolean());
+		verify(saver, times(1)).getInt("currentPlayerNumber", 0);
+		verify(saver, times(1)).getInt("ballsOnTheTable", 15);
+		verify(saver, times(1)).getInt("inning", 1);
+		verify(saver, times(2*INT_FIELDS_PER_PLAYER+3)).getInt(anyString(), anyInt());
+		verify(saver, times(2*BOOL_FIELDS_PER_PLAYER)).getBoolean(anyString(), anyBoolean());
 		assertPlayerOneActive();
 		assertEquals(99, gameViewSpy.ballsOnTheTable);
+		assertEquals(13, gameViewSpy.inning);
+		int totalFieldsPerPlager = INT_FIELDS_PER_PLAYER + BOOL_FIELDS_PER_PLAYER + NONSAVED_FIELDS_PER_PLAYER;
+		assertEquals(totalFieldsPerPlager, PlayerScorer.class.getDeclaredFields().length);
+	}
+
+	@Test
+	public void testAllFieldsAccoutedFor() {
+		int totalFieldsPerPlager = INT_FIELDS_PER_PLAYER + BOOL_FIELDS_PER_PLAYER + NONSAVED_FIELDS_PER_PLAYER;
+		assertEquals(totalFieldsPerPlager, PlayerScorer.class.getDeclaredFields().length);
 	}
 
 	/*
