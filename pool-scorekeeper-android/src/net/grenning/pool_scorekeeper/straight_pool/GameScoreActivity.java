@@ -289,11 +289,18 @@ public class GameScoreActivity extends Activity {
 	}
 
 	private void sendEmailSummary() {
+		String player1Name  = ((TextView)findViewById(R.id.player1Name)).getText().toString();
+		String player2Name  = ((TextView)findViewById(R.id.player2Name)).getText().toString();
+		
+		SummaryEmail email = new SummaryEmail(scorer, player1Name, player2Name);
+		String subject = email.subject(this);
+		String body = email.body(this);
+		
 		Intent i = new Intent(Intent.ACTION_SEND);
 		i.setType("message/rfc822");
-		i.putExtra(Intent.EXTRA_EMAIL  , new String[]{"James"});
-		i.putExtra(Intent.EXTRA_SUBJECT, "game summary subject");
-		i.putExtra(Intent.EXTRA_TEXT   , "body of game summary");
+//		i.putExtra(Intent.EXTRA_EMAIL  , new String[]{"James"});
+		i.putExtra(Intent.EXTRA_SUBJECT, subject);
+		i.putExtra(Intent.EXTRA_TEXT   , body);
 		try {
 		    startActivity(Intent.createChooser(i, "Send mail..."));
 		} catch (android.content.ActivityNotFoundException ex) {

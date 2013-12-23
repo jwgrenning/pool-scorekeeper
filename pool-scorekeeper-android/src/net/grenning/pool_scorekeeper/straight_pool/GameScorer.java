@@ -119,4 +119,11 @@ public class GameScorer {
 		currentPlayerScorer.safeMissed();
 		switchPlayers();
 	}
+
+	public void reportSummary(GameView gameView, PlayerView player1, PlayerView player2) {
+		gameView.ballsOnTheTable(ballsOnTheTable);
+		gameView.inning(inning);
+		playerScorer[0].reportSummary(player1);
+		playerScorer[1].reportSummary(player2);
+	}
 }

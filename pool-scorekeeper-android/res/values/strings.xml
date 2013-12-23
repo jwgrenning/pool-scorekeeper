@@ -17,6 +17,7 @@
     <string name="safe_missed">Safe Missed</string>
     <string name="missed_shot">Shot Missed</string>
     <string name="foul">Foul</string>
+    <string name="total_points">Total Points</string>
     <string name="current_rack_total">Current Rack</string>
     <string name="safes_made">Safes Made</string>
     <string name="safes_missed">Safes Missed</string>

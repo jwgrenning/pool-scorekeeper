@@ -152,4 +152,8 @@ public class PlayerScorer {
 		updateView(view);		
 	}
 
+	public void reportSummary(PlayerView player) {
+		updateView(player);
+	}
+
 }
