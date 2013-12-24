@@ -16,6 +16,7 @@ public class PlayerViewSpy implements PlayerView {
 	public int safesMade = -1;;
 	public int safesMissed = -1;
 	public int consecutiveSafes = -1;
+	public String inningRecord = "---";
 
 	@Override
 	public void score(int i) {
@@ -78,6 +79,11 @@ public class PlayerViewSpy implements PlayerView {
 	@Override
 	public void consecutiveSafes(int count) {
 		consecutiveSafes = count;
+	}
+
+	@Override
+	public void inningRecord(String record) {
+		inningRecord  = record;
 	}
 
 }

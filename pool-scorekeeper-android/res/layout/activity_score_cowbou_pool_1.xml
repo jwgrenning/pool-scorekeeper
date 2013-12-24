@@ -214,12 +214,6 @@
                 android:text="@string/missed_shot" />
 
             <Button
-                android:id="@+id/missedSafeButton"
-                style="@style/MissButton"
-                android:onClick="missedSafeButtonClicked"
-                android:text="@string/safe_missed" />
-
-            <Button
                 android:id="@+id/foulButton"
                 style="@style/MissButton"
                 android:onClick="foulButtonClicked"

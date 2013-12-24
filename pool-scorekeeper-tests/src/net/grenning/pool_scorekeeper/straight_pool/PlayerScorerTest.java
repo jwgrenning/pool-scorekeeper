@@ -245,6 +245,39 @@ public class PlayerScorerTest extends PlayerScorerBase {
 			scorer.goodShot();
 	}
 	
+	@Test
+	public void testInningsRecordTwoDigitsTrailingSpaceMeansNoFoulOrSafe() {
+		scorer.missedShot();
+		assertEquals("  0 ", view.inningRecord);
+	}
+	
+	@Test
+	public void testInningsRecordTwoDigitsTrailingFMeansFoul() {
+		scorer.foul();
+		assertEquals("  0F", view.inningRecord);
+	}
+	
+	@Test
+	public void testInningsRecordTwoDigitsTrailingSMeansSafeMade() {
+		scorer.safeMade();
+		assertEquals("  0S", view.inningRecord);
+	}
+	
+	@Test
+	public void testInningsRecordTwoDigitsTrailingSMeansSafeMissed() {
+		scorer.safeMissed();
+		assertEquals("  0s", view.inningRecord);
+	}
+	
+	@Test
+	public void testInningsRecordSeveralInnings() {
+		runSomeBalls(10);
+		scorer.missedShot();
+		runSomeBalls(2);
+		scorer.safeMade();
+		scorer.safeMissed();
+		assertEquals(" 10 "+"  2S"+"  0s" , view.inningRecord);
+	}
 	
 	
 	

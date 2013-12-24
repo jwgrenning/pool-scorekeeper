@@ -24,6 +24,7 @@ public class PlayerScorerPersistenceTest extends PlayerScorerBase {
 
 	private static final int INT_FIELDS_PER_PLAYER = 10;
 	private static final int BOOL_FIELDS_PER_PLAYER = 1;
+	private static final int STRING_FIELDS_PER_PLAYER = 1;
 	private static final int NONSAVED_FIELDS_PER_PLAYER = 1;
 
 	Writer testWriter;
@@ -55,6 +56,7 @@ public class PlayerScorerPersistenceTest extends PlayerScorerBase {
 		verify(saver, times(1)).save("safesMade", 1, 0);
 		verify(saver, times(1)).save("safesMissed", 1, 0);
 		verify(saver, times(1)).save("consecutiveSafes", 1, 0);
+		verify(saver, times(1)).save("inningRecord", 1, "");
 		verifyNoMoreInteractions(saver);
 		
 
@@ -64,6 +66,7 @@ public class PlayerScorerPersistenceTest extends PlayerScorerBase {
 		scorer.save(saver, 1);
 		verify(saver, times(INT_FIELDS_PER_PLAYER)).save(anyString(), anyInt(), anyInt());
 		verify(saver, times(BOOL_FIELDS_PER_PLAYER)).save(anyString(), anyInt(), anyBoolean());
+		verify(saver, times(STRING_FIELDS_PER_PLAYER)).save(anyString(), anyInt(), anyString());
 		verifyNoMoreInteractions(saver);
 	}
 
@@ -80,6 +83,7 @@ public class PlayerScorerPersistenceTest extends PlayerScorerBase {
 		when(saver.getInt(eq("safesMade" + 1), anyInt())).thenReturn(17);
 		when(saver.getInt(eq("safesMissed" + 1), anyInt())).thenReturn(42);
 		when(saver.getInt(eq("consecutiveSafes" + 1), anyInt())).thenReturn(3);
+		when(saver.getString(eq("inningRecord" + 1), anyInt(), anyString())).thenReturn("inning report");
 
 		scorer.restore(saver, 1);
 		
@@ -93,11 +97,12 @@ public class PlayerScorerPersistenceTest extends PlayerScorerBase {
 		assertSafesMade(17);
 		assertSafesMissed(42);
 		assertConsecutiveSafes(3);
+		assertInningReport("inning report");
 	}
 
 	@Test
 	public void testAllFieldsAccoutedFor() {
-		int totalFieldsPerPlager = INT_FIELDS_PER_PLAYER + BOOL_FIELDS_PER_PLAYER + NONSAVED_FIELDS_PER_PLAYER;
+		int totalFieldsPerPlager = INT_FIELDS_PER_PLAYER + BOOL_FIELDS_PER_PLAYER + STRING_FIELDS_PER_PLAYER + NONSAVED_FIELDS_PER_PLAYER;
 		assertEquals(totalFieldsPerPlager, PlayerScorer.class.getDeclaredFields().length);
 	}
 

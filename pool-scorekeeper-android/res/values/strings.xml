@@ -13,8 +13,7 @@
     <string name="straight_pool_rules_button">Straight Pool Rules</string>
     <string name="straight_pool_default_points_to_win">50</string>
     <string name="shot_made">Shot Made</string>
-    <string name="safe_made">Safe Made</string>
-    <string name="safe_missed">Safe Missed</string>
+    <string name="safe_made">Safe</string>
     <string name="missed_shot">Shot Missed</string>
     <string name="foul">Foul</string>
     <string name="total_points">Total Points</string>
@@ -61,5 +60,6 @@
     <string name="inning_title">Inning #</string>
     <string name="title_activity_straight_pool_multi_views">StraightPoolMultiViews</string>
     <string name="action_settings">Settings</string>
-
+    <string name="blank">   </string>
+    
 </resources>

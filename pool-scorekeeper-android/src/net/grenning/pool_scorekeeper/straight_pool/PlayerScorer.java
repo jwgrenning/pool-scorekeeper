@@ -4,7 +4,7 @@ import net.grenning.pool_scorekeeper.NameValueSaver;
 
 public class PlayerScorer {
 
-	PlayerView view;
+	private PlayerView view;
 	private int ballsNeededToWin = -1;
 	private int score = -1;
 	private int rackScore = -1;
@@ -16,6 +16,7 @@ public class PlayerScorer {
 	private int safesMade = -1;
 	private int safesMissed = -1;
 	private int consecutiveSafes = -1;
+	private String inningRecord = "";
 
 	public PlayerScorer(PlayerView view,
 			int ballsNeededToWin) {
@@ -35,6 +36,7 @@ public class PlayerScorer {
 		safesMade = 0;
 		safesMissed = 0;
 		consecutiveSafes = 0;
+		inningRecord = "";
 		updateView(view);
 	}
 
@@ -49,6 +51,7 @@ public class PlayerScorer {
 		view.safesMade(safesMade);
 		view.safesMissed(safesMissed);
 		view.consecutiveSafes(consecutiveSafes);
+		view.inningRecord(inningRecord);
 	}
 
 	public void goodShot() {
@@ -64,6 +67,7 @@ public class PlayerScorer {
 	}
 
 	public void foul() {
+		updateInningRecord("F");
 		if (breakShotComing) {
 			breakShotComing = false;
 			ballsNeededToWin++;
@@ -84,10 +88,15 @@ public class PlayerScorer {
 	}
 
 	public void missedShot() {
+		updateInningRecord(" ");
 		breakShotComing = false;
 		consecutiveFouls = 0;
 		currentRun = 0;
 		updateView(view);
+	}
+
+	private void updateInningRecord(String terminator) {
+		inningRecord += String.format(" %2d%s", currentRun, terminator);
 	}
 
 	public void yourBreak() {
@@ -119,6 +128,7 @@ public class PlayerScorer {
 		saver.save("safesMade", playerNumber, safesMade);
 		saver.save("safesMissed", playerNumber, safesMissed);
 		saver.save("consecutiveSafes", playerNumber, consecutiveSafes);
+		saver.save("inningRecord", playerNumber, inningRecord);
 	}
 
 	public void restore(NameValueSaver saver, int playerNumber) {
@@ -133,6 +143,7 @@ public class PlayerScorer {
 		safesMade = saver.getInt("safesMade" + playerNumber, 0);
 		safesMissed = saver.getInt("safesMissed" + playerNumber, 0);
 		consecutiveSafes = saver.getInt("consecutiveSafes" + playerNumber, 0);
+		inningRecord = saver.getString("inningRecord" + playerNumber, "");
 		updateView(view);
 	}
 
@@ -141,12 +152,14 @@ public class PlayerScorer {
 	}
 
 	public void safeMade() {
+		updateInningRecord("S");
 		safesMade++;
 		currentRun = 0;
 		updateView(view);		
 	}
 
 	public void safeMissed() {
+		updateInningRecord("s");
 		safesMissed++;
 		currentRun = 0;
 		updateView(view);		

@@ -10,6 +10,7 @@ import android.content.pm.ActivityInfo;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Vibrator;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.Menu;
@@ -28,6 +29,8 @@ public class GameScoreActivity extends Activity {
 	PlayerScorer player2Scorer;
 	SharedPreferences prefs;
 	private NameValueSaver gameSaver;
+    private Vibrator vibrator;
+
 	
 	GameView gameView = new GameView() {
 		
@@ -121,11 +124,14 @@ public class GameScoreActivity extends Activity {
 
 		@Override
 		public void safesMissed(int count) {
-			setFieldById(R.id.player1SafesMissed, count);			
 		}
 
 		@Override
 		public void consecutiveSafes(int count) {
+		}
+
+		@Override
+		public void inningRecord(String string) {
 		}
 	};
 
@@ -183,11 +189,14 @@ public class GameScoreActivity extends Activity {
 
 		@Override
 		public void safesMissed(int count) {
-			setFieldById(R.id.player2SafesMissed, count);			
 		}
 
 		@Override
 		public void consecutiveSafes(int count) {
+		}
+
+		@Override
+		public void inningRecord(String string) {
 		}
 	};
 
@@ -195,6 +204,7 @@ public class GameScoreActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		Log.d(this.getClass().getName(), ".onCreate()");
 		super.onCreate(savedInstanceState);
+		vibrator = (Vibrator) this.getSystemService(VIBRATOR_SERVICE);
 		this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
 		setContentView(R.layout.activity_score_straight_pool_2);
 
@@ -384,26 +394,36 @@ public class GameScoreActivity extends Activity {
 	}
 
 	public void shotMadeButtonClicked(View view) {
+		vibrate();
 		scorer.playerMakesShot();
 	}
 
+	private void vibrate() {
+		vibrator.vibrate(100);
+	}
+
 	public void missedShotButtonClicked(View view) {
+		vibrate();
 		scorer.playerMissesShot();
 	}
 
 	public void safeMadeButtonClicked(View view) {
+		vibrate();
 		scorer.playerMakesSafe();
 	}
 
 	public void missedSafeButtonClicked(View view) {
+		vibrate();
 		scorer.playerMissesSafe();
 	}
 
 	public void foulButtonClicked(View view) {
+		vibrate();
 		scorer.foul();
 	}
 
 	public void newRackButtonClicked(View view) {
+		vibrate();
 		scorer.newRack();
 	}
 

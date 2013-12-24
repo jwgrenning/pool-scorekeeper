@@ -54,6 +54,7 @@ public class SummaryEmail {
 		public int consecutiveSafes = -1;
 		public int consecutiveFouls = -1;
 		public int ballsNeededToWin = -1;
+		public String inningRecord = "---";
 
 		@Override
 		public void score(int score) {
@@ -110,6 +111,11 @@ public class SummaryEmail {
 		public void ballsNeededToWin(int count) {
 			ballsNeededToWin = count;
 		}
+
+		@Override
+		public void inningRecord(String record) {
+			inningRecord = record;
+		}
 	};
 	
 	GamesStats game = new GamesStats();
@@ -127,11 +133,11 @@ public class SummaryEmail {
 	}
 
 	String subject(Activity activity) {
-		String subject = String.format(" %s vs %s ... ", player1Name, player2Name);
-		if (game.isOver)
-			subject += "we have a winner"; 
-		else
-			subject += "in progesss"; 
+		String subject = String.format("%s vs %s ", player1Name, player2Name);
+//		if (game.isOver)
+//			subject += "we have a winner"; 
+//		else
+//			subject += "in progess"; 
 					
 		return subject;
 	}
@@ -162,11 +168,13 @@ public class SummaryEmail {
 		body += String.format(playerCountFormat, activity.getResources().getString(R.string.total_points), player.score);
 		body += String.format(playerCountFormat, activity.getResources().getString(R.string.points_to_win), player.ballsNeededToWin);
 		body += String.format(playerCountFormat, activity.getResources().getString(R.string.longest_run), player.longestRun);
-		body += String.format(playerCountFormat, activity.getResources().getString(R.string.safe_missed), player.safesMissed);
 		body += String.format(playerCountFormat, activity.getResources().getString(R.string.safe_made), player.safesMade);
 		body += String.format(playerCountFormat, activity.getResources().getString(R.string.total_fouls), player.totalFouls);
 		body += String.format(playerCountFormat, activity.getResources().getString(R.string.consecutive_safes_made), player.consecutiveSafes);
 		body += String.format(playerCountFormat, activity.getResources().getString(R.string.consecutive_fouls), player.consecutiveFouls);
+
+		
+		body +=  activity.getResources().getString(R.string.inning_title) + player.inningRecord;
 		
 		return body;
 		

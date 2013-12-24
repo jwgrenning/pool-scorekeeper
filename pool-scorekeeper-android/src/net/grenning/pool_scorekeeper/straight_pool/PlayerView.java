@@ -27,4 +27,6 @@ public interface PlayerView {
 
 	void makeInactive();
 
+	void inningRecord(String string);
+
 }

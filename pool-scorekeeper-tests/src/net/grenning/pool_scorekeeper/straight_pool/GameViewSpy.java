@@ -10,6 +10,7 @@ public class GameViewSpy implements GameView {
 	public int gameOverApplause = 0;
 	public int inning = -1;
 	public int winningPlayer = -1;
+	public String inningRecord = "";
 
 	@Override
 	public void inning(int inning) {

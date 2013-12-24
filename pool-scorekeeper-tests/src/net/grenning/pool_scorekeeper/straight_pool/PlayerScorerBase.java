@@ -1,9 +1,6 @@
 package net.grenning.pool_scorekeeper.straight_pool;
 
 import static org.junit.Assert.assertEquals;
-import static org.mockito.Matchers.anyInt;
-import static org.mockito.Matchers.eq;
-import static org.mockito.Mockito.when;
 import net.grenning.pool_scorekeeper.straight_pool.PlayerScorer;
 
 public class PlayerScorerBase {
@@ -37,6 +34,10 @@ public class PlayerScorerBase {
 
 	protected void assertConsecutiveSafes(int safes) {
 		assertEquals(safes, view.consecutiveSafes);		
+	}
+
+	protected void assertInningReport(String report) {
+		assertEquals(report, view.inningRecord);		
 	}
 
 	protected void assertSafesMissed(int safes) {

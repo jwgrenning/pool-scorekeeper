@@ -197,8 +197,7 @@ public class GameScorerTest extends GameScorerTestBase {
 		assertEquals(1, gameViewSpy.inning);
 		game.playerMissesShot();
 		assertEquals(2, gameViewSpy.inning);
-	}
-	
+	}	
 	
 
 	/*

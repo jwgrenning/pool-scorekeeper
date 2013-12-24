@@ -1,246 +1,232 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-	xmlns:tools="http://schemas.android.com/tools"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/pool_table_felt"
     android:orientation="vertical"
     tools:context=".ScoreStraightPoolActivity" >
 
-        <TableLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" 
-            android:layout_gravity="top|center_horizontal" 
-            >
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top|center_horizontal" >
 
-            <TableRow
-                android:id="@+id/HeaderRow"
-                style="@style/ScoreTableRow" >
+        <TableRow
+            android:id="@+id/HeaderRow"
+            style="@style/ScoreTableRow" >
 
-                <TextView
-                    android:id="@+id/inning"
-                    style="@style/ScoreTableTextEntry"
-                    android:text="@string/default_inning_text" />
+            <TextView
+                android:id="@+id/inning"
+                style="@style/ScoreTableTextEntry"
+                android:text="@string/default_inning_text" />
 
-                <EditText
-                    android:id="@+id/player1Name"
-                    style="@style/ScoreTableHeading"
-                    android:text="@string/default_player1Name" >
+            <EditText
+                android:id="@+id/player1Name"
+                style="@style/ScoreTableHeading"
+                android:text="@string/default_player1Name" >
 
-                    <requestFocus />
-                </EditText>
+                <requestFocus />
+            </EditText>
 
-                <EditText
-                    android:id="@+id/player2Name"
-                    style="@style/ScoreTableHeading"
-                    android:text="@string/default_player2Name" >
-                </EditText>
-                
-                
-                
-            </TableRow>
+            <EditText
+                android:id="@+id/player2Name"
+                style="@style/ScoreTableHeading"
+                android:text="@string/default_player2Name" >
+            </EditText>
 
-            <TableRow
-                android:id="@+id/currentRackRow"
-                style="@style/ScoreTableRow" >
-
-                <TextView
-                    style="@style/ScoreTableTextEntry"
-                    android:text="@string/current_rack_total" />
-
-                <TextView
-                    android:id="@+id/player1BallsThisRack"
-                    style="@style/ScoreTableNumberEntry" />
-
-                <TextView
-                    android:id="@+id/player2BallsThisRack"
-                    style="@style/ScoreTableNumberEntry" />
-
-                <TextView
-                    android:id="@+id/ballsOnTheTable"
-                    style="@style/ScoreTableTextEntry"
-                    android:text="@string/default_balls_left_on_the_table" />
-
-                
-                </TableRow>
-
-            <TableRow
-                android:id="@+id/totalScoreRow"
-                style="@style/ScoreTableRow" >
-
-                <TextView
-                    style="@style/ScoreTableTextEntry"
-                    android:text="@string/game_total" />
-
-                <TextView
-                    android:id="@+id/player1Score"
-                    style="@style/ScoreTableNumberEntry" />
-
-                <TextView
-                    android:id="@+id/player2Score"
-                    style="@style/ScoreTableNumberEntry" />
-            </TableRow>
-
-            <TableRow
-                android:id="@+id/pointsToWinRow"
-                style="@style/ScoreTableRow" >
-
-                <TextView
-                    style="@style/ScoreTableTextEntry"
-                    android:text="@string/points_needed" />
-
-                <TextView
-                    android:id="@+id/player1PointsToWin"
-                    style="@style/ScoreTableNumberEntry" />
-
-                <TextView
-                    android:id="@+id/player2PointsToWin"
-                    style="@style/ScoreTableNumberEntry" />
-            </TableRow>
-
-            <TableRow
-                android:id="@+id/CurrentRunRow"
-                style="@style/ScoreTableRow" >
-
-                <TextView
-                    style="@style/ScoreTableTextEntry"
-                    android:text="@string/current_run" />
-
-                <TextView
-                    android:id="@+id/player1CurrentRun"
-                    style="@style/ScoreTableNumberEntry" />
-
-                <TextView
-                    android:id="@+id/player2CurrentRun"
-                    style="@style/ScoreTableNumberEntry" />
-            </TableRow>
-
-            <TableRow
-                android:id="@+id/LongestRunRow"
-                style="@style/ScoreTableRow" >
-
-                <TextView
-                    style="@style/ScoreTableTextEntry"
-                    android:text="@string/longest_run" />
-
-                <TextView
-                    android:id="@+id/player1LongestRun"
-                    style="@style/ScoreTableNumberEntry" />
-
-                <TextView
-                    android:id="@+id/player2LongestRun"
-                    style="@style/ScoreTableNumberEntry" />
-            </TableRow>
-
-            <TableRow
-                android:id="@+id/safesRow"
-                style="@style/ScoreTableRow" >
-
-                <TextView
-                    style="@style/ScoreTableTextEntry"
-                    android:text="@string/safes_made" />
-
-                <TextView
-                    android:id="@+id/player1SafesMade"
-                    style="@style/ScoreTableNumberEntry" />
-
-                <TextView
-                    android:id="@+id/player2SafesMade"
-                    style="@style/ScoreTableNumberEntry" />
-            </TableRow>
-
-            <TableRow
-                android:id="@+id/SafesMissedRow"
-                style="@style/ScoreTableRow" >
-
-                <TextView
-                    style="@style/ScoreTableTextEntry"
-                    android:text="@string/safes_missed" />
-
-                <TextView
-                    android:id="@+id/player1SafesMissed"
-                    style="@style/ScoreTableNumberEntry" />
-
-                <TextView
-                    android:id="@+id/player2SafesMissed"
-                    style="@style/ScoreTableNumberEntry" />
-            </TableRow>
-
-            <TableRow
-                android:id="@+id/consecutiveFoulsRow"
-                style="@style/ScoreTableRow" >
-
-                <TextView
-                    style="@style/ScoreTableTextEntry"
-                    android:text="@string/consecutive_fouls" />
-
-                <TextView
-                    android:id="@+id/player1ConsecutiveFouls"
-                    style="@style/ScoreTableNumberEntry" />
-
-                <TextView
-                    android:id="@+id/player2ConsecutiveFouls"
-                    style="@style/ScoreTableNumberEntry" />
-            </TableRow>
-
-            <TableRow
-                android:id="@+id/totalFoulsRow"
-                style="@style/ScoreTableRow" >
-
-                <TextView
-                    style="@style/ScoreTableTextEntry"
-                    android:text="@string/total_fouls" />
-
-                <TextView
-                    android:id="@+id/player1TotalFouls"
-                    style="@style/ScoreTableNumberEntry" />
-
-                <TextView
-                    android:id="@+id/player2TotalFouls"
-                    style="@style/ScoreTableNumberEntry" />
-            </TableRow>
-        </TableLayout>
-
-        <LinearLayout
-            style="@style/ButtonBar"
-            android:background="@color/black_overlay" >
-
-            <Button
-                android:id="@+id/shotMadeButton"
-                style="@style/ButtonBarButton"
-                android:onClick="shotMadeButtonClicked"
-                android:text="@string/shot_made" />
-
-            <Button
-                android:id="@+id/safeMadeButton"
-                style="@style/ButtonBarButton"
-                android:onClick="safeMadeButtonClicked"
-                android:text="@string/safe_made" />
-
-            <Button
-                android:id="@+id/missedShotButton"
-                style="@style/MissButton"
-                android:onClick="missedShotButtonClicked"
-                android:text="@string/missed_shot" />
-
-            <Button
-                android:id="@+id/missedSafeButton"
-                style="@style/MissButton"
-                android:onClick="missedSafeButtonClicked"
-                android:text="@string/safe_missed" />
-
-            <Button
-                android:id="@+id/foulButton"
-                style="@style/MissButton"
-                android:onClick="foulButtonClicked"
-                android:text="@string/foul" />
+            <TextView
+                android:id="@+id/blank"
+                style="@style/ScoreTableTextEntry"
+                android:text="@string/blank" />
 
             <Button
                 android:id="@+id/newRackButton"
-                style="@style/ButtonBarButton"
+                style="@style/MissButton"
                 android:onClick="newRackButtonClicked"
                 android:text="@string/new_rack" />
-        </LinearLayout>
+        </TableRow>
 
+        <TableRow
+            android:id="@+id/currentRackRow"
+            style="@style/ScoreTableRow" >
+
+            <TextView
+                style="@style/ScoreTableTextEntry"
+                android:text="@string/current_rack_total" />
+
+            <TextView
+                android:id="@+id/player1BallsThisRack"
+                style="@style/ScoreTableNumberEntry" />
+
+            <TextView
+                android:id="@+id/player2BallsThisRack"
+                style="@style/ScoreTableNumberEntry" />
+
+            <TextView
+                android:id="@+id/ballsOnTheTable"
+                style="@style/ScoreTableTextEntry"
+                android:text="@string/default_balls_left_on_the_table" />
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/totalScoreRow"
+            style="@style/ScoreTableRow" >
+
+            <TextView
+                style="@style/ScoreTableTextEntry"
+                android:text="@string/game_total" />
+
+            <TextView
+                android:id="@+id/player1Score"
+                style="@style/ScoreTableNumberEntry" />
+
+            <TextView
+                android:id="@+id/player2Score"
+                style="@style/ScoreTableNumberEntry" />
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/pointsToWinRow"
+            style="@style/ScoreTableRow" >
+
+            <TextView
+                style="@style/ScoreTableTextEntry"
+                android:text="@string/points_needed" />
+
+            <TextView
+                android:id="@+id/player1PointsToWin"
+                style="@style/ScoreTableNumberEntry" />
+
+            <TextView
+                android:id="@+id/player2PointsToWin"
+                style="@style/ScoreTableNumberEntry" />
+        </TableRow>
         
+        <TableRow
+            android:id="@+id/blankrow1"
+            style="@style/ScoreTableRow" >
+            
+            <TextView
+                android:id="@+id/blank2"
+                style="@style/ScoreTableTextEntry"
+                android:text="@string/blank" />
+
+        </TableRow>
+              
+        <TableRow
+            android:id="@+id/CurrentRunRow"
+            style="@style/ScoreTableRow" >
+
+            <TextView
+                style="@style/ScoreTableTextEntry"
+                android:text="@string/current_run" />
+
+            <TextView
+                android:id="@+id/player1CurrentRun"
+                style="@style/ScoreTableNumberEntry" />
+
+            <TextView
+                android:id="@+id/player2CurrentRun"
+                style="@style/ScoreTableNumberEntry" />
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/LongestRunRow"
+            style="@style/ScoreTableRow" >
+
+            <TextView
+                style="@style/ScoreTableTextEntry"
+                android:text="@string/longest_run" />
+
+            <TextView
+                android:id="@+id/player1LongestRun"
+                style="@style/ScoreTableNumberEntry" />
+
+            <TextView
+                android:id="@+id/player2LongestRun"
+                style="@style/ScoreTableNumberEntry" />
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/safesRow"
+            style="@style/ScoreTableRow" >
+
+            <TextView
+                style="@style/ScoreTableTextEntry"
+                android:text="@string/safes_made" />
+
+            <TextView
+                android:id="@+id/player1SafesMade"
+                style="@style/ScoreTableNumberEntry" />
+
+            <TextView
+                android:id="@+id/player2SafesMade"
+                style="@style/ScoreTableNumberEntry" />
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/consecutiveFoulsRow"
+            style="@style/ScoreTableRow" >
+
+            <TextView
+                style="@style/ScoreTableTextEntry"
+                android:text="@string/consecutive_fouls" />
+
+            <TextView
+                android:id="@+id/player1ConsecutiveFouls"
+                style="@style/ScoreTableNumberEntry" />
+
+            <TextView
+                android:id="@+id/player2ConsecutiveFouls"
+                style="@style/ScoreTableNumberEntry" />
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/totalFoulsRow"
+            style="@style/ScoreTableRow" >
+
+            <TextView
+                style="@style/ScoreTableTextEntry"
+                android:text="@string/total_fouls" />
+
+            <TextView
+                android:id="@+id/player1TotalFouls"
+                style="@style/ScoreTableNumberEntry" />
+
+            <TextView
+                android:id="@+id/player2TotalFouls"
+                style="@style/ScoreTableNumberEntry" />
+        </TableRow>
+    </TableLayout>
+
+    <LinearLayout
+        style="@style/ButtonBar"
+        android:background="@color/black_overlay" >
+
+        <Button
+            android:id="@+id/shotMadeButton"
+            style="@style/ButtonBarButton"
+            android:onClick="shotMadeButtonClicked"
+            android:text="@string/shot_made" />
+
+        <Button
+            android:id="@+id/missedShotButton"
+            style="@style/MissButton"
+            android:onClick="missedShotButtonClicked"
+            android:text="@string/missed_shot" />
+
+        <Button
+            android:id="@+id/safeMadeButton"
+            style="@style/ButtonBarButton"
+            android:onClick="safeMadeButtonClicked"
+            android:text="@string/safe_made" />
+
+        <Button
+            android:id="@+id/foulButton"
+            style="@style/MissButton"
+            android:onClick="foulButtonClicked"
+            android:text="@string/foul" />
+    </LinearLayout>
+
 </FrameLayout>

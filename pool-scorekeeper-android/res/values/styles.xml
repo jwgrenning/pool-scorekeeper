@@ -20,15 +20,15 @@
         <item name="android:textColor">#FFFFFF</item>
 "</style>
 
-    <style name="ButtonBarButton" parent="@style/AppTheme"> 
-		<item name="android:layout_width">wrap_content</item>        
-		<item name="android:layout_height">match_parent</item>        
-		<item name="android:layout_weight">1</item> 
-	</style>
+    <style name="ButtonBarButton" parent="@style/AppTheme">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_weight">1</item>
+    </style>
 
-    <style name="MissButton" parent="@style/ButtonBarButton"> 
-		<item name="android:textColor">@color/miss_button</item> 
-	</style>
+    <style name="MissButton" parent="@style/ButtonBarButton">
+        <item name="android:background">@color/miss_button</item>
+    </style>
 
     <style name="ButtonBar">
         <item name="android:paddingLeft">2dp</item>
@@ -40,7 +40,7 @@
         <item name="android:layout_gravity">bottom|center_horizontal</item>
         <item name="android:orientation">horizontal</item>
         <item name="android:background">@android:drawable/bottom_bar</item>
-        </style>
+    </style>
 
     <style name="ScoreTable" parent="@style/AppTheme">
         <item name="android:layout_width">wrap_content</item>
@@ -57,15 +57,14 @@
     <style name="ScoreTableBlankEntry" parent="ScoreTable">
         <item name="android:text"></item>
     </style>
-    
-    <style name="VerticalButton" parent="ScoreTable">
-    </style>
-    
+
+    <style name="VerticalButton" parent="ScoreTable"></style>
+
     <style name="ScoreTableRow">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
     </style>
-    
+
     <style name="ScoreTableButton" parent="ScoreTable"></style>
 
     <style name="ScoreTableHeading" parent="ScoreTable">
@@ -73,7 +72,7 @@
         <item name="android:paddingRight">10dp</item>
         <item name="android:inputType">textCapWords</item>
     </style>
-    
+
     <style name="FullscreenTheme" parent="android:Theme.NoTitleBar">
         <item name="android:windowContentOverlay">@null</item>
         <item name="android:windowBackground">@null</item>

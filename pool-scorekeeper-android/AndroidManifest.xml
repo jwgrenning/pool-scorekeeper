@@ -7,6 +7,7 @@
     <uses-sdk
         android:minSdkVersion="8"
         android:targetSdkVersion="17" />
+    <uses-permission android:name="android.permission.VIBRATE"/>
 
     <application
         android:allowBackup="true"
@@ -47,6 +48,7 @@
             android:name="net.grenning.pool_scorekeeper.StraightPoolMultiViews"
             android:label="@string/title_activity_straight_pool_multi_views" >
         </activity>
+
     </application>
 
 </manifest>
