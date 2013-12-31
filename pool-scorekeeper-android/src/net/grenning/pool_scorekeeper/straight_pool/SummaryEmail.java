@@ -143,16 +143,10 @@ public class SummaryEmail {
 	}
 
 	public String body(Activity activity) {
-		String winner = "me";
-		String body = String.format(" %s vs %s\n", player1Name, player2Name);
-		if (game.isOver)
-			body += String.format("The winner is %s\n", winner); 
-		else
-			body += "Game is in progesss\n"; 
+		String body = heading();
 		
 		body += String.format(gameCountFormat, activity.getResources().getString(R.string.balls_left_on_the_table), game.ballsOnTheTable);
 		body += String.format(gameCountFormat, activity.getResources().getString(R.string.inning_title), game.inning);
-		
 		
 		body += String.format("\n%s\n", player1Name);
 		body += playerSummary(player1, activity);
@@ -160,6 +154,23 @@ public class SummaryEmail {
 		body += playerSummary(player2, activity);
 
 		return body;
+	}
+	
+	private String heading()
+	{
+		String heading = String.format("%s vs %s\n", player1Name, player2Name);
+		String winner = "??";
+		if (game.winningPlayer == 1)
+			winner = player2Name;
+		else if (game.winningPlayer == 2)
+			winner = player2Name;
+		
+//		if (game.isOver)
+//			heading += String.format("The winner is %s\n", winner); 
+//		else
+//			heading += "Game is in progesss\n"; 
+		
+		return heading;
 	}
 	
 	private String playerSummary(PlayerStats player, Activity activity)

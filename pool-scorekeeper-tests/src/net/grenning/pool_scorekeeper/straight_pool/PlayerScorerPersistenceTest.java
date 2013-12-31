@@ -83,7 +83,7 @@ public class PlayerScorerPersistenceTest extends PlayerScorerBase {
 		when(saver.getInt(eq("safesMade" + 1), anyInt())).thenReturn(17);
 		when(saver.getInt(eq("safesMissed" + 1), anyInt())).thenReturn(42);
 		when(saver.getInt(eq("consecutiveSafes" + 1), anyInt())).thenReturn(3);
-		when(saver.getString(eq("inningRecord" + 1), anyInt(), anyString())).thenReturn("inning report");
+		when(saver.getString(eq("inningRecord" + 1), anyString())).thenReturn("inning report");
 
 		scorer.restore(saver, 1);
 		

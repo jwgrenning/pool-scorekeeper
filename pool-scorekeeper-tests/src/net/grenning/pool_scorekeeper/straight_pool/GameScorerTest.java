@@ -151,6 +151,7 @@ public class GameScorerTest extends GameScorerTestBase {
 		player1Scorer.reset(10);
 		playerMakesSomeShots(10);
 		assertEquals(1, gameViewSpy.gameOverApplause);
+		assertEquals(1, gameViewSpy.winningPlayer);
 	}
 
 	@Test

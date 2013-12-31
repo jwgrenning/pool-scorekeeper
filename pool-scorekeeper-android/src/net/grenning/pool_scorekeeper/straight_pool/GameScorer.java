@@ -15,7 +15,7 @@ public class GameScorer {
 	int currentPlayerNumber = 0;
 	int ballsOnTheTable = 15;
 	int inning = 1;
-
+	
 	public GameScorer(GameView gameView, PlayerScorer player1Scorer,
 			PlayerScorer player2Scorer) {
 		super();
@@ -104,7 +104,7 @@ public class GameScorer {
 		currentPlayerNumber = saver.getInt(CURRENT_PLAYER_NUMBER,
 				currentPlayerNumber);
 		ballsOnTheTable = saver.getInt(BALLS_ON_THE_TABLE, 15);
-		inning = saver.getInt(INNING, 1);
+		inning = saver.getInt(INNING, 1);		
 		playerScorer[0].restore(saver, 1);
 		playerScorer[1].restore(saver, 2);
 		updateView();

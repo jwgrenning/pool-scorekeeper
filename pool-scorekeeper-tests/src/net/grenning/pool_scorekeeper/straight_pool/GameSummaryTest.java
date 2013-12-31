@@ -13,7 +13,11 @@ public class GameSummaryTest {
 	}
 
 	@Test
-	public void test() {
+	public void testInProgress() {
+	}
+
+	@Test
+	public void testGameOver() {
 	}
 
 }

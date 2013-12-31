@@ -17,7 +17,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"
-        android:keepScreenOn="true"
+        android:keepScreenOn="false"
         android:text="@string/game_chooser_screen_content"
         android:textSize="50sp"
         android:textStyle="bold" />
