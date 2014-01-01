@@ -56,7 +56,7 @@ public class ChooseGame extends Activity {
         
         this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
 
-        setContentView(R.layout.activity_choose_game);
+        setContentView(R.layout.activity_choose_game_2);
 
         final View controlsView = findViewById(R.id.fullscreen_content_controls);
         final View contentView = findViewById(R.id.fullscreen_content);
