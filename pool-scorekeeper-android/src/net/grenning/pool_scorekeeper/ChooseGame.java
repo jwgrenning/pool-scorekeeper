@@ -12,10 +12,8 @@ public class ChooseGame extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        
+        super.onCreate(savedInstanceState);       
         this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
-
         setContentView(R.layout.activity_choose_game);        
     }
     
@@ -26,9 +24,4 @@ public class ChooseGame extends Activity {
     public void launchCowboyPoolScreen(View view) {
     	Intent i = new Intent( this, CowboyPoolStartActivity.class );
     	startActivity( i );    }
-
-//    public void launchScreenFlipper(View view) {
-//    	Intent i = new Intent( this, ScreenFlipper.class );
-//    	startActivity( i );    }
-//
 }
