@@ -2,15 +2,16 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="fill_parent"
     android:background="@color/pool_table_felt"
     android:orientation="vertical"
     tools:context=".ScoreStraightPoolActivity" >
 
     <TableLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="top|center_horizontal" >
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_gravity="top|center_horizontal"
+        android:stretchColumns="0,1,2,3" >
 
         <TableRow
             android:id="@+id/HeaderRow"
@@ -102,18 +103,17 @@
                 android:id="@+id/player2PointsToWin"
                 style="@style/ScoreTableNumberEntry" />
         </TableRow>
-        
+
         <TableRow
             android:id="@+id/blankrow1"
             style="@style/ScoreTableRow" >
-            
+
             <TextView
                 android:id="@+id/blank2"
                 style="@style/ScoreTableTextEntry"
                 android:text="@string/blank" />
-
         </TableRow>
-              
+
         <TableRow
             android:id="@+id/CurrentRunRow"
             style="@style/ScoreTableRow" >
@@ -198,35 +198,35 @@
                 android:id="@+id/player2TotalFouls"
                 style="@style/ScoreTableNumberEntry" />
         </TableRow>
+
+        <TableRow
+                style="@style/ButtonBar"
+                android:background="@color/black_overlay" >
+
+                <Button
+                    android:id="@+id/shotMadeButton"
+                    style="@style/ButtonBarButton"
+                    android:onClick="shotMadeButtonClicked"
+                    android:text="@string/shot_made" />
+
+                <Button
+                    android:id="@+id/missedShotButton"
+                    style="@style/MissButton"
+                    android:onClick="missedShotButtonClicked"
+                    android:text="@string/missed_shot" />
+
+                <Button
+                    android:id="@+id/safeMadeButton"
+                    style="@style/ButtonBarButton"
+                    android:onClick="safeMadeButtonClicked"
+                    android:text="@string/safe_made" />
+
+                <Button
+                    android:id="@+id/foulButton"
+                    style="@style/MissButton"
+                    android:onClick="foulButtonClicked"
+                    android:text="@string/foul" />
+        </TableRow>
     </TableLayout>
-
-    <LinearLayout
-        style="@style/ButtonBar"
-        android:background="@color/black_overlay" >
-
-        <Button
-            android:id="@+id/shotMadeButton"
-            style="@style/ButtonBarButton"
-            android:onClick="shotMadeButtonClicked"
-            android:text="@string/shot_made" />
-
-        <Button
-            android:id="@+id/missedShotButton"
-            style="@style/MissButton"
-            android:onClick="missedShotButtonClicked"
-            android:text="@string/missed_shot" />
-
-        <Button
-            android:id="@+id/safeMadeButton"
-            style="@style/ButtonBarButton"
-            android:onClick="safeMadeButtonClicked"
-            android:text="@string/safe_made" />
-
-        <Button
-            android:id="@+id/foulButton"
-            style="@style/MissButton"
-            android:onClick="foulButtonClicked"
-            android:text="@string/foul" />
-    </LinearLayout>
 
 </FrameLayout>

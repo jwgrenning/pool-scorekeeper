@@ -168,7 +168,7 @@ public class SummaryEmail {
 //		if (game.isOver)
 //			heading += String.format("The winner is %s\n", winner); 
 //		else
-//			heading += "Game is in progesss\n"; 
+//			heading += "Game is in progress\n"; 
 		
 		return heading;
 	}
