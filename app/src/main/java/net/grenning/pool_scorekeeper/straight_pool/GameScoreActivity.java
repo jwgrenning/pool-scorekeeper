@@ -19,7 +19,6 @@ import android.widget.GridLayout;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.button.MaterialButton;
@@ -272,6 +271,7 @@ public class GameScoreActivity extends PoolActivity {
 			hint.post(this::showShotMadeHint);
 		}
 		refreshUndoButton();
+		refreshGameOverChrome();
 	}
 
 	@Override
@@ -302,6 +302,7 @@ public class GameScoreActivity extends PoolActivity {
 		}
 		persistGame();
 		refreshUndoButton();
+		refreshGameOverChrome();
 	}
 
 	@Override
@@ -335,7 +336,7 @@ public class GameScoreActivity extends PoolActivity {
 	public boolean onOptionsItemSelected(MenuItem item) {
 		int id = item.getItemId();
 		if (id == R.id.email_game_summary_button) {
-			sendEmailSummary();
+			showGameSummary();
 			return true;
 		}
 		if (id == R.id.straight_pool_rules_button) {
@@ -350,7 +351,7 @@ public class GameScoreActivity extends PoolActivity {
 	}
 
 	private void showRerackSuggestion() {
-		if (isFinishing() || isDestroyed()) {
+		if (isFinishing() || isDestroyed() || isGameOver()) {
 			return;
 		}
 		if (rackDialog != null && rackDialog.isShowing()) {
@@ -372,7 +373,7 @@ public class GameScoreActivity extends PoolActivity {
 	}
 
 	private void showShotMadeHint() {
-		if (isFinishing() || isDestroyed()) {
+		if (isFinishing() || isDestroyed() || isGameOver()) {
 			return;
 		}
 		View hint = findViewById(R.id.shotMadeHint);
@@ -402,19 +403,47 @@ public class GameScoreActivity extends PoolActivity {
 		}).start();
 	}
 
-	private void sendEmailSummary() {
-		String player1Name = ((TextView) findViewById(R.id.player1Name)).getText().toString();
-		String player2Name = ((TextView) findViewById(R.id.player2Name)).getText().toString();
+	private void showGameSummary() {
+		String player1Name = textOf(R.id.player1Name);
+		String player2Name = textOf(R.id.player2Name);
+		SummaryEmail summary = new SummaryEmail(scorer, player1Name, player2Name);
+		startActivity(GameSummaryActivity.intent(this, summary.subject(this), summary.body(this)));
+	}
 
-		SummaryEmail email = new SummaryEmail(scorer, player1Name, player2Name);
-		Intent i = new Intent(Intent.ACTION_SEND);
-		i.setType("message/rfc822");
-		i.putExtra(Intent.EXTRA_SUBJECT, email.subject(this));
-		i.putExtra(Intent.EXTRA_TEXT, email.body(this));
-		try {
-			startActivity(Intent.createChooser(i, getString(R.string.send_mail)));
-		} catch (android.content.ActivityNotFoundException ex) {
-			Toast.makeText(this, R.string.no_email_clients, Toast.LENGTH_SHORT).show();
+	public void newGameButtonClicked(View view) {
+		vibrate(view);
+		persistGame();
+		Intent intent = new Intent(this, StartGameActivity.class);
+		intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+		startActivity(intent);
+		finish();
+	}
+
+	public void gameSummaryButtonClicked(View view) {
+		vibrate(view);
+		showGameSummary();
+	}
+
+	private boolean isGameOver() {
+		return player1Scorer != null && player2Scorer != null
+				&& (player1Scorer.wins() || player2Scorer.wins());
+	}
+
+	private void refreshGameOverChrome() {
+		View playing = findViewById(R.id.playingActions);
+		View over = findViewById(R.id.gameOverActions);
+		boolean gameOver = isGameOver();
+		if (playing != null) {
+			playing.setVisibility(gameOver ? View.GONE : View.VISIBLE);
+		}
+		if (over != null) {
+			over.setVisibility(gameOver ? View.VISIBLE : View.GONE);
+		}
+		if (gameOver) {
+			hideShotMadeHint();
+			if (rackDialog != null && rackDialog.isShowing()) {
+				rackDialog.dismiss();
+			}
 		}
 	}
 
@@ -614,5 +643,6 @@ public class GameScoreActivity extends PoolActivity {
 	private void afterScoreChange() {
 		persistGame();
 		refreshUndoButton();
+		refreshGameOverChrome();
 	}
 }

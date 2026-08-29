@@ -310,9 +310,10 @@
         android:padding="8dp">
 
         <LinearLayout
+            android:id="@+id/playingActions"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="2"
+            android:layout_weight="4"
             android:orientation="horizontal">
 
             <com.google.android.material.button.MaterialButton
@@ -332,13 +333,6 @@
                 style="@style/Widget.Pool.ActionButton"
                 android:onClick="safeMadeButtonClicked"
                 android:text="@string/safe_made" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="2"
-            android:orientation="horizontal">
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/missedShotButton"
@@ -351,6 +345,27 @@
                 style="@style/Widget.Pool.DangerButton"
                 android:onClick="foulButtonClicked"
                 android:text="@string/foul" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/gameOverActions"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="4"
+            android:orientation="horizontal"
+            android:visibility="gone">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/newGameButton"
+                style="@style/Widget.Pool.ActionButton"
+                android:onClick="newGameButtonClicked"
+                android:text="@string/new_game" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/gameSummaryButton"
+                style="@style/Widget.Pool.ActionButton"
+                android:onClick="gameSummaryButtonClicked"
+                android:text="@string/game_summary" />
         </LinearLayout>
 
         <LinearLayout

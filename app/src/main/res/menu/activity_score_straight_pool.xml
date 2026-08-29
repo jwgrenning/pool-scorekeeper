@@ -15,6 +15,6 @@
     <item
         android:id="@+id/email_game_summary_button"
         android:orderInCategory="3"
-        android:title="@string/email_game_summary_button"
+        android:title="@string/game_summary"
         app:showAsAction="never" />
 </menu>

@@ -29,6 +29,10 @@
             android:screenOrientation="landscape" />
 
         <activity
+            android:name="net.grenning.pool_scorekeeper.straight_pool.GameSummaryActivity"
+            android:label="@string/game_summary" />
+
+        <activity
             android:name="net.grenning.pool_scorekeeper.cowboy.CowboyPoolStartActivity"
             android:label="@string/title_activity_cowboy_pool_start" />
     </application>

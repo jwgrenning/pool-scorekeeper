@@ -159,7 +159,7 @@ public class SummaryEmail {
 		scorer.reportSummary(game, player1, player2);
 	}
 
-	String subject(Activity activity) {
+	public String subject(Activity activity) {
 		return String.format("%s vs %s ", player1Name, player2Name);
 	}
 

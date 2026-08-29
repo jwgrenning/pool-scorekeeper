@@ -145,7 +145,7 @@ public class GameScorer {
 			return;
 		}
 		if (ballsOnTheTable == 0) {
-			gameView.suggestRerack();
+			maybeSuggestRerack();
 			return;
 		}
 		checkpoint();
@@ -157,14 +157,20 @@ public class GameScorer {
 			if (currentPlayerScorer.wins()) {
 				gameView.theWinnerIs(currentPlayerNumber + 1);
 				gameView.gameOverApplause();
-				maybeSuggestRerack();
 				return;
 			}
 		}
 		maybeSuggestRerack();
 	}
 
+	public boolean isOver() {
+		return playerScorer[0].wins() || playerScorer[1].wins();
+	}
+
 	private void maybeSuggestRerack() {
+		if (isOver()) {
+			return;
+		}
 		if (ballsOnTheTable <= 1) {
 			gameView.suggestRerack();
 		}
