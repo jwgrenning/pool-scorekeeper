@@ -331,15 +331,11 @@
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/undoButton"
                 style="@style/Widget.Pool.SplitButton.Left"
+                android:layout_marginEnd="1dp"
                 android:contentDescription="@string/undo"
                 android:enabled="false"
                 android:onClick="undoButtonClicked"
                 android:text="@string/undo_symbol" />
-
-            <View
-                android:layout_width="2dp"
-                android:layout_height="match_parent"
-                android:background="@color/history_button_cut" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/redoButton"
