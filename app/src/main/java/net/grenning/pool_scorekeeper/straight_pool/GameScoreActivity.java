@@ -274,6 +274,9 @@ public class GameScoreActivity extends PoolActivity {
 		gameSaver = new AndroidGameFieldSaver(prefs);
 		if (restoreOnStart) {
 			scorer.populateFromPersistence(gameSaver);
+			scorer.adjustRaces(
+					getNumberFieldFromIntent("player1PointsToWin"),
+					getNumberFieldFromIntent("player2PointsToWin"));
 		}
 		persistGame();
 		refreshUndoButton();

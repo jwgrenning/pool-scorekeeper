@@ -7,6 +7,16 @@ import org.junit.Test;
 public class GameScorerTest extends GameScorerTestBase {
 
 	@Test
+	public void testAdjustRacesOnResumeChangesRemaining() {
+		playerMakesSomeShots(10);
+		assertEquals(40, player1Spy.pointsNeededToWin);
+		game.adjustRaces(75, 50);
+		assertEquals(65, player1Spy.pointsNeededToWin);
+		assertEquals(50, player2Spy.pointsNeededToWin);
+		assertFalse(game.canUndo());
+	}
+
+	@Test
 	public void testGameStartsAllBallsOnTheTable() {
 		assertEquals(15, gameViewSpy.ballsOnTheTable);
 	}

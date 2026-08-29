@@ -15,7 +15,7 @@ import static org.mockito.Mockito.*;
 public class GameScorerPersistenceTest extends
 		GameScorerTestBase {
 
-	private static final int INT_FIELDS_PER_PLAYER = 13;
+	private static final int INT_FIELDS_PER_PLAYER = 14;
 	private static final int BOOL_FIELDS_PER_PLAYER = 1;
 	private static final int NONSAVED_FIELDS_PER_PLAYER = 1;
 	private static final int STRING_FIELDS_PER_PLAYER = 1;

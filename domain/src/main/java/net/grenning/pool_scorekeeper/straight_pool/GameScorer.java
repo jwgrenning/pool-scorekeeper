@@ -254,6 +254,16 @@ public class GameScorer {
 		loadStack(saver, redoHistory, REDO_COUNT, REDO_PREFIX);
 	}
 
+	public void adjustRaces(int player1Race, int player2Race) {
+		boolean changed = playerScorer[0].adjustRaceTo(player1Race)
+				| playerScorer[1].adjustRaceTo(player2Race);
+		if (changed) {
+			history.clear();
+			redoHistory.clear();
+		}
+		updateView();
+	}
+
 	private void loadStack(NameValueSaver saver, Deque<MapNameValueSaver> stack,
 			String countKey, String prefix) {
 		stack.clear();

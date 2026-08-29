@@ -20,6 +20,7 @@ public class PlayerScorer {
 	private int tableTimeMillis = 0;
 	private int turnCount = 0;
 	private int shotCount = 0;
+	private int raceTo = 0;
 
 	public PlayerScorer(PlayerView view,
 			int ballsNeededToWin) {
@@ -28,6 +29,7 @@ public class PlayerScorer {
 	}
 
 	public void reset(int ballsNeededToWin) {
+		this.raceTo = ballsNeededToWin;
 		this.ballsNeededToWin = ballsNeededToWin;
 		score = 0;
 		rackScore = 0;
@@ -44,6 +46,19 @@ public class PlayerScorer {
 		turnCount = 0;
 		shotCount = 0;
 		updateView(view);
+	}
+
+	public boolean adjustRaceTo(int newRace) {
+		if (newRace <= 0 || newRace == raceTo) {
+			return false;
+		}
+		ballsNeededToWin += newRace - raceTo;
+		raceTo = newRace;
+		if (ballsNeededToWin < 0) {
+			ballsNeededToWin = 0;
+		}
+		updateView(view);
+		return true;
 	}
 
 	private void updateView(PlayerView view) {
@@ -157,6 +172,7 @@ public class PlayerScorer {
 		saver.save("tableTimeMillis", playerNumber, tableTimeMillis);
 		saver.save("turnCount", playerNumber, turnCount);
 		saver.save("shotCount", playerNumber, shotCount);
+		saver.save("raceTo", playerNumber, raceTo);
 	}
 
 	public void restore(NameValueSaver saver, int playerNumber) {
@@ -175,6 +191,10 @@ public class PlayerScorer {
 		tableTimeMillis = saver.getInt("tableTimeMillis" + playerNumber, 0);
 		turnCount = saver.getInt("turnCount" + playerNumber, 0);
 		shotCount = saver.getInt("shotCount" + playerNumber, 0);
+		raceTo = saver.getInt("raceTo" + playerNumber, -1);
+		if (raceTo < 0) {
+			raceTo = ballsNeededToWin + Math.max(score, 0);
+		}
 		updateView(view);
 	}
 

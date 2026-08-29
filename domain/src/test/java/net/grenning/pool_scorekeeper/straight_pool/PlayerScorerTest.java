@@ -2,6 +2,7 @@ package net.grenning.pool_scorekeeper.straight_pool;
 
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.After;
 import org.junit.Before;
@@ -36,6 +37,33 @@ public class PlayerScorerTest extends PlayerScorerBase {
 	@Test
 	public void testCreate() {
 		assertStartingNumbers(50);
+	}
+
+	@Test
+	public void testAdjustRaceToChangesRemaining() {
+		scorer.goodShot();
+		scorer.goodShot();
+		assertBallsNeededToWin(48);
+		scorer.adjustRaceTo(75);
+		assertBallsNeededToWin(73);
+		assertPlayerScore(2);
+	}
+
+	@Test
+	public void testAdjustRaceToSameValueDoesNothing() {
+		scorer.goodShot();
+		assertBallsNeededToWin(49);
+		scorer.adjustRaceTo(50);
+		assertBallsNeededToWin(49);
+	}
+
+	@Test
+	public void testAdjustRaceBelowScoreWins() {
+		scorer.goodShot();
+		scorer.goodShot();
+		scorer.adjustRaceTo(2);
+		assertBallsNeededToWin(0);
+		assertTrue(scorer.wins());
 	}
 
 	@Test
