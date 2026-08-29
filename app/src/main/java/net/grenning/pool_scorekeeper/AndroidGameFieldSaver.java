@@ -15,7 +15,6 @@ public class AndroidGameFieldSaver implements NameValueSaver {
 	@Override
 	public void save(String name, String value) {
 		editor.putString(name, value);
-		editor.commit();
 	}
 
 	@Override
@@ -26,7 +25,6 @@ public class AndroidGameFieldSaver implements NameValueSaver {
 	@Override
 	public void save(String name, int value) {
 		editor.putInt(name, value);
-		editor.commit();
 	}
 
 	@Override
@@ -37,12 +35,15 @@ public class AndroidGameFieldSaver implements NameValueSaver {
 	@Override
 	public void save(String name, boolean value) {
 		editor.putBoolean(name, value);
-		editor.commit();
 	}
 
 	@Override
 	public void save(String name, int index, boolean value) {
 		save(name + Integer.valueOf(index).toString(), value);
+	}
+
+	public void persist() {
+		editor.commit();
 	}
 
 	@Override

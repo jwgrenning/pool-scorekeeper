@@ -81,4 +81,44 @@ public class MapNameValueSaver implements NameValueSaver {
 	public boolean getBoolean(String name, int index, boolean defaultValue) {
 		return getBoolean(name + index, defaultValue);
 	}
+
+	public String encode() {
+		StringBuilder encoded = new StringBuilder();
+		for (Map.Entry<String, Object> entry : values.entrySet()) {
+			Object value = entry.getValue();
+			if (value instanceof Integer) {
+				encoded.append("I\t").append(entry.getKey()).append('\t').append(value).append('\n');
+			} else if (value instanceof Boolean) {
+				encoded.append("B\t").append(entry.getKey()).append('\t').append(value).append('\n');
+			} else if (value instanceof String) {
+				encoded.append("S\t").append(entry.getKey()).append('\t').append(value).append('\n');
+			}
+		}
+		return encoded.toString();
+	}
+
+	public static MapNameValueSaver decode(String encoded) {
+		MapNameValueSaver result = new MapNameValueSaver();
+		if (encoded == null || encoded.isEmpty()) {
+			return result;
+		}
+		String[] lines = encoded.split("\n", -1);
+		for (String line : lines) {
+			if (line.isEmpty()) {
+				continue;
+			}
+			String[] parts = line.split("\t", 3);
+			if (parts.length < 3) {
+				continue;
+			}
+			if ("I".equals(parts[0])) {
+				result.save(parts[1], Integer.parseInt(parts[2]));
+			} else if ("B".equals(parts[0])) {
+				result.save(parts[1], Boolean.parseBoolean(parts[2]));
+			} else if ("S".equals(parts[0])) {
+				result.save(parts[1], parts[2]);
+			}
+		}
+		return result;
+	}
 }

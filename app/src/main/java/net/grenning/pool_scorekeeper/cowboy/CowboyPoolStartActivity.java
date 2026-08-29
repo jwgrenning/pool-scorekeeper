@@ -4,9 +4,9 @@ import net.grenning.pool_scorekeeper.R;
 
 import android.os.Bundle;
 
-import androidx.appcompat.app.AppCompatActivity;
+import net.grenning.pool_scorekeeper.PoolActivity;
 
-public class CowboyPoolStartActivity extends AppCompatActivity {
+public class CowboyPoolStartActivity extends PoolActivity {
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {

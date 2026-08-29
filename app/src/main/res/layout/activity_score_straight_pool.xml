@@ -282,41 +282,65 @@
         android:orientation="horizontal"
         android:padding="8dp">
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/shotMadeButton"
-            style="@style/Widget.Pool.ActionButton"
-            android:onClick="shotMadeButtonClicked"
-            android:text="@string/shot_made" />
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:orientation="horizontal">
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/missedShotButton"
-            style="@style/Widget.Pool.DangerButton"
-            android:onClick="missedShotButtonClicked"
-            android:text="@string/missed_shot" />
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/shotMadeButton"
+                style="@style/Widget.Pool.ActionButton"
+                android:onClick="shotMadeButtonClicked"
+                android:text="@string/shot_made" />
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/safeMadeButton"
-            style="@style/Widget.Pool.ActionButton"
-            android:onClick="safeMadeButtonClicked"
-            android:text="@string/safe_made" />
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/safeMadeButton"
+                style="@style/Widget.Pool.ActionButton"
+                android:onClick="safeMadeButtonClicked"
+                android:text="@string/safe_made" />
+        </LinearLayout>
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/foulButton"
-            style="@style/Widget.Pool.DangerButton"
-            android:onClick="foulButtonClicked"
-            android:text="@string/foul" />
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:orientation="horizontal">
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/undoButton"
-            style="@style/Widget.Material3.Button.OutlinedButton"
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/missedShotButton"
+                style="@style/Widget.Pool.DangerButton"
+                android:onClick="missedShotButtonClicked"
+                android:text="@string/missed_shot" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/foulButton"
+                style="@style/Widget.Pool.DangerButton"
+                android:onClick="foulButtonClicked"
+                android:text="@string/foul" />
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="4dp"
             android:layout_weight="1"
-            android:enabled="false"
-            android:minHeight="56dp"
-            android:onClick="undoButtonClicked"
-            android:text="@string/undo" />
+            android:orientation="horizontal">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/undoButton"
+                style="@style/Widget.Pool.SplitButton"
+                android:enabled="false"
+                android:onClick="undoButtonClicked"
+                android:text="@string/undo" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/redoButton"
+                style="@style/Widget.Pool.SplitButton"
+                android:enabled="false"
+                android:onClick="redoButtonClicked"
+                android:text="@string/redo" />
+        </LinearLayout>
     </LinearLayout>
 
 </LinearLayout>

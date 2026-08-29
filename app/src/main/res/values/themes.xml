@@ -5,9 +5,10 @@
         <item name="colorOnPrimary">@color/ivory</item>
         <item name="colorSecondary">@color/active_player</item>
         <item name="colorOnSecondary">@color/felt_dark</item>
-        <item name="android:statusBarColor">@color/felt_dark</item>
-        <item name="android:navigationBarColor">@color/felt_dark</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:navigationBarColor">@android:color/transparent</item>
         <item name="android:windowBackground">@color/felt_dark</item>
+        <item name="android:windowFullscreen">true</item>
         <item name="colorSurface">@color/felt_green</item>
         <item name="colorOnSurface">@color/ivory</item>
         <item name="android:textColor">@color/ivory</item>
@@ -27,6 +28,18 @@
     <style name="Widget.Pool.DangerButton" parent="Widget.Pool.ActionButton">
         <item name="backgroundTint">@color/miss_button</item>
         <item name="android:textColor">@color/ivory</item>
+    </style>
+
+    <style name="Widget.Pool.SplitButton" parent="Widget.Material3.Button.OutlinedButton">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:minHeight">56dp</item>
+        <item name="android:layout_margin">0dp</item>
+        <item name="android:insetLeft">0dp</item>
+        <item name="android:insetRight">0dp</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="cornerRadius">0dp</item>
     </style>
 
     <style name="Widget.Pool.StatLabel" parent="android:Widget.TextView">

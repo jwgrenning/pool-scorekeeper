@@ -7,9 +7,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 
-import androidx.appcompat.app.AppCompatActivity;
+import net.grenning.pool_scorekeeper.PoolActivity;
 
-public class StartGameActivity extends AppCompatActivity {
+public class StartGameActivity extends PoolActivity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {

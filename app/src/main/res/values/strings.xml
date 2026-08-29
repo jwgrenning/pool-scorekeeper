@@ -22,6 +22,7 @@
     <string name="consecutive_fouls">Consecutive Fouls</string>
     <string name="total_fouls">Total Fouls</string>
     <string name="undo">Undo</string>
+    <string name="redo">Redo</string>
     <string name="player1">Player 1</string>
     <string name="player2">Player 2</string>
     <string name="swap_players">Swap Players</string>

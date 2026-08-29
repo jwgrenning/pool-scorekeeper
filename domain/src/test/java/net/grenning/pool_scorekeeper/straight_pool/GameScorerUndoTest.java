@@ -159,17 +159,78 @@ public class GameScorerUndoTest extends GameScorerTestBase {
 	}
 
 	@Test
-	public void testPopulateFromPersistenceClearsHistory() {
+	public void testPopulateFromPersistenceRestoresUndoHistory() {
 		game.playerMakesShot();
-		assertTrue(game.canUndo());
-
+		game.playerMakesShot();
 		MapNameValueSaver saver = new MapNameValueSaver();
 		game.save(saver);
-		game.populateFromPersistence(saver);
 
+		PlayerViewSpy restoredPlayer1 = new PlayerViewSpy();
+		PlayerViewSpy restoredPlayer2 = new PlayerViewSpy();
+		GameViewSpy restoredGameView = new GameViewSpy();
+		GameScorer restored = new GameScorer(restoredGameView,
+				new PlayerScorer(restoredPlayer1, 50),
+				new PlayerScorer(restoredPlayer2, 50));
+		restored.populateFromPersistence(saver);
+
+		assertEquals(13, restoredGameView.ballsOnTheTable);
+		assertEquals(2, restoredPlayer1.score);
+		assertTrue(restored.canUndo());
+
+		assertTrue(restored.undo());
+		assertEquals(14, restoredGameView.ballsOnTheTable);
+		assertEquals(1, restoredPlayer1.score);
+		assertTrue(restored.undo());
+		assertEquals(15, restoredGameView.ballsOnTheTable);
+		assertEquals(0, restoredPlayer1.score);
+		assertFalse(restored.canUndo());
+	}
+
+	@Test
+	public void testRedoRestoresUndoneShot() {
+		game.playerMakesShot();
+		assertEquals(14, gameViewSpy.ballsOnTheTable);
+		game.undo();
+		assertEquals(15, gameViewSpy.ballsOnTheTable);
+		assertTrue(game.canRedo());
 		assertFalse(game.canUndo());
+
+		assertTrue(game.redo());
 		assertEquals(14, gameViewSpy.ballsOnTheTable);
 		assertEquals(1, player1Spy.score);
+		assertFalse(game.canRedo());
+		assertTrue(game.canUndo());
+	}
+
+	@Test
+	public void testNewActionClearsRedo() {
+		game.playerMakesShot();
+		game.undo();
+		assertTrue(game.canRedo());
+		game.playerMissesShot();
+		assertFalse(game.canRedo());
+	}
+
+	@Test
+	public void testPopulateFromPersistenceRestoresRedoHistory() {
+		game.playerMakesShot();
+		game.undo();
+		MapNameValueSaver saver = new MapNameValueSaver();
+		game.save(saver);
+
+		PlayerViewSpy restoredPlayer1 = new PlayerViewSpy();
+		PlayerViewSpy restoredPlayer2 = new PlayerViewSpy();
+		GameViewSpy restoredGameView = new GameViewSpy();
+		GameScorer restored = new GameScorer(restoredGameView,
+				new PlayerScorer(restoredPlayer1, 50),
+				new PlayerScorer(restoredPlayer2, 50));
+		restored.populateFromPersistence(saver);
+
+		assertEquals(15, restoredGameView.ballsOnTheTable);
+		assertTrue(restored.canRedo());
+		assertTrue(restored.redo());
+		assertEquals(14, restoredGameView.ballsOnTheTable);
+		assertEquals(1, restoredPlayer1.score);
 	}
 
 	@Test

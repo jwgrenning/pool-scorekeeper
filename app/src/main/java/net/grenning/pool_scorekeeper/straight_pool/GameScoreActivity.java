@@ -1,7 +1,7 @@
 package net.grenning.pool_scorekeeper.straight_pool;
 
 import net.grenning.pool_scorekeeper.AndroidGameFieldSaver;
-import net.grenning.pool_scorekeeper.NameValueSaver;
+import net.grenning.pool_scorekeeper.PoolActivity;
 import net.grenning.pool_scorekeeper.R;
 
 import android.content.Intent;
@@ -19,19 +19,17 @@ import android.view.animation.Animation;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.snackbar.Snackbar;
 
-public class GameScoreActivity extends AppCompatActivity {
+public class GameScoreActivity extends PoolActivity {
 	private static final String PREFS_NAME = "straight_pool_game";
 
 	GameScorer scorer;
 	PlayerScorer player1Scorer;
 	PlayerScorer player2Scorer;
-	private NameValueSaver gameSaver;
+	private AndroidGameFieldSaver gameSaver;
 	private boolean restoreOnStart;
 	private Animation winnerAnimation;
 
@@ -235,16 +233,26 @@ public class GameScoreActivity extends AppCompatActivity {
 		if (restoreOnStart) {
 			scorer.populateFromPersistence(gameSaver);
 		}
-		scorer.save(gameSaver);
+		persistGame();
 		refreshUndoButton();
 	}
 
 	@Override
 	protected void onPause() {
 		super.onPause();
-		SharedPreferences prefs = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
-		gameSaver = new AndroidGameFieldSaver(prefs);
+		persistGame();
+	}
+
+	private void persistGame() {
+		if (scorer == null) {
+			return;
+		}
+		if (gameSaver == null) {
+			gameSaver = new AndroidGameFieldSaver(
+					getSharedPreferences(PREFS_NAME, MODE_PRIVATE));
+		}
 		scorer.save(gameSaver);
+		gameSaver.persist();
 	}
 
 	@Override
@@ -372,45 +380,63 @@ public class GameScoreActivity extends AppCompatActivity {
 	}
 
 	private void refreshUndoButton() {
+		if (scorer == null) {
+			return;
+		}
 		View undo = findViewById(R.id.undoButton);
-		if (undo != null && scorer != null) {
+		if (undo != null) {
 			undo.setEnabled(scorer.canUndo());
+		}
+		View redo = findViewById(R.id.redoButton);
+		if (redo != null) {
+			redo.setEnabled(scorer.canRedo());
 		}
 	}
 
 	public void shotMadeButtonClicked(View view) {
 		vibrate(view);
 		scorer.playerMakesShot();
-		refreshUndoButton();
+		afterScoreChange();
 	}
 
 	public void missedShotButtonClicked(View view) {
 		vibrate(view);
 		scorer.playerMissesShot();
-		refreshUndoButton();
+		afterScoreChange();
 	}
 
 	public void safeMadeButtonClicked(View view) {
 		vibrate(view);
 		scorer.playerMakesSafe();
-		refreshUndoButton();
+		afterScoreChange();
 	}
 
 	public void foulButtonClicked(View view) {
 		vibrate(view);
 		scorer.foul();
-		refreshUndoButton();
+		afterScoreChange();
 	}
 
 	public void newRackButtonClicked(View view) {
 		vibrate(view);
 		scorer.newRack();
-		refreshUndoButton();
+		afterScoreChange();
 	}
 
 	public void undoButtonClicked(View view) {
 		vibrate(view);
 		scorer.undo();
+		afterScoreChange();
+	}
+
+	public void redoButtonClicked(View view) {
+		vibrate(view);
+		scorer.redo();
+		afterScoreChange();
+	}
+
+	private void afterScoreChange() {
+		persistGame();
 		refreshUndoButton();
 	}
 }

@@ -33,6 +33,8 @@ public class GameScorerPersistenceTest extends
 		verify(saver, times(1)).save("ballsOnTheTable", 15);
 		verify(saver, times(1)).save("currentPlayerNumber", 0);
 		verify(saver, times(1)).save("inning", 1);
+		verify(saver, times(1)).save("undoCount", 0);
+		verify(saver, times(1)).save("redoCount", 0);
 		verify(saver, times(1)).save(eq("inningRecord"), eq(1), eq(""));
 		verify(saver, times(INT_FIELDS_PER_PLAYER)).save(anyString(), eq(1), anyInt());
 		verify(saver, times(BOOL_FIELDS_PER_PLAYER)).save(anyString(), eq(1), anyBoolean());
@@ -52,7 +54,7 @@ public class GameScorerPersistenceTest extends
 		verify(saver, times(1)).getInt("currentPlayerNumber", 0);
 		verify(saver, times(1)).getInt("ballsOnTheTable", 15);
 		verify(saver, times(1)).getInt("inning", 1);
-		verify(saver, times(2*INT_FIELDS_PER_PLAYER+3)).getInt(anyString(), anyInt());
+		verify(saver, times(2*INT_FIELDS_PER_PLAYER+5)).getInt(anyString(), anyInt());
 		verify(saver, times(2*BOOL_FIELDS_PER_PLAYER)).getBoolean(anyString(), anyBoolean());
 		assertPlayerOneActive();
 		assertEquals(99, gameViewSpy.ballsOnTheTable);

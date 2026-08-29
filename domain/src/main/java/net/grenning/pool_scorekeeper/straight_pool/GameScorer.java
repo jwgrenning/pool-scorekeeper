@@ -11,6 +11,10 @@ public class GameScorer {
 	private static final String BALLS_ON_THE_TABLE = "ballsOnTheTable";
 	private static final String CURRENT_PLAYER_NUMBER = "currentPlayerNumber";
 	private static final String INNING = "inning";
+	private static final String UNDO_COUNT = "undoCount";
+	private static final String UNDO_PREFIX = "undo";
+	private static final String REDO_COUNT = "redoCount";
+	private static final String REDO_PREFIX = "redo";
 	private static final int MAX_UNDO = 100;
 
 	PlayerScorer player1Scorer;
@@ -22,6 +26,7 @@ public class GameScorer {
 	int ballsOnTheTable = 15;
 	int inning = 1;
 	private final Deque<MapNameValueSaver> history = new ArrayDeque<MapNameValueSaver>();
+	private final Deque<MapNameValueSaver> redoHistory = new ArrayDeque<MapNameValueSaver>();
 	
 	public GameScorer(GameView gameView, PlayerScorer player1Scorer,
 			PlayerScorer player2Scorer) {
@@ -54,11 +59,16 @@ public class GameScorer {
 	}
 
 	private void checkpoint() {
+		pushCapped(history);
+		redoHistory.clear();
+	}
+
+	private void pushCapped(Deque<MapNameValueSaver> stack) {
 		MapNameValueSaver snapshot = new MapNameValueSaver();
-		save(snapshot);
-		history.push(snapshot);
-		while (history.size() > MAX_UNDO) {
-			history.removeLast();
+		saveState(snapshot);
+		stack.push(snapshot);
+		while (stack.size() > MAX_UNDO) {
+			stack.removeLast();
 		}
 	}
 
@@ -66,12 +76,26 @@ public class GameScorer {
 		if (history.isEmpty()) {
 			return false;
 		}
+		pushCapped(redoHistory);
 		restoreState(history.pop());
+		return true;
+	}
+
+	public boolean redo() {
+		if (redoHistory.isEmpty()) {
+			return false;
+		}
+		pushCapped(history);
+		restoreState(redoHistory.pop());
 		return true;
 	}
 
 	public boolean canUndo() {
 		return !history.isEmpty();
+	}
+
+	public boolean canRedo() {
+		return !redoHistory.isEmpty();
 	}
 
 	public void foul() {
@@ -132,6 +156,22 @@ public class GameScorer {
 	}
 
 	public void save(NameValueSaver saver) {
+		saveState(saver);
+		saveStack(saver, history, UNDO_COUNT, UNDO_PREFIX);
+		saveStack(saver, redoHistory, REDO_COUNT, REDO_PREFIX);
+	}
+
+	private void saveStack(NameValueSaver saver, Deque<MapNameValueSaver> stack,
+			String countKey, String prefix) {
+		saver.save(countKey, stack.size());
+		int index = 0;
+		for (MapNameValueSaver snapshot : stack) {
+			saver.save(prefix + index, snapshot.encode());
+			index++;
+		}
+	}
+
+	private void saveState(NameValueSaver saver) {
 		saver.save(CURRENT_PLAYER_NUMBER, currentPlayerNumber);
 		saver.save(BALLS_ON_THE_TABLE, ballsOnTheTable);
 		saver.save(INNING, inning);
@@ -140,8 +180,18 @@ public class GameScorer {
 	}
 
 	public void populateFromPersistence(NameValueSaver saver) {
-		history.clear();
 		restoreState(saver);
+		loadStack(saver, history, UNDO_COUNT, UNDO_PREFIX);
+		loadStack(saver, redoHistory, REDO_COUNT, REDO_PREFIX);
+	}
+
+	private void loadStack(NameValueSaver saver, Deque<MapNameValueSaver> stack,
+			String countKey, String prefix) {
+		stack.clear();
+		int count = saver.getInt(countKey, 0);
+		for (int index = 0; index < count; index++) {
+			stack.addLast(MapNameValueSaver.decode(saver.getString(prefix + index, "")));
+		}
 	}
 
 	private void restoreState(NameValueSaver saver) {
