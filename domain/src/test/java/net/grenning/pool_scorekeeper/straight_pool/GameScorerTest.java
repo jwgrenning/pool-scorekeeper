@@ -148,6 +148,20 @@ public class GameScorerTest extends GameScorerTestBase {
 	}
 
 	@Test
+	public void testOneShotLeavingOneBallSuggestsRerackOnce() {
+		game.playerMakesShots(14);
+		assertEquals(1, gameViewSpy.ballsOnTheTable);
+		assertEquals(1, gameViewSpy.reRackSuggestedCount);
+	}
+
+	@Test
+	public void testOneShotClearingTableSuggestsRerackOnce() {
+		game.playerMakesShots(15);
+		assertEquals(0, gameViewSpy.ballsOnTheTable);
+		assertEquals(1, gameViewSpy.reRackSuggestedCount);
+	}
+
+	@Test
 	public void testMultipleBallsOnOneShot() {
 		game.playerMakesShots(3);
 		assertEquals(12, gameViewSpy.ballsOnTheTable);

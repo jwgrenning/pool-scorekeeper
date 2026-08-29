@@ -8,6 +8,13 @@
     <string name="straight_pool_rules_button">Straight Pool Rules</string>
     <string name="straight_pool_default_points_to_win">50</string>
     <string name="shot_made">Shot Made</string>
+    <string name="shot_made_accessibility">Shot Made. Long-press to enter several balls on one shot</string>
+    <string name="shot_made_long_press_hint">Long-press Shot Made to enter several balls on one shot</string>
+    <string name="rack_prompt_title">New rack?</string>
+    <string name="rack_prompt_one">One ball left on the table. Rack a new set?</string>
+    <string name="rack_prompt_none">No balls left on the table. Rack a new set?</string>
+    <string name="rack_yes">Rack</string>
+    <string name="rack_not_now">Not now</string>
     <string name="balls_potted_title">Balls potted</string>
     <string name="safe_made">Safe</string>
     <string name="missed_shot">Miss</string>
@@ -36,7 +43,6 @@
     <string name="resume_game">Resume Game</string>
     <string name="general_pool_rules_button">General Rules of Pool</string>
     <string name="title_activity_score_straight_pool">Straight Pool Score Board</string>
-    <string name="new_rack">New Rack</string>
     <string name="email_game_summary_button">Email Game Summary</string>
     <string name="default_balls_left_on_the_table">15 balls on the table</string>
     <string name="balls_left_on_the_table">balls on the table</string>
@@ -44,7 +50,6 @@
     <string name="title_activity_cowboy_pool_start">Cowboy Pool</string>
     <string name="default_inning_text">Inning #1</string>
     <string name="inning_title">Inning #</string>
-    <string name="rerack_suggestion">Maybe you should rerack</string>
     <string name="send_mail">Send mail…</string>
     <string name="no_email_clients">There are no email clients installed.</string>
     <string name="cowboy_not_implemented">Cowboy Pool is not implemented yet.</string>

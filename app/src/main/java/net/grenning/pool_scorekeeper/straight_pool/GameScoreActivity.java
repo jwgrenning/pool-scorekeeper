@@ -25,7 +25,6 @@ import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
-import com.google.android.material.snackbar.Snackbar;
 
 public class GameScoreActivity extends PoolActivity {
 
@@ -35,6 +34,8 @@ public class GameScoreActivity extends PoolActivity {
 	private AndroidGameFieldSaver gameSaver;
 	private boolean restoreOnStart;
 	private Animation winnerAnimation;
+	private androidx.appcompat.app.AlertDialog rackDialog;
+	private final Runnable hideShotMadeHintRunnable = this::hideShotMadeHint;
 
 	GameView gameView = new GameView() {
 
@@ -261,10 +262,31 @@ public class GameScoreActivity extends PoolActivity {
 		restoreOnStart = getBooleanFieldFromIntent("resume") || savedInstanceState != null;
 		findViewById(R.id.shotMadeButton).setOnLongClickListener(view -> {
 			vibrate(view);
+			hideShotMadeHint();
 			showBallsPottedPicker();
 			return true;
 		});
+		if (!restoreOnStart) {
+			View hint = findViewById(R.id.shotMadeHint);
+			hint.setOnClickListener(v -> hideShotMadeHint());
+			hint.post(this::showShotMadeHint);
+		}
 		refreshUndoButton();
+	}
+
+	@Override
+	protected void onDestroy() {
+		View hint = findViewById(R.id.shotMadeHint);
+		if (hint != null) {
+			hint.removeCallbacks(hideShotMadeHintRunnable);
+			hint.animate().cancel();
+		}
+		if (rackDialog != null) {
+			rackDialog.setOnDismissListener(null);
+			rackDialog.dismiss();
+			rackDialog = null;
+		}
+		super.onDestroy();
 	}
 
 	@Override
@@ -328,12 +350,56 @@ public class GameScoreActivity extends PoolActivity {
 	}
 
 	private void showRerackSuggestion() {
-		View root = findViewById(R.id.scoreRoot);
-		if (root != null) {
-			Snackbar.make(root, R.string.rerack_suggestion, Snackbar.LENGTH_LONG).show();
-		} else {
-			Toast.makeText(this, R.string.rerack_suggestion, Toast.LENGTH_LONG).show();
+		if (isFinishing() || isDestroyed()) {
+			return;
 		}
+		if (rackDialog != null && rackDialog.isShowing()) {
+			return;
+		}
+
+		int remaining = scorer.ballsOnTheTable();
+		int message = remaining <= 0 ? R.string.rack_prompt_none : R.string.rack_prompt_one;
+		rackDialog = new MaterialAlertDialogBuilder(this)
+				.setTitle(R.string.rack_prompt_title)
+				.setMessage(message)
+				.setPositiveButton(R.string.rack_yes, (dialog, which) -> {
+					scorer.newRack();
+					afterScoreChange();
+				})
+				.setNegativeButton(R.string.rack_not_now, null)
+				.setOnDismissListener(dialog -> rackDialog = null)
+				.show();
+	}
+
+	private void showShotMadeHint() {
+		if (isFinishing() || isDestroyed()) {
+			return;
+		}
+		View hint = findViewById(R.id.shotMadeHint);
+		if (hint == null) {
+			return;
+		}
+		hint.animate().cancel();
+		hint.setVisibility(View.VISIBLE);
+		hint.setAlpha(0f);
+		hint.animate().alpha(1f).setDuration(250).start();
+		hint.removeCallbacks(hideShotMadeHintRunnable);
+		hint.postDelayed(hideShotMadeHintRunnable, 6500);
+	}
+
+	private void hideShotMadeHint() {
+		View hint = findViewById(R.id.shotMadeHint);
+		if (hint == null || hint.getVisibility() != View.VISIBLE) {
+			return;
+		}
+		hint.removeCallbacks(hideShotMadeHintRunnable);
+		hint.animate().cancel();
+		hint.animate().alpha(0f).setDuration(200).withEndAction(() -> {
+			if (!isDestroyed()) {
+				hint.setVisibility(View.GONE);
+				hint.setAlpha(1f);
+			}
+		}).start();
 	}
 
 	private void sendEmailSummary() {
@@ -469,6 +535,7 @@ public class GameScoreActivity extends PoolActivity {
 
 	public void shotMadeButtonClicked(View view) {
 		vibrate(view);
+		hideShotMadeHint();
 		scorer.playerMakesShot();
 		afterScoreChange();
 	}
@@ -529,12 +596,6 @@ public class GameScoreActivity extends PoolActivity {
 	public void foulButtonClicked(View view) {
 		vibrate(view);
 		scorer.foul();
-		afterScoreChange();
-	}
-
-	public void newRackButtonClicked(View view) {
-		vibrate(view);
-		scorer.newRack();
 		afterScoreChange();
 	}
 

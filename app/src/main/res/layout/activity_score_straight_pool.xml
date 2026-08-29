@@ -28,21 +28,11 @@
 
         <TextView
             android:id="@+id/ballsOnTheTable"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:text="@string/default_balls_left_on_the_table"
             android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
             android:textColor="@color/ivory" />
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/newRackButton"
-            style="@style/Widget.Material3.Button.TonalButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:minHeight="48dp"
-            android:onClick="newRackButtonClicked"
-            android:text="@string/new_rack" />
     </LinearLayout>
 
     <LinearLayout
@@ -294,6 +284,25 @@
         </com.google.android.material.card.MaterialCardView>
     </LinearLayout>
 
+    <TextView
+        android:id="@+id/shotMadeHint"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="start"
+        android:layout_marginStart="12dp"
+        android:layout_marginEnd="16dp"
+        android:maxWidth="320dp"
+        android:background="@drawable/hint_bubble"
+        android:elevation="6dp"
+        android:paddingStart="12dp"
+        android:paddingTop="12dp"
+        android:paddingEnd="12dp"
+        android:paddingBottom="20dp"
+        android:text="@string/shot_made_long_press_hint"
+        android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
+        android:textColor="@color/felt_dark"
+        android:visibility="gone" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -309,8 +318,14 @@
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/shotMadeButton"
                 style="@style/Widget.Pool.ActionButton"
+                android:contentDescription="@string/shot_made_accessibility"
                 android:onClick="shotMadeButtonClicked"
-                android:text="@string/shot_made" />
+                android:text="@string/shot_made"
+                app:icon="@drawable/ic_more_horiz"
+                app:iconGravity="end"
+                app:iconPadding="4dp"
+                app:iconSize="18dp"
+                app:iconTint="@color/ivory" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/safeMadeButton"

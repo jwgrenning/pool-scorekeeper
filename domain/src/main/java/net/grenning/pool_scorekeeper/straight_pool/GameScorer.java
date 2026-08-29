@@ -157,8 +157,16 @@ public class GameScorer {
 			if (currentPlayerScorer.wins()) {
 				gameView.theWinnerIs(currentPlayerNumber + 1);
 				gameView.gameOverApplause();
+				maybeSuggestRerack();
 				return;
 			}
+		}
+		maybeSuggestRerack();
+	}
+
+	private void maybeSuggestRerack() {
+		if (ballsOnTheTable <= 1) {
+			gameView.suggestRerack();
 		}
 	}
 
@@ -217,8 +225,6 @@ public class GameScorer {
 			gameView.oneBallOnTheTable();
 		else
 			gameView.ballsOnTheTable(ballsOnTheTable);
-		if (ballsOnTheTable <= 1)
-			gameView.suggestRerack();
 	}
 
 	public void save(NameValueSaver saver) {

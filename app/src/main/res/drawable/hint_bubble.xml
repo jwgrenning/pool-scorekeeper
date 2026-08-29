@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:bottom="8dp">
+        <shape android:shape="rectangle">
+            <solid android:color="@color/active_player" />
+            <corners android:radius="12dp" />
+        </shape>
+    </item>
+    <item
+        android:width="12dp"
+        android:height="12dp"
+        android:bottom="2dp"
+        android:gravity="bottom|start"
+        android:left="28dp">
+        <rotate
+            android:fromDegrees="45"
+            android:pivotX="50%"
+            android:pivotY="50%">
+            <shape android:shape="rectangle">
+                <solid android:color="@color/active_player" />
+            </shape>
+        </rotate>
+    </item>
+</layer-list>
