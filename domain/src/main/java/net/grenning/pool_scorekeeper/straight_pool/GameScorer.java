@@ -104,16 +104,31 @@ public class GameScorer {
 		switchPlayers();
 	}
 
+	public int ballsOnTheTable() {
+		return ballsOnTheTable;
+	}
+
 	public void playerMakesShot() {
+		playerMakesShots(1);
+	}
+
+	public void playerMakesShots(int balls) {
+		if (balls <= 0) {
+			return;
+		}
 		if (ballsOnTheTable == 0) {
 			gameView.suggestRerack();
-		} else {
-			checkpoint();
+			return;
+		}
+		checkpoint();
+		int remaining = Math.min(balls, ballsOnTheTable);
+		for (int i = 0; i < remaining; i++) {
 			currentPlayerScorer.goodShot();
 			oneLessBallOnTheTable();
 			if (currentPlayerScorer.wins()) {
-				gameView.theWinnerIs(currentPlayerNumber+1);
+				gameView.theWinnerIs(currentPlayerNumber + 1);
 				gameView.gameOverApplause();
+				return;
 			}
 		}
 	}

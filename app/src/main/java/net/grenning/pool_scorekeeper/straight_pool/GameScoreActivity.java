@@ -14,13 +14,17 @@ import android.view.HapticFeedbackConstants;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.GridLayout;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.appbar.MaterialToolbar;
+import com.google.android.material.button.MaterialButton;
 import com.google.android.material.card.MaterialCardView;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.snackbar.Snackbar;
 
 public class GameScoreActivity extends PoolActivity {
@@ -221,6 +225,11 @@ public class GameScoreActivity extends PoolActivity {
 		scorer = new GameScorer(gameView, player1Scorer, player2Scorer);
 
 		restoreOnStart = getBooleanFieldFromIntent("resume") || savedInstanceState != null;
+		findViewById(R.id.shotMadeButton).setOnLongClickListener(view -> {
+			vibrate(view);
+			showBallsPottedPicker();
+			return true;
+		});
 		refreshUndoButton();
 	}
 
@@ -415,6 +424,47 @@ public class GameScoreActivity extends PoolActivity {
 		vibrate(view);
 		scorer.playerMakesShot();
 		afterScoreChange();
+	}
+
+	private void showBallsPottedPicker() {
+		int max = scorer.ballsOnTheTable();
+		if (max <= 0) {
+			scorer.playerMakesShot();
+			afterScoreChange();
+			return;
+		}
+
+		int columns = 5;
+		GridLayout grid = new GridLayout(this);
+		grid.setColumnCount(columns);
+		int padding = Math.round(16 * getResources().getDisplayMetrics().density);
+		grid.setPadding(padding, padding, padding, padding);
+
+		MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(this);
+		builder.setTitle(R.string.balls_potted_title);
+		androidx.appcompat.app.AlertDialog dialog = builder.create();
+
+		for (int n = 1; n <= max; n++) {
+			final int count = n;
+			MaterialButton button = new MaterialButton(this);
+			button.setText(Integer.toString(count));
+			button.setOnClickListener(v -> {
+				scorer.playerMakesShots(count);
+				afterScoreChange();
+				dialog.dismiss();
+			});
+			GridLayout.LayoutParams params = new GridLayout.LayoutParams();
+			params.width = 0;
+			params.height = ViewGroup.LayoutParams.WRAP_CONTENT;
+			params.columnSpec = GridLayout.spec(GridLayout.UNDEFINED, 1f);
+			params.setMargins(padding / 4, padding / 4, padding / 4, padding / 4);
+			button.setLayoutParams(params);
+			button.setMinHeight(Math.round(56 * getResources().getDisplayMetrics().density));
+			grid.addView(button);
+		}
+
+		dialog.setView(grid);
+		dialog.show();
 	}
 
 	public void missedShotButtonClicked(View view) {

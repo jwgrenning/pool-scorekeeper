@@ -138,6 +138,33 @@ public class GameScorerTest extends GameScorerTestBase {
 	}
 
 	@Test
+	public void testMultipleBallsOnOneShot() {
+		game.playerMakesShots(3);
+		assertEquals(12, gameViewSpy.ballsOnTheTable);
+		assertEquals(3, player1Spy.score);
+		assertEquals(3, player1Spy.currentRun);
+		assertEquals(3, player1Spy.rackScore);
+		assertPlayerOneActive();
+	}
+
+	@Test
+	public void testUndoMultipleBallsOnOneShot() {
+		game.playerMakesShots(3);
+		assertTrue(game.undo());
+		assertEquals(15, gameViewSpy.ballsOnTheTable);
+		assertEquals(0, player1Spy.score);
+		assertEquals(0, player1Spy.currentRun);
+		assertPlayerOneActive();
+	}
+
+	@Test
+	public void testMultipleBallsCannotExceedBallsOnTable() {
+		game.playerMakesShots(20);
+		assertEquals(0, gameViewSpy.ballsOnTheTable);
+		assertEquals(15, player1Spy.score);
+	}
+
+	@Test
 	public void testRejectShotsWhenNoBallsLeft() {
 		playerMakesSomeShots(16);
 		assertEquals(15, player1Spy.longestRun);

@@ -8,6 +8,7 @@
     <string name="straight_pool_rules_button">Straight Pool Rules</string>
     <string name="straight_pool_default_points_to_win">50</string>
     <string name="shot_made">Shot Made</string>
+    <string name="balls_potted_title">Balls potted</string>
     <string name="safe_made">Safe</string>
     <string name="missed_shot">Miss</string>
     <string name="foul">Foul</string>
