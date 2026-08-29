@@ -142,6 +142,23 @@ public class GameScoreActivity extends PoolActivity {
 		@Override
 		public void inningRecord(String string) {
 		}
+
+		@Override
+		public void turnStartedAt(long epochMillis) {
+			setTurnClock(R.id.player1TurnClock, epochMillis);
+		}
+
+		@Override
+		public void tableTimeMillis(int millis) {
+		}
+
+		@Override
+		public void turnCount(int count) {
+		}
+
+		@Override
+		public void shotCount(int count) {
+		}
 	};
 
 	PlayerView player2View = new PlayerView() {
@@ -205,6 +222,23 @@ public class GameScoreActivity extends PoolActivity {
 
 		@Override
 		public void inningRecord(String string) {
+		}
+
+		@Override
+		public void turnStartedAt(long epochMillis) {
+			setTurnClock(R.id.player2TurnClock, epochMillis);
+		}
+
+		@Override
+		public void tableTimeMillis(int millis) {
+		}
+
+		@Override
+		public void turnCount(int count) {
+		}
+
+		@Override
+		public void shotCount(int count) {
 		}
 	};
 
@@ -352,6 +386,16 @@ public class GameScoreActivity extends PoolActivity {
 
 	private void setFieldById(int id, int value) {
 		((TextView) findViewById(id)).setText(Integer.toString(value));
+	}
+
+	private void setTurnClock(int id, long epochMillis) {
+		TextView field = findViewById(id);
+		if (epochMillis <= 0) {
+			field.setText("");
+		} else {
+			field.setText(android.text.format.DateFormat.getTimeFormat(this)
+					.format(new java.util.Date(epochMillis)));
+		}
 	}
 
 	private void setPlayerName(String player, int playerTextId, int defaultPlayer) {

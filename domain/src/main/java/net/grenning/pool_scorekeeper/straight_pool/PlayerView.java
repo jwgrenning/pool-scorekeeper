@@ -29,4 +29,12 @@ public interface PlayerView {
 
 	void inningRecord(String string);
 
+	void turnStartedAt(long epochMillis);
+
+	void tableTimeMillis(int millis);
+
+	void turnCount(int count);
+
+	void shotCount(int count);
+
 }

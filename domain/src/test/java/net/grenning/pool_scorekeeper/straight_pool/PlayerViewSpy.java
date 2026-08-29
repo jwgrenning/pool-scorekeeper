@@ -17,6 +17,10 @@ public class PlayerViewSpy implements PlayerView {
 	public int safesMissed = -1;
 	public int consecutiveSafes = -1;
 	public String inningRecord = "---";
+	public long turnStartedAt = -1;
+	public int tableTimeMillis = -1;
+	public int turnCount = -1;
+	public int shotCount = -1;
 
 	@Override
 	public void score(int i) {
@@ -84,6 +88,26 @@ public class PlayerViewSpy implements PlayerView {
 	@Override
 	public void inningRecord(String record) {
 		inningRecord  = record;
+	}
+
+	@Override
+	public void turnStartedAt(long epochMillis) {
+		turnStartedAt = epochMillis;
+	}
+
+	@Override
+	public void tableTimeMillis(int millis) {
+		tableTimeMillis = millis;
+	}
+
+	@Override
+	public void turnCount(int count) {
+		turnCount = count;
+	}
+
+	@Override
+	public void shotCount(int count) {
+		shotCount = count;
 	}
 
 }

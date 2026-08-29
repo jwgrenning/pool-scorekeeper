@@ -49,4 +49,9 @@
     <string name="no_email_clients">There are no email clients installed.</string>
     <string name="cowboy_not_implemented">Cowboy Pool is not implemented yet.</string>
     <string name="consecutive_safes_made">Consecutive Safes</string>
+    <string name="time_on_table">Time on the table</string>
+    <string name="turns">Turns</string>
+    <string name="avg_turn">Average turn</string>
+    <string name="shots">Shots</string>
+    <string name="avg_shot">Average shot</string>
 </resources>

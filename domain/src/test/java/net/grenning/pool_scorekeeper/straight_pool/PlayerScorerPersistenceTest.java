@@ -16,7 +16,7 @@ import org.junit.Test;
 
 public class PlayerScorerPersistenceTest extends PlayerScorerBase {
 
-	private static final int INT_FIELDS_PER_PLAYER = 10;
+	private static final int INT_FIELDS_PER_PLAYER = 13;
 	private static final int BOOL_FIELDS_PER_PLAYER = 1;
 	private static final int STRING_FIELDS_PER_PLAYER = 1;
 	private static final int NONSAVED_FIELDS_PER_PLAYER = 1;
@@ -48,6 +48,9 @@ public class PlayerScorerPersistenceTest extends PlayerScorerBase {
 		verify(saver, times(1)).save("safesMissed", 1, 0);
 		verify(saver, times(1)).save("consecutiveSafes", 1, 0);
 		verify(saver, times(1)).save("inningRecord", 1, "");
+		verify(saver, times(1)).save("tableTimeMillis", 1, 0);
+		verify(saver, times(1)).save("turnCount", 1, 0);
+		verify(saver, times(1)).save("shotCount", 1, 0);
 		verifyNoMoreInteractions(saver);
 		
 

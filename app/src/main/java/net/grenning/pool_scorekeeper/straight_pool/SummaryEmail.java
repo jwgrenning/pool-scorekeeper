@@ -60,6 +60,9 @@ public class SummaryEmail {
 		public int consecutiveFouls = -1;
 		public int ballsNeededToWin = -1;
 		public String inningRecord = "---";
+		public int tableTimeMillis = 0;
+		public int turnCount = 0;
+		public int shotCount = 0;
 
 		@Override
 		public void score(int score) {
@@ -121,6 +124,25 @@ public class SummaryEmail {
 		public void inningRecord(String record) {
 			inningRecord = record;
 		}
+
+		@Override
+		public void turnStartedAt(long epochMillis) {
+		}
+
+		@Override
+		public void tableTimeMillis(int millis) {
+			tableTimeMillis = millis;
+		}
+
+		@Override
+		public void turnCount(int count) {
+			turnCount = count;
+		}
+
+		@Override
+		public void shotCount(int count) {
+			shotCount = count;
+		}
 	}
 
 	GamesStats game = new GamesStats();
@@ -168,7 +190,34 @@ public class SummaryEmail {
 		body += String.format(playerCountFormat, activity.getResources().getString(R.string.total_fouls), player.totalFouls);
 		body += String.format(playerCountFormat, activity.getResources().getString(R.string.consecutive_safes_made), player.consecutiveSafes);
 		body += String.format(playerCountFormat, activity.getResources().getString(R.string.consecutive_fouls), player.consecutiveFouls);
+		body += String.format(playerStatFormat, activity.getResources().getString(R.string.time_on_table), formatDuration(player.tableTimeMillis));
+		body += String.format(playerCountFormat, activity.getResources().getString(R.string.turns), player.turnCount);
+		body += String.format(playerStatFormat, activity.getResources().getString(R.string.avg_turn),
+				averageDuration(player.tableTimeMillis, player.turnCount));
+		body += String.format(playerCountFormat, activity.getResources().getString(R.string.shots), player.shotCount);
+		body += String.format(playerStatFormat, activity.getResources().getString(R.string.avg_shot),
+				averageDuration(player.tableTimeMillis, player.shotCount));
 		body += activity.getResources().getString(R.string.inning_title) + player.inningRecord;
 		return body;
+	}
+
+	private static final String playerStatFormat = "     %s %s\n";
+
+	static String formatDuration(int millis) {
+		int totalSeconds = Math.max(0, millis) / 1000;
+		int hours = totalSeconds / 3600;
+		int minutes = (totalSeconds % 3600) / 60;
+		int seconds = totalSeconds % 60;
+		if (hours > 0) {
+			return String.format("%d:%02d:%02d", hours, minutes, seconds);
+		}
+		return String.format("%d:%02d", minutes, seconds);
+	}
+
+	static String averageDuration(int millis, int count) {
+		if (count <= 0) {
+			return formatDuration(0);
+		}
+		return formatDuration(millis / count);
 	}
 }

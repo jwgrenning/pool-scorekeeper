@@ -17,6 +17,9 @@ public class PlayerScorer {
 	private int safesMissed = -1;
 	private int consecutiveSafes = -1;
 	private String inningRecord = "";
+	private int tableTimeMillis = 0;
+	private int turnCount = 0;
+	private int shotCount = 0;
 
 	public PlayerScorer(PlayerView view,
 			int ballsNeededToWin) {
@@ -37,6 +40,9 @@ public class PlayerScorer {
 		safesMissed = 0;
 		consecutiveSafes = 0;
 		inningRecord = "";
+		tableTimeMillis = 0;
+		turnCount = 0;
+		shotCount = 0;
 		updateView(view);
 	}
 
@@ -52,6 +58,9 @@ public class PlayerScorer {
 		view.safesMissed(safesMissed);
 		view.consecutiveSafes(consecutiveSafes);
 		view.inningRecord(inningRecord);
+		view.tableTimeMillis(tableTimeMillis);
+		view.turnCount(turnCount);
+		view.shotCount(shotCount);
 	}
 
 	public void goodShot() {
@@ -114,6 +123,22 @@ public class PlayerScorer {
 
 	public void makeInactive() {
 		view.makeInactive();
+		view.turnStartedAt(0);
+	}
+
+	public void showTurnStartedAt(long epochMillis) {
+		view.turnStartedAt(epochMillis);
+	}
+
+	public void recordShot() {
+		shotCount++;
+		updateView(view);
+	}
+
+	public void addCompletedTurn(int elapsedMillis) {
+		tableTimeMillis += elapsedMillis;
+		turnCount++;
+		updateView(view);
 	}
 
 	public void save(NameValueSaver saver, int playerNumber) {
@@ -129,6 +154,9 @@ public class PlayerScorer {
 		saver.save("safesMissed", playerNumber, safesMissed);
 		saver.save("consecutiveSafes", playerNumber, consecutiveSafes);
 		saver.save("inningRecord", playerNumber, inningRecord);
+		saver.save("tableTimeMillis", playerNumber, tableTimeMillis);
+		saver.save("turnCount", playerNumber, turnCount);
+		saver.save("shotCount", playerNumber, shotCount);
 	}
 
 	public void restore(NameValueSaver saver, int playerNumber) {
@@ -144,6 +172,9 @@ public class PlayerScorer {
 		safesMissed = saver.getInt("safesMissed" + playerNumber, 0);
 		consecutiveSafes = saver.getInt("consecutiveSafes" + playerNumber, 0);
 		inningRecord = saver.getString("inningRecord" + playerNumber, "");
+		tableTimeMillis = saver.getInt("tableTimeMillis" + playerNumber, 0);
+		turnCount = saver.getInt("turnCount" + playerNumber, 0);
+		shotCount = saver.getInt("shotCount" + playerNumber, 0);
 		updateView(view);
 	}
 
@@ -166,7 +197,14 @@ public class PlayerScorer {
 	}
 
 	public void reportSummary(PlayerView player) {
+		reportSummary(player, 0, 0);
+	}
+
+	public void reportSummary(PlayerView player, int extraTableTimeMillis, int extraTurns) {
 		updateView(player);
+		player.tableTimeMillis(tableTimeMillis + extraTableTimeMillis);
+		player.turnCount(turnCount + extraTurns);
+		player.shotCount(shotCount);
 	}
 
 }

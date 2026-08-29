@@ -15,7 +15,7 @@ import static org.mockito.Mockito.*;
 public class GameScorerPersistenceTest extends
 		GameScorerTestBase {
 
-	private static final int INT_FIELDS_PER_PLAYER = 10;
+	private static final int INT_FIELDS_PER_PLAYER = 13;
 	private static final int BOOL_FIELDS_PER_PLAYER = 1;
 	private static final int NONSAVED_FIELDS_PER_PLAYER = 1;
 	private static final int STRING_FIELDS_PER_PLAYER = 1;
@@ -35,6 +35,8 @@ public class GameScorerPersistenceTest extends
 		verify(saver, times(1)).save("inning", 1);
 		verify(saver, times(1)).save("undoCount", 0);
 		verify(saver, times(1)).save("redoCount", 0);
+		verify(saver, times(1)).save(eq("turnStartedAt"), anyString());
+		verify(saver, times(1)).save(eq("turnElapsedMillis"), anyInt());
 		verify(saver, times(1)).save(eq("inningRecord"), eq(1), eq(""));
 		verify(saver, times(INT_FIELDS_PER_PLAYER)).save(anyString(), eq(1), anyInt());
 		verify(saver, times(BOOL_FIELDS_PER_PLAYER)).save(anyString(), eq(1), anyBoolean());
@@ -54,7 +56,7 @@ public class GameScorerPersistenceTest extends
 		verify(saver, times(1)).getInt("currentPlayerNumber", 0);
 		verify(saver, times(1)).getInt("ballsOnTheTable", 15);
 		verify(saver, times(1)).getInt("inning", 1);
-		verify(saver, times(2*INT_FIELDS_PER_PLAYER+5)).getInt(anyString(), anyInt());
+		verify(saver, times(2*INT_FIELDS_PER_PLAYER+6)).getInt(anyString(), anyInt());
 		verify(saver, times(2*BOOL_FIELDS_PER_PLAYER)).getBoolean(anyString(), anyBoolean());
 		assertPlayerOneActive();
 		assertEquals(99, gameViewSpy.ballsOnTheTable);

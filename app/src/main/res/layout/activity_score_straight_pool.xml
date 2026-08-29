@@ -73,12 +73,21 @@
                 <TableRow>
                     <TextView
                         android:id="@+id/player1Name"
-                        android:layout_span="2"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
                         android:gravity="center"
                         android:text="@string/default_player1Name"
                         android:textAppearance="@style/TextAppearance.Material3.HeadlineSmall"
                         android:textColor="@color/ivory"
                         android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/player1TurnClock"
+                        android:gravity="end|center_vertical"
+                        android:minWidth="64dp"
+                        android:paddingStart="8dp"
+                        android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
+                        android:textColor="@color/ivory" />
                 </TableRow>
 
                 <TableRow>
@@ -184,12 +193,21 @@
                 <TableRow>
                     <TextView
                         android:id="@+id/player2Name"
-                        android:layout_span="2"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
                         android:gravity="center"
                         android:text="@string/default_player2Name"
                         android:textAppearance="@style/TextAppearance.Material3.HeadlineSmall"
                         android:textColor="@color/ivory"
                         android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/player2TurnClock"
+                        android:gravity="end|center_vertical"
+                        android:minWidth="64dp"
+                        android:paddingStart="8dp"
+                        android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
+                        android:textColor="@color/ivory" />
                 </TableRow>
 
                 <TableRow>

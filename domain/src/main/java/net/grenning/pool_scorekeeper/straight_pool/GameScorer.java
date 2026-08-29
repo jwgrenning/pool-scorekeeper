@@ -15,6 +15,8 @@ public class GameScorer {
 	private static final String UNDO_PREFIX = "undo";
 	private static final String REDO_COUNT = "redoCount";
 	private static final String REDO_PREFIX = "redo";
+	private static final String TURN_STARTED_AT = "turnStartedAt";
+	private static final String TURN_ELAPSED_MILLIS = "turnElapsedMillis";
 	private static final int MAX_UNDO = 100;
 
 	PlayerScorer player1Scorer;
@@ -27,6 +29,11 @@ public class GameScorer {
 	int inning = 1;
 	private final Deque<MapNameValueSaver> history = new ArrayDeque<MapNameValueSaver>();
 	private final Deque<MapNameValueSaver> redoHistory = new ArrayDeque<MapNameValueSaver>();
+	private long nowMillis = -1;
+	private long turnStartedAtMillis = 0;
+	private int turnElapsedMillis = 0;
+	private long turnRunningSinceMillis = 0;
+	private boolean clockRunning = false;
 	
 	public GameScorer(GameView gameView, PlayerScorer player1Scorer,
 			PlayerScorer player2Scorer) {
@@ -42,13 +49,33 @@ public class GameScorer {
 
 		this.player1Scorer = player1Scorer;
 		this.player2Scorer = player2Scorer;
+		startTurn();
 		updateView();
+	}
+
+	public void setNowMillis(long millis) {
+		nowMillis = millis;
+	}
+
+	public void startTurnAt(long millis) {
+		nowMillis = millis;
+		startTurn();
+		updateView();
+	}
+
+	private long now() {
+		if (nowMillis >= 0) {
+			return nowMillis;
+		}
+		return System.currentTimeMillis();
 	}
 
 	private void updateView() {
 		gameView.ballsOnTheTable(ballsOnTheTable);
 		gameView.inning(inning);
 		updateActivePlayer();
+		playerScorer[currentPlayerNumber].showTurnStartedAt(turnStartedAtMillis);
+		playerScorer[currentPlayerNumber ^ 1].showTurnStartedAt(0);
 		if (playerScorer[0].wins()) {
 			gameView.theWinnerIs(1);
 		} else if (playerScorer[1].wins()) {
@@ -100,6 +127,7 @@ public class GameScorer {
 
 	public void foul() {
 		checkpoint();
+		currentPlayerScorer.recordShot();
 		currentPlayerScorer.foul();
 		switchPlayers();
 	}
@@ -121,6 +149,7 @@ public class GameScorer {
 			return;
 		}
 		checkpoint();
+		currentPlayerScorer.recordShot();
 		int remaining = Math.min(balls, ballsOnTheTable);
 		for (int i = 0; i < remaining; i++) {
 			currentPlayerScorer.goodShot();
@@ -135,16 +164,38 @@ public class GameScorer {
 
 	public void playerMissesShot() {
 		checkpoint();
+		currentPlayerScorer.recordShot();
 		currentPlayerScorer.missedShot();
 		switchPlayers();
 	}
 
 	private void switchPlayers() {
+		endTurn();
 		currentPlayerNumber ^= 1;
 		currentPlayerScorer = playerScorer[currentPlayerNumber];
 		if (currentPlayerNumber == 0)
 			inning++;
+		startTurn();
 		updateView();
+	}
+
+	private void startTurn() {
+		turnStartedAtMillis = now();
+		turnElapsedMillis = 0;
+		turnRunningSinceMillis = now();
+		clockRunning = true;
+	}
+
+	private void endTurn() {
+		captureElapsed();
+		currentPlayerScorer.addCompletedTurn(turnElapsedMillis);
+	}
+
+	private void captureElapsed() {
+		if (clockRunning) {
+			turnElapsedMillis += (int) (now() - turnRunningSinceMillis);
+			turnRunningSinceMillis = now();
+		}
 	}
 
 	private void updateActivePlayer() {
@@ -187,9 +238,12 @@ public class GameScorer {
 	}
 
 	private void saveState(NameValueSaver saver) {
+		captureElapsed();
 		saver.save(CURRENT_PLAYER_NUMBER, currentPlayerNumber);
 		saver.save(BALLS_ON_THE_TABLE, ballsOnTheTable);
 		saver.save(INNING, inning);
+		saver.save(TURN_STARTED_AT, Long.toString(turnStartedAtMillis));
+		saver.save(TURN_ELAPSED_MILLIS, turnElapsedMillis);
 		playerScorer[0].save(saver, 1);
 		playerScorer[1].save(saver, 2);
 	}
@@ -217,25 +271,40 @@ public class GameScorer {
 		playerScorer[0].restore(saver, 1);
 		playerScorer[1].restore(saver, 2);
 		currentPlayerScorer = playerScorer[currentPlayerNumber];
+		try {
+			turnStartedAtMillis = Long.parseLong(saver.getString(TURN_STARTED_AT, "0"));
+		} catch (NumberFormatException e) {
+			turnStartedAtMillis = 0;
+		}
+		turnElapsedMillis = saver.getInt(TURN_ELAPSED_MILLIS, 0);
+		clockRunning = true;
+		turnRunningSinceMillis = now();
 		updateView();
 	}
 
 	public void playerMakesSafe() {
 		checkpoint();
+		currentPlayerScorer.recordShot();
 		currentPlayerScorer.safeMade();
 		switchPlayers();
 	}
 
 	public void playerMissesSafe() {
 		checkpoint();
+		currentPlayerScorer.recordShot();
 		currentPlayerScorer.safeMissed();
 		switchPlayers();
 	}
 
 	public void reportSummary(GameView gameView, PlayerView player1, PlayerView player2) {
+		captureElapsed();
 		gameView.ballsOnTheTable(ballsOnTheTable);
 		gameView.inning(inning);
-		playerScorer[0].reportSummary(player1);
-		playerScorer[1].reportSummary(player2);
+		int extraTime0 = currentPlayerNumber == 0 ? turnElapsedMillis : 0;
+		int extraTurns0 = currentPlayerNumber == 0 ? 1 : 0;
+		int extraTime1 = currentPlayerNumber == 1 ? turnElapsedMillis : 0;
+		int extraTurns1 = currentPlayerNumber == 1 ? 1 : 0;
+		playerScorer[0].reportSummary(player1, extraTime0, extraTurns0);
+		playerScorer[1].reportSummary(player2, extraTime1, extraTurns1);
 	}
 }
