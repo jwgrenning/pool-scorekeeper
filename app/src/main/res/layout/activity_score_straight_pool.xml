@@ -325,21 +325,29 @@
             android:layout_height="wrap_content"
             android:layout_margin="4dp"
             android:layout_weight="1"
+            android:minHeight="56dp"
             android:orientation="horizontal">
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/undoButton"
-                style="@style/Widget.Pool.SplitButton"
+                style="@style/Widget.Pool.SplitButton.Left"
+                android:contentDescription="@string/undo"
                 android:enabled="false"
                 android:onClick="undoButtonClicked"
-                android:text="@string/undo" />
+                android:text="@string/undo_symbol" />
+
+            <View
+                android:layout_width="2dp"
+                android:layout_height="match_parent"
+                android:background="@color/history_button_cut" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/redoButton"
-                style="@style/Widget.Pool.SplitButton"
+                style="@style/Widget.Pool.SplitButton.Right"
+                android:contentDescription="@string/redo"
                 android:enabled="false"
                 android:onClick="redoButtonClicked"
-                android:text="@string/redo" />
+                android:text="@string/redo_symbol" />
         </LinearLayout>
     </LinearLayout>
 

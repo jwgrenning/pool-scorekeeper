@@ -23,6 +23,8 @@
     <string name="total_fouls">Total Fouls</string>
     <string name="undo">Undo</string>
     <string name="redo">Redo</string>
+    <string name="undo_symbol">&lt;</string>
+    <string name="redo_symbol">&gt;</string>
     <string name="player1">Player 1</string>
     <string name="player2">Player 2</string>
     <string name="swap_players">Swap Players</string>
