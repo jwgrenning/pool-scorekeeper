@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Theme.PoolScorekeeper" parent="Theme.Material3.Dark.NoActionBar">
+        <item name="colorPrimary">@color/felt_green</item>
+        <item name="colorOnPrimary">@color/ivory</item>
+        <item name="colorSecondary">@color/active_player</item>
+        <item name="colorOnSecondary">@color/felt_dark</item>
+        <item name="android:statusBarColor">@color/felt_dark</item>
+        <item name="android:navigationBarColor">@color/felt_dark</item>
+        <item name="android:windowBackground">@color/felt_dark</item>
+        <item name="colorSurface">@color/felt_green</item>
+        <item name="colorOnSurface">@color/ivory</item>
+        <item name="android:textColor">@color/ivory</item>
+    </style>
+
+    <style name="Widget.Pool" parent="android:Widget" />
+
+    <style name="Widget.Pool.ActionButton" parent="Widget.Material3.Button">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:minHeight">56dp</item>
+        <item name="android:layout_margin">4dp</item>
+        <item name="android:textAllCaps">false</item>
+    </style>
+
+    <style name="Widget.Pool.DangerButton" parent="Widget.Pool.ActionButton">
+        <item name="backgroundTint">@color/miss_button</item>
+        <item name="android:textColor">@color/ivory</item>
+    </style>
+
+    <style name="Widget.Pool.StatLabel" parent="android:Widget.TextView">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/ivory</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:paddingTop">4dp</item>
+        <item name="android:paddingBottom">4dp</item>
+    </style>
+
+    <style name="Widget.Pool.StatValue" parent="android:Widget.TextView">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/ivory</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:gravity">end</item>
+        <item name="android:minWidth">36dp</item>
+        <item name="android:paddingTop">4dp</item>
+        <item name="android:paddingBottom">4dp</item>
+    </style>
+</resources>

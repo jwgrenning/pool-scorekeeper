@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/felt_dark"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:padding="24dp">
+
+    <TextView
+        android:id="@+id/fullscreen_content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="48dp"
+        android:text="@string/game_chooser_screen_content"
+        android:textAppearance="@style/TextAppearance.Material3.HeadlineLarge"
+        android:textColor="@color/ivory"
+        android:textStyle="bold" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/straight_pool_button"
+        android:layout_width="280dp"
+        android:layout_height="wrap_content"
+        android:minHeight="56dp"
+        android:onClick="launchStraightPoolScreen"
+        android:text="@string/straight_pool_button" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/cowboy_pool_button"
+        style="@style/Widget.Material3.Button.TonalButton"
+        android:layout_width="280dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:minHeight="56dp"
+        android:onClick="launchCowboyPoolScreen"
+        android:text="@string/cowboy_pool_button" />
+
+</LinearLayout>

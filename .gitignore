@@ -3,5 +3,10 @@ bin
 *.dat
 .DS_Store
 *.apk
-
-
+.gradle/
+**/build/
+local.properties
+*.iml
+.idea/
+.cxx/
+captures/

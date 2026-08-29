@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="felt_dark">#0D3B1E</color>
+    <color name="felt_green">#1B5E20</color>
+    <color name="ivory">#F5F5DC</color>
+    <color name="active_player">#FFC107</color>
+    <color name="inactive_player">#1B5E20</color>
+    <color name="miss_button">#C62828</color>
+    <color name="text_color">#F5F5DC</color>
+    <color name="black_overlay">#66000000</color>
+    <color name="pool_table_felt">#0D3B1E</color>
+</resources>
