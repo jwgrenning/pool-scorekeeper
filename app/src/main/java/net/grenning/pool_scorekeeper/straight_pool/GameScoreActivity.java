@@ -16,6 +16,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.GridLayout;
+import android.widget.ScrollView;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.widget.TextView;
@@ -270,8 +271,22 @@ public class GameScoreActivity extends PoolActivity {
 			hint.setOnClickListener(v -> hideShotMadeHint());
 			hint.post(this::showShotMadeHint);
 		}
+		linkPlayerStatScrolls();
 		refreshUndoButton();
 		refreshGameOverChrome();
+	}
+
+	private void linkPlayerStatScrolls() {
+		ScrollView player1Scroll = findViewById(R.id.player1Scroll);
+		ScrollView player2Scroll = findViewById(R.id.player2Scroll);
+		View.OnScrollChangeListener sync = (view, scrollX, scrollY, oldX, oldY) -> {
+			ScrollView other = view.getId() == R.id.player1Scroll ? player2Scroll : player1Scroll;
+			if (other.getScrollX() != scrollX || other.getScrollY() != scrollY) {
+				other.scrollTo(scrollX, scrollY);
+			}
+		};
+		player1Scroll.setOnScrollChangeListener(sync);
+		player2Scroll.setOnScrollChangeListener(sync);
 	}
 
 	@Override

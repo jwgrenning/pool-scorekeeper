@@ -55,9 +55,17 @@
             app:strokeColor="@color/active_player"
             app:strokeWidth="0dp">
 
-            <TableLayout
+            <ScrollView
+                android:id="@+id/player1Scroll"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:fillViewport="true"
+                android:overScrollMode="ifContentScrolls"
+                android:scrollbars="vertical">
+
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:stretchColumns="1">
 
                 <TableRow>
@@ -161,6 +169,7 @@
                         android:text="0" />
                 </TableRow>
             </TableLayout>
+            </ScrollView>
         </com.google.android.material.card.MaterialCardView>
 
         <com.google.android.material.card.MaterialCardView
@@ -175,9 +184,17 @@
             app:strokeColor="@color/active_player"
             app:strokeWidth="0dp">
 
-            <TableLayout
+            <ScrollView
+                android:id="@+id/player2Scroll"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:fillViewport="true"
+                android:overScrollMode="ifContentScrolls"
+                android:scrollbars="vertical">
+
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:stretchColumns="1">
 
                 <TableRow>
@@ -281,6 +298,7 @@
                         android:text="0" />
                 </TableRow>
             </TableLayout>
+            </ScrollView>
         </com.google.android.material.card.MaterialCardView>
     </LinearLayout>
 
