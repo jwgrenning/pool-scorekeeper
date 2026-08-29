@@ -11,4 +11,8 @@
     <color name="text_color">#F5F5DC</color>
     <color name="black_overlay">#66000000</color>
     <color name="pool_table_felt">#0D3B1E</color>
+    <color name="bead">#E0C48A</color>
+    <color name="bead_stroke">#8D6E3B</color>
+    <color name="bead_highlight">#FFF3D0</color>
+    <color name="bead_wire">#C9A227</color>
 </resources>

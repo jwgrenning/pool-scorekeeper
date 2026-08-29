@@ -84,7 +84,7 @@ public class GameScoreActivity extends PoolActivity {
 	PlayerView player1View = new PlayerView() {
 		@Override
 		public void score(int i) {
-			setFieldById(R.id.player1Score, i);
+			setScoreAndBeads(R.id.player1Score, R.id.player1Beads, i);
 		}
 
 		@Override
@@ -165,7 +165,7 @@ public class GameScoreActivity extends PoolActivity {
 	PlayerView player2View = new PlayerView() {
 		@Override
 		public void score(int i) {
-			setFieldById(R.id.player2Score, i);
+			setScoreAndBeads(R.id.player2Score, R.id.player2Beads, i);
 		}
 
 		@Override
@@ -350,10 +350,6 @@ public class GameScoreActivity extends PoolActivity {
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		int id = item.getItemId();
-		if (id == R.id.email_game_summary_button) {
-			showGameSummary();
-			return true;
-		}
 		if (id == R.id.straight_pool_rules_button) {
 			showStraightPoolRules();
 			return true;
@@ -491,6 +487,14 @@ public class GameScoreActivity extends PoolActivity {
 	protected void setInactiveById(int id) {
 		MaterialCardView card = findViewById(id);
 		card.setStrokeWidth(0);
+	}
+
+	private void setScoreAndBeads(int scoreId, int beadId, int score) {
+		setFieldById(scoreId, score);
+		BeadRackView beads = findViewById(beadId);
+		if (beads != null) {
+			beads.setScore(score);
+		}
 	}
 
 	private void setFieldById(int id, String value) {

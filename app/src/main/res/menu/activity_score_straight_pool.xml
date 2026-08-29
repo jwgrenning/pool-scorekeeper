@@ -12,9 +12,4 @@
         android:orderInCategory="2"
         android:title="@string/general_pool_rules_button"
         app:showAsAction="never" />
-    <item
-        android:id="@+id/email_game_summary_button"
-        android:orderInCategory="3"
-        android:title="@string/game_summary"
-        app:showAsAction="never" />
 </menu>

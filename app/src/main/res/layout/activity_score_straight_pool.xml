@@ -13,26 +13,76 @@
         android:layout_height="wrap_content"
         android:background="@color/felt_green"
         android:minHeight="?attr/actionBarSize"
+        app:contentInsetEnd="8dp"
+        app:contentInsetStart="16dp"
         app:title="@string/default_inning_text"
-        app:titleTextColor="@color/ivory" />
+        app:titleTextColor="@color/ivory">
+
+        <TextView
+            android:id="@+id/ballsOnTheTable"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:paddingEnd="8dp"
+            android:text="@string/default_balls_left_on_the_table"
+            android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
+            android:textColor="@color/ivory" />
+    </com.google.android.material.appbar.MaterialToolbar>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
+        android:background="@color/felt_green"
+        android:orientation="vertical"
         android:paddingStart="16dp"
+        android:paddingTop="2dp"
         android:paddingEnd="16dp"
-        android:paddingTop="8dp"
         android:paddingBottom="8dp">
 
-        <TextView
-            android:id="@+id/ballsOnTheTable"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/default_balls_left_on_the_table"
-            android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
-            android:textColor="@color/ivory" />
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="18dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="1"
+                android:textColor="@color/ivory"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+
+            <net.grenning.pool_scorekeeper.straight_pool.BeadRackView
+                android:id="@+id/player1Beads"
+                android:layout_width="0dp"
+                android:layout_height="14dp"
+                android:layout_weight="1" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="18dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="2"
+                android:textColor="@color/ivory"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+
+            <net.grenning.pool_scorekeeper.straight_pool.BeadRackView
+                android:id="@+id/player2Beads"
+                android:layout_width="0dp"
+                android:layout_height="14dp"
+                android:layout_weight="1" />
+        </LinearLayout>
     </LinearLayout>
 
     <LinearLayout
