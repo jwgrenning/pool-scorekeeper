@@ -1,13 +1,12 @@
 package net.grenning.pool_scorekeeper.straight_pool;
 
+import net.grenning.pool_scorekeeper.PoolActivity;
 import net.grenning.pool_scorekeeper.R;
 
-import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
-
-import net.grenning.pool_scorekeeper.PoolActivity;
 
 public class StartGameActivity extends PoolActivity {
 
@@ -15,29 +14,61 @@ public class StartGameActivity extends PoolActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_straight_pool_start);
+		loadSetup();
 	}
 
-	private void addToIntent(Intent intent, String name, int id) {
-		EditText text = findViewById(id);
-		intent.putExtra(name, text.getText().toString());
+	@Override
+	protected void onPause() {
+		super.onPause();
+		saveSetup();
 	}
 
 	public void startStraightPool(View view) {
-		playStraightPool(false);
+		saveSetup();
+		startActivity(StraightPoolStore.scoreboardIntent(this, false));
 	}
 
 	public void resumeStraightPool(View view) {
-		playStraightPool(true);
+		saveSetup();
+		startActivity(StraightPoolStore.scoreboardIntent(this, true));
 	}
 
-	private void playStraightPool(boolean resume) {
-		Intent intent = new Intent(this, GameScoreActivity.class);
-		addToIntent(intent, "player1Name", R.id.player1Name);
-		addToIntent(intent, "player2Name", R.id.player2Name);
-		addToIntent(intent, "player1PointsToWin", R.id.player1PointsToWin);
-		addToIntent(intent, "player2PointsToWin", R.id.player2PointsToWin);
-		intent.putExtra("resume", resume);
-		startActivity(intent);
+	public void swapPlayers(View view) {
+		swapText(R.id.player1Name, R.id.player2Name);
+		swapText(R.id.player1PointsToWin, R.id.player2PointsToWin);
+	}
+
+	private void loadSetup() {
+		SharedPreferences prefs = StraightPoolStore.prefs(this);
+		setText(R.id.player1Name, prefs.getString(StraightPoolStore.PLAYER1_NAME, ""),
+				R.string.default_player1Name);
+		setText(R.id.player2Name, prefs.getString(StraightPoolStore.PLAYER2_NAME, ""),
+				R.string.default_player2Name);
+		setText(R.id.player1PointsToWin, prefs.getString(StraightPoolStore.PLAYER1_POINTS, ""),
+				R.string.straight_pool_default_points_to_win);
+		setText(R.id.player2PointsToWin, prefs.getString(StraightPoolStore.PLAYER2_POINTS, ""),
+				R.string.straight_pool_default_points_to_win);
+	}
+
+	private void saveSetup() {
+		StraightPoolStore.saveSetup(this,
+				textOf(R.id.player1Name),
+				textOf(R.id.player2Name),
+				textOf(R.id.player1PointsToWin),
+				textOf(R.id.player2PointsToWin));
+	}
+
+	private void setText(int id, String value, int defaultValue) {
+		EditText field = findViewById(id);
+		if (value == null || value.isEmpty()) {
+			field.setText(defaultValue);
+		} else {
+			field.setText(value);
+		}
+	}
+
+	private String textOf(int id) {
+		return ((EditText) findViewById(id)).getText().toString();
 	}
 
 	private void swapText(int id1, int id2) {
@@ -47,10 +78,5 @@ public class StartGameActivity extends PoolActivity {
 		String s2 = text2.getText().toString();
 		text1.setText(s2);
 		text2.setText(s1);
-	}
-
-	public void swapPlayers(View view) {
-		swapText(R.id.player1Name, R.id.player2Name);
-		swapText(R.id.player1PointsToWin, R.id.player2PointsToWin);
 	}
 }

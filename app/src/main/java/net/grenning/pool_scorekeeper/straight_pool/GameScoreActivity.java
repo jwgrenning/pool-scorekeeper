@@ -24,7 +24,6 @@ import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.snackbar.Snackbar;
 
 public class GameScoreActivity extends PoolActivity {
-	private static final String PREFS_NAME = "straight_pool_game";
 
 	GameScorer scorer;
 	PlayerScorer player1Scorer;
@@ -228,7 +227,7 @@ public class GameScoreActivity extends PoolActivity {
 	@Override
 	protected void onStart() {
 		super.onStart();
-		SharedPreferences prefs = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
+		SharedPreferences prefs = StraightPoolStore.prefs(this);
 		gameSaver = new AndroidGameFieldSaver(prefs);
 		if (restoreOnStart) {
 			scorer.populateFromPersistence(gameSaver);
@@ -248,10 +247,13 @@ public class GameScoreActivity extends PoolActivity {
 			return;
 		}
 		if (gameSaver == null) {
-			gameSaver = new AndroidGameFieldSaver(
-					getSharedPreferences(PREFS_NAME, MODE_PRIVATE));
+			gameSaver = new AndroidGameFieldSaver(StraightPoolStore.prefs(this));
 		}
 		scorer.save(gameSaver);
+		gameSaver.save(StraightPoolStore.PLAYER1_NAME, textOf(R.id.player1Name));
+		gameSaver.save(StraightPoolStore.PLAYER2_NAME, textOf(R.id.player2Name));
+		gameSaver.save(StraightPoolStore.GAME_IN_PROGRESS,
+				!player1Scorer.wins() && !player2Scorer.wins());
 		gameSaver.persist();
 	}
 
@@ -345,6 +347,12 @@ public class GameScoreActivity extends PoolActivity {
 
 	private void setPlayerName(String player, int playerTextId, int defaultPlayer) {
 		String name = getIntent().getStringExtra(player);
+		if (name == null || name.equals("")) {
+			String key = "player1Name".equals(player)
+					? StraightPoolStore.PLAYER1_NAME
+					: StraightPoolStore.PLAYER2_NAME;
+			name = StraightPoolStore.prefs(this).getString(key, "");
+		}
 		TextView playerText = findViewById(playerTextId);
 		if (name == null || name.equals("")) {
 			playerText.setText(defaultPlayer);
@@ -353,8 +361,18 @@ public class GameScoreActivity extends PoolActivity {
 		}
 	}
 
+	private String textOf(int id) {
+		return ((TextView) findViewById(id)).getText().toString();
+	}
+
 	private int getNumberFieldFromIntent(String name) {
 		String number = getIntent().getStringExtra(name);
+		if (number == null || number.equals("")) {
+			String key = "player1PointsToWin".equals(name)
+					? StraightPoolStore.PLAYER1_POINTS
+					: StraightPoolStore.PLAYER2_POINTS;
+			number = StraightPoolStore.prefs(this).getString(key, "");
+		}
 		if (number == null || number.equals("")) {
 			return 50;
 		}
