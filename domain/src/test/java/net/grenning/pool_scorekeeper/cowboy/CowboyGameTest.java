@@ -193,6 +193,18 @@ public class CowboyGameTest {
 	}
 
 	@Test
+	public void lastShotIsPerPlayer() {
+		p1.specialLastShot = true;
+		p2.specialLastShot = false;
+		p1.score = 55;
+		p2.score = 54;
+		assertEquals(CowboyGame.Phase.WIN, game.phaseOf(p1));
+		assertEquals(CowboyGame.Phase.CAROMS, game.phaseOf(p2));
+		assertEquals(56, p1.raceTo());
+		assertEquals(55, p2.raceTo());
+	}
+
+	@Test
 	public void withoutSpecialLastShotACaromCanWin() {
 		p1.specialLastShot = false;
 		p2.specialLastShot = false;

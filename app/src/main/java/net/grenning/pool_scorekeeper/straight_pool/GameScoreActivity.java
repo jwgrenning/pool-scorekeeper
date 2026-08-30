@@ -7,7 +7,6 @@ import net.grenning.pool_scorekeeper.R;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
-import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.HapticFeedbackConstants;
@@ -63,11 +62,7 @@ public class GameScoreActivity extends PoolActivity {
 
 		@Override
 		public void gameOverApplause() {
-			MediaPlayer mp = MediaPlayer.create(getApplicationContext(), R.raw.applause);
-			if (mp != null) {
-				mp.setOnCompletionListener(MediaPlayer::release);
-				mp.start();
-			}
+			playWinApplause();
 		}
 
 		@Override

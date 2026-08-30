@@ -1,102 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/felt_dark"
-    android:fillViewport="true">
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="@string/title_activity_cowboy_pool_start"
+        android:textAppearance="@style/TextAppearance.Material3.HeadlineSmall"
+        android:textColor="@color/ivory" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="24dp">
+        android:layout_marginTop="8dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
 
         <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="@string/title_activity_cowboy_pool_start"
-            android:textAppearance="@style/TextAppearance.Material3.HeadlineMedium"
-            android:textColor="@color/ivory" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:orientation="horizontal">
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_margin="8dp"
-                android:layout_weight="1"
-                android:hint="@string/cowboy_balls">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/cowboyBallCount"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="number"
-                    android:selectAllOnFocus="true"
-                    android:text="@string/cowboy_default_points_to_win" />
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_margin="8dp"
-                android:layout_weight="1"
-                android:hint="@string/cowboy_caroms_count">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/cowboyCaromCount"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="number"
-                    android:selectAllOnFocus="true"
-                    android:text="@string/cowboy_default_caroms" />
-            </com.google.android.material.textfield.TextInputLayout>
-        </LinearLayout>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:gravity="center"
-            android:text="@string/cowboy_last_shot"
-            android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
-            android:textColor="@color/ivory" />
-
-        <com.google.android.material.button.MaterialButtonToggleGroup
-            android:id="@+id/lastShotGroup"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="8dp"
-            app:selectionRequired="true"
-            app:singleSelection="true">
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/lastShotYes"
-                style="@style/Widget.Material3.Button.OutlinedButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/cowboy_yes" />
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/lastShotNo"
-                style="@style/Widget.Material3.Button.OutlinedButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/cowboy_no" />
-        </com.google.android.material.button.MaterialButtonToggleGroup>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:gravity="center"
+            android:paddingEnd="12dp"
             android:text="@string/cowboy_players"
             android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
             android:textColor="@color/ivory" />
@@ -105,8 +34,6 @@
             android:id="@+id/playerCountGroup"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="8dp"
             app:selectionRequired="true"
             app:singleSelection="true">
 
@@ -115,6 +42,7 @@
                 style="@style/Widget.Material3.Button.OutlinedButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:minWidth="48dp"
                 android:text="2" />
 
             <com.google.android.material.button.MaterialButton
@@ -122,6 +50,7 @@
                 style="@style/Widget.Material3.Button.OutlinedButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:minWidth="48dp"
                 android:text="3" />
 
             <com.google.android.material.button.MaterialButton
@@ -129,101 +58,323 @@
                 style="@style/Widget.Material3.Button.OutlinedButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:minWidth="48dp"
                 android:text="4" />
         </com.google.android.material.button.MaterialButtonToggleGroup>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/player1Row"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-            android:hint="@string/player1">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/player1Name"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="textCapWords"
-                android:selectAllOnFocus="true"
-                android:text="@string/default_player1Name" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/player2Row"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-            android:hint="@string/player2">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/player2Name"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="textCapWords"
-                android:selectAllOnFocus="true"
-                android:text="@string/default_player2Name" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/player3Row"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-            android:hint="@string/player3"
-            android:visibility="gone">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/player3Name"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="textCapWords"
-                android:selectAllOnFocus="true"
-                android:text="@string/default_player3Name" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/player4Row"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-            android:hint="@string/player4"
-            android:visibility="gone">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/player4Name"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="textCapWords"
-                android:selectAllOnFocus="true"
-                android:text="@string/default_player4Name" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:orientation="horizontal">
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/playCowboyButton"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_margin="8dp"
-                android:layout_weight="1"
-                android:minHeight="56dp"
-                android:onClick="startCowboy"
-                android:text="@string/play_new_game" />
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/resumeCowboyButton"
-                style="@style/Widget.Material3.Button.TonalButton"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_margin="8dp"
-                android:layout_weight="1"
-                android:minHeight="56dp"
-                android:onClick="resumeCowboy"
-                android:text="@string/resume_game" />
-        </LinearLayout>
     </LinearLayout>
-</ScrollView>
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:shrinkColumns="0"
+        android:stretchColumns="0">
+
+        <TableRow
+            android:paddingBottom="4dp"
+            android:paddingTop="4dp">
+
+            <TextView
+                android:layout_gravity="center_vertical"
+                android:paddingEnd="8dp"
+                android:text="@string/cowboy_player_column"
+                android:textColor="@color/ivory"
+                android:textStyle="bold" />
+
+            <TextView
+                android:gravity="center"
+                android:minWidth="52dp"
+                android:text="@string/cowboy_balls"
+                android:textColor="@color/ivory"
+                android:textStyle="bold" />
+
+            <TextView
+                android:gravity="center"
+                android:minWidth="52dp"
+                android:text="@string/cowboy_caroms_count"
+                android:textColor="@color/ivory"
+                android:textStyle="bold" />
+
+            <TextView
+                android:gravity="center"
+                android:minWidth="48dp"
+                android:text="@string/cowboy_last_shot_short"
+                android:textColor="@color/ivory"
+                android:textStyle="bold" />
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/player1Row"
+            android:gravity="center_vertical"
+            android:paddingBottom="4dp"
+            android:paddingTop="4dp">
+
+            <EditText
+                android:id="@+id/player1Name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:background="@android:color/transparent"
+                android:hint="@string/player1"
+                android:inputType="textCapWords"
+                android:maxLines="1"
+                android:paddingEnd="8dp"
+                android:selectAllOnFocus="true"
+                android:text="@string/default_player1Name"
+                android:textColor="@color/ivory"
+                android:textColorHint="@color/ivory" />
+
+            <EditText
+                android:id="@+id/player1Balls"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@android:color/transparent"
+                android:gravity="center"
+                android:inputType="number"
+                android:maxLength="3"
+                android:minWidth="52dp"
+                android:selectAllOnFocus="true"
+                android:text="@string/cowboy_default_points_to_win"
+                android:textColor="@color/ivory" />
+
+            <EditText
+                android:id="@+id/player1Caroms"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@android:color/transparent"
+                android:gravity="center"
+                android:inputType="number"
+                android:maxLength="3"
+                android:minWidth="52dp"
+                android:selectAllOnFocus="true"
+                android:text="@string/cowboy_default_caroms"
+                android:textColor="@color/ivory" />
+
+            <com.google.android.material.checkbox.MaterialCheckBox
+                android:id="@+id/player1LastShot"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:checked="true"
+                android:contentDescription="@string/cowboy_last_shot"
+                android:minWidth="48dp"
+                app:buttonTint="@color/active_player" />
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/player2Row"
+            android:gravity="center_vertical"
+            android:paddingBottom="4dp"
+            android:paddingTop="4dp">
+
+            <EditText
+                android:id="@+id/player2Name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:background="@android:color/transparent"
+                android:hint="@string/player2"
+                android:inputType="textCapWords"
+                android:maxLines="1"
+                android:paddingEnd="8dp"
+                android:selectAllOnFocus="true"
+                android:text="@string/default_player2Name"
+                android:textColor="@color/ivory"
+                android:textColorHint="@color/ivory" />
+
+            <EditText
+                android:id="@+id/player2Balls"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@android:color/transparent"
+                android:gravity="center"
+                android:inputType="number"
+                android:maxLength="3"
+                android:minWidth="52dp"
+                android:selectAllOnFocus="true"
+                android:text="@string/cowboy_default_points_to_win"
+                android:textColor="@color/ivory" />
+
+            <EditText
+                android:id="@+id/player2Caroms"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@android:color/transparent"
+                android:gravity="center"
+                android:inputType="number"
+                android:maxLength="3"
+                android:minWidth="52dp"
+                android:selectAllOnFocus="true"
+                android:text="@string/cowboy_default_caroms"
+                android:textColor="@color/ivory" />
+
+            <com.google.android.material.checkbox.MaterialCheckBox
+                android:id="@+id/player2LastShot"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:checked="true"
+                android:contentDescription="@string/cowboy_last_shot"
+                android:minWidth="48dp"
+                app:buttonTint="@color/active_player" />
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/player3Row"
+            android:gravity="center_vertical"
+            android:paddingBottom="4dp"
+            android:paddingTop="4dp"
+            android:visibility="gone">
+
+            <EditText
+                android:id="@+id/player3Name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:background="@android:color/transparent"
+                android:hint="@string/player3"
+                android:inputType="textCapWords"
+                android:maxLines="1"
+                android:paddingEnd="8dp"
+                android:selectAllOnFocus="true"
+                android:text="@string/default_player3Name"
+                android:textColor="@color/ivory"
+                android:textColorHint="@color/ivory" />
+
+            <EditText
+                android:id="@+id/player3Balls"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@android:color/transparent"
+                android:gravity="center"
+                android:inputType="number"
+                android:maxLength="3"
+                android:minWidth="52dp"
+                android:selectAllOnFocus="true"
+                android:text="@string/cowboy_default_points_to_win"
+                android:textColor="@color/ivory" />
+
+            <EditText
+                android:id="@+id/player3Caroms"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@android:color/transparent"
+                android:gravity="center"
+                android:inputType="number"
+                android:maxLength="3"
+                android:minWidth="52dp"
+                android:selectAllOnFocus="true"
+                android:text="@string/cowboy_default_caroms"
+                android:textColor="@color/ivory" />
+
+            <com.google.android.material.checkbox.MaterialCheckBox
+                android:id="@+id/player3LastShot"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:checked="true"
+                android:contentDescription="@string/cowboy_last_shot"
+                android:minWidth="48dp"
+                app:buttonTint="@color/active_player" />
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/player4Row"
+            android:gravity="center_vertical"
+            android:paddingBottom="4dp"
+            android:paddingTop="4dp"
+            android:visibility="gone">
+
+            <EditText
+                android:id="@+id/player4Name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:background="@android:color/transparent"
+                android:hint="@string/player4"
+                android:inputType="textCapWords"
+                android:maxLines="1"
+                android:paddingEnd="8dp"
+                android:selectAllOnFocus="true"
+                android:text="@string/default_player4Name"
+                android:textColor="@color/ivory"
+                android:textColorHint="@color/ivory" />
+
+            <EditText
+                android:id="@+id/player4Balls"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@android:color/transparent"
+                android:gravity="center"
+                android:inputType="number"
+                android:maxLength="3"
+                android:minWidth="52dp"
+                android:selectAllOnFocus="true"
+                android:text="@string/cowboy_default_points_to_win"
+                android:textColor="@color/ivory" />
+
+            <EditText
+                android:id="@+id/player4Caroms"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@android:color/transparent"
+                android:gravity="center"
+                android:inputType="number"
+                android:maxLength="3"
+                android:minWidth="52dp"
+                android:selectAllOnFocus="true"
+                android:text="@string/cowboy_default_caroms"
+                android:textColor="@color/ivory" />
+
+            <com.google.android.material.checkbox.MaterialCheckBox
+                android:id="@+id/player4LastShot"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:checked="true"
+                android:contentDescription="@string/cowboy_last_shot"
+                android:minWidth="48dp"
+                app:buttonTint="@color/active_player" />
+        </TableRow>
+    </TableLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/playCowboyButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:layout_weight="1"
+            android:minHeight="56dp"
+            android:onClick="startCowboy"
+            android:text="@string/play_new_game" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/resumeCowboyButton"
+            style="@style/Widget.Material3.Button.TonalButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:layout_weight="1"
+            android:minHeight="56dp"
+            android:onClick="resumeCowboy"
+            android:text="@string/resume_game" />
+    </LinearLayout>
+</LinearLayout>

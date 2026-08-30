@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.EditText;
 
 import com.google.android.material.button.MaterialButtonToggleGroup;
@@ -17,6 +18,16 @@ public class CowboyPoolStartActivity extends PoolActivity {
 	private static final int[] NAME_IDS = {
 			R.id.player1Name, R.id.player2Name, R.id.player3Name, R.id.player4Name
 	};
+	private static final int[] BALL_IDS = {
+			R.id.player1Balls, R.id.player2Balls, R.id.player3Balls, R.id.player4Balls
+	};
+	private static final int[] CAROM_IDS = {
+			R.id.player1Caroms, R.id.player2Caroms, R.id.player3Caroms, R.id.player4Caroms
+	};
+	private static final int[] LAST_SHOT_IDS = {
+			R.id.player1LastShot, R.id.player2LastShot,
+			R.id.player3LastShot, R.id.player4LastShot
+	};
 	private static final int[] ROW_IDS = {
 			R.id.player1Row, R.id.player2Row, R.id.player3Row, R.id.player4Row
 	};
@@ -25,8 +36,8 @@ public class CowboyPoolStartActivity extends PoolActivity {
 			R.string.default_player3Name, R.string.default_player4Name
 	};
 
-	private boolean caromsEdited;
-	private boolean updatingCaroms;
+	private final boolean[] caromsEdited = new boolean[4];
+	private final boolean[] updatingCaroms = new boolean[4];
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -41,8 +52,9 @@ public class CowboyPoolStartActivity extends PoolActivity {
 		});
 		showPlayerRows(playerCount());
 		selectAllOnFocus(NAME_IDS);
-		selectAllOnFocus(R.id.cowboyBallCount, R.id.cowboyCaromCount);
-		wireBallCaromDefault();
+		selectAllOnFocus(BALL_IDS);
+		selectAllOnFocus(CAROM_IDS);
+		wireBallCaromDefaults();
 		findViewById(R.id.resumeCowboyButton).setEnabled(CowboyStore.hasUnfinishedGame(this));
 	}
 
@@ -93,23 +105,13 @@ public class CowboyPoolStartActivity extends PoolActivity {
 		}
 		for (int i = 0; i < 4; i++) {
 			setText(NAME_IDS[i], prefs.getString(CowboyStore.nameKey(i), ""), NAME_DEFAULTS[i]);
+			int balls = CowboyStore.ballsOf(prefs, i);
+			((EditText) findViewById(BALL_IDS[i])).setText(Integer.toString(balls));
+			int caroms = CowboyStore.caromsOf(prefs, i, balls);
+			((EditText) findViewById(CAROM_IDS[i])).setText(Integer.toString(caroms));
+			caromsEdited[i] = caroms != CowboyPlayer.defaultCaroms(balls);
+			((CheckBox) findViewById(LAST_SHOT_IDS[i])).setChecked(CowboyStore.lastShotOf(prefs, i));
 		}
-		String balls = prefs.getString(CowboyStore.BALL_COUNT, "");
-		if (balls == null || balls.isEmpty()) {
-			balls = prefs.getString(CowboyStore.pointsKey(0), "");
-		}
-		setText(R.id.cowboyBallCount, balls, R.string.cowboy_default_points_to_win);
-		int ballCount = parseBalls(textOf(R.id.cowboyBallCount));
-		int defaultCaroms = CowboyPlayer.defaultCaroms(ballCount);
-		String caroms = prefs.getString(CowboyStore.CAROM_COUNT, "");
-		if (caroms == null || caroms.isEmpty()) {
-			caroms = Integer.toString(defaultCaroms);
-		}
-		((EditText) findViewById(R.id.cowboyCaromCount)).setText(caroms);
-		caromsEdited = parseCaroms(caroms) != defaultCaroms;
-		MaterialButtonToggleGroup lastShot = findViewById(R.id.lastShotGroup);
-		boolean special = prefs.getBoolean(CowboyStore.SPECIAL_LAST_SHOT, true);
-		lastShot.check(special ? R.id.lastShotYes : R.id.lastShotNo);
 	}
 
 	private void saveSetup() {
@@ -117,37 +119,40 @@ public class CowboyPoolStartActivity extends PoolActivity {
 		editor.putInt(CowboyStore.PLAYER_COUNT, playerCount());
 		for (int i = 0; i < 4; i++) {
 			editor.putString(CowboyStore.nameKey(i), textOf(NAME_IDS[i]));
+			editor.putString(CowboyStore.ballsKey(i), textOf(BALL_IDS[i]));
+			editor.putString(CowboyStore.caromsKey(i), textOf(CAROM_IDS[i]));
+			editor.putBoolean(CowboyStore.lastShotKey(i),
+					((CheckBox) findViewById(LAST_SHOT_IDS[i])).isChecked());
 		}
-		editor.putString(CowboyStore.BALL_COUNT, textOf(R.id.cowboyBallCount));
-		editor.putString(CowboyStore.CAROM_COUNT, textOf(R.id.cowboyCaromCount));
-		editor.putBoolean(CowboyStore.SPECIAL_LAST_SHOT,
-				((MaterialButtonToggleGroup) findViewById(R.id.lastShotGroup))
-						.getCheckedButtonId() != R.id.lastShotNo);
 		editor.apply();
 	}
 
-	private void wireBallCaromDefault() {
-		EditText balls = findViewById(R.id.cowboyBallCount);
-		EditText caroms = findViewById(R.id.cowboyCaromCount);
-		balls.addTextChangedListener(new AfterChange() {
-			@Override
-			public void afterTextChanged(Editable s) {
-				if (caromsEdited) {
-					return;
+	private void wireBallCaromDefaults() {
+		for (int i = 0; i < 4; i++) {
+			final int index = i;
+			EditText balls = findViewById(BALL_IDS[i]);
+			EditText caroms = findViewById(CAROM_IDS[i]);
+			balls.addTextChangedListener(new AfterChange() {
+				@Override
+				public void afterTextChanged(Editable s) {
+					if (caromsEdited[index]) {
+						return;
+					}
+					updatingCaroms[index] = true;
+					caroms.setText(Integer.toString(
+							CowboyPlayer.defaultCaroms(CowboyStore.parseBalls(s.toString()))));
+					updatingCaroms[index] = false;
 				}
-				updatingCaroms = true;
-				caroms.setText(Integer.toString(CowboyPlayer.defaultCaroms(parseBalls(s.toString()))));
-				updatingCaroms = false;
-			}
-		});
-		caroms.addTextChangedListener(new AfterChange() {
-			@Override
-			public void afterTextChanged(Editable s) {
-				if (!updatingCaroms) {
-					caromsEdited = true;
+			});
+			caroms.addTextChangedListener(new AfterChange() {
+				@Override
+				public void afterTextChanged(Editable s) {
+					if (!updatingCaroms[index]) {
+						caromsEdited[index] = true;
+					}
 				}
-			}
-		});
+			});
+		}
 	}
 
 	private void selectAllOnFocus(int... ids) {
@@ -173,24 +178,6 @@ public class CowboyPoolStartActivity extends PoolActivity {
 
 	private String textOf(int id) {
 		return ((EditText) findViewById(id)).getText().toString();
-	}
-
-	private static int parseBalls(String value) {
-		try {
-			int points = Integer.parseInt(value);
-			return points > 0 ? Math.min(150, points) : 50;
-		} catch (NumberFormatException e) {
-			return 50;
-		}
-	}
-
-	private static int parseCaroms(String value) {
-		try {
-			int points = Integer.parseInt(value);
-			return Math.max(0, Math.min(50, points));
-		} catch (NumberFormatException e) {
-			return 0;
-		}
 	}
 
 	private abstract static class AfterChange implements TextWatcher {

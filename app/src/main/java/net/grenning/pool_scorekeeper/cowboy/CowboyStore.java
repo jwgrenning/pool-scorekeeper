@@ -32,6 +32,71 @@ public final class CowboyStore {
 		return "setupPlayer" + (index + 1) + "Points";
 	}
 
+	public static String ballsKey(int index) {
+		return "setupPlayer" + (index + 1) + "Balls";
+	}
+
+	public static String caromsKey(int index) {
+		return "setupPlayer" + (index + 1) + "Caroms";
+	}
+
+	public static String lastShotKey(int index) {
+		return "setupPlayer" + (index + 1) + "LastShot";
+	}
+
+	public static int ballsOf(SharedPreferences prefs, int index) {
+		String value = firstNonEmpty(prefs.getString(ballsKey(index), ""),
+				prefs.getString(BALL_COUNT, ""),
+				prefs.getString(pointsKey(index), ""));
+		return parseBalls(value);
+	}
+
+	public static int caromsOf(SharedPreferences prefs, int index, int balls) {
+		String value = firstNonEmpty(prefs.getString(caromsKey(index), ""),
+				prefs.getString(CAROM_COUNT, ""));
+		if (value.isEmpty()) {
+			return CowboyPlayer.defaultCaroms(balls);
+		}
+		return parseCaroms(value);
+	}
+
+	public static boolean lastShotOf(SharedPreferences prefs, int index) {
+		if (prefs.contains(lastShotKey(index))) {
+			return prefs.getBoolean(lastShotKey(index), true);
+		}
+		if (prefs.contains(SPECIAL_LAST_SHOT)) {
+			return prefs.getBoolean(SPECIAL_LAST_SHOT, true);
+		}
+		return true;
+	}
+
+	private static String firstNonEmpty(String... values) {
+		for (String value : values) {
+			if (value != null && !value.isEmpty()) {
+				return value;
+			}
+		}
+		return "";
+	}
+
+	static int parseBalls(String value) {
+		try {
+			int points = Integer.parseInt(value);
+			return points > 0 ? Math.min(150, points) : 50;
+		} catch (NumberFormatException e) {
+			return 50;
+		}
+	}
+
+	static int parseCaroms(String value) {
+		try {
+			int points = Integer.parseInt(value);
+			return Math.max(0, Math.min(50, points));
+		} catch (NumberFormatException e) {
+			return 0;
+		}
+	}
+
 	public static Intent scoreboardIntent(Context context, boolean resume) {
 		Intent intent = new Intent(context, CowboyScoreActivity.class);
 		intent.putExtra("resume", resume);

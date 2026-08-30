@@ -59,6 +59,8 @@
     <string name="cowboy_caroms_count">Caroms</string>
     <string name="cowboy_default_caroms">5</string>
     <string name="cowboy_last_shot">Cue ball last shot</string>
+    <string name="cowboy_player_column">Player</string>
+    <string name="cowboy_last_shot_short">Last</string>
     <string name="cowboy_yes">Yes</string>
     <string name="cowboy_no">No</string>
     <string name="cowboy_win_shot_title">Winning shot</string>

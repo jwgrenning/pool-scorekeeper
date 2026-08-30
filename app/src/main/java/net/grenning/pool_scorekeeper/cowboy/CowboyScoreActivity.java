@@ -10,7 +10,6 @@ import net.grenning.pool_scorekeeper.straight_pool.GameSummaryActivity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
-import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.HapticFeedbackConstants;
@@ -56,19 +55,13 @@ public class CowboyScoreActivity extends PoolActivity {
 
 		SharedPreferences prefs = CowboyStore.prefs(this);
 		int count = Math.min(4, Math.max(2, prefs.getInt(CowboyStore.PLAYER_COUNT, 2)));
-		int ballCount = parseBalls(prefs.getString(CowboyStore.BALL_COUNT, ""));
-		if (prefs.getString(CowboyStore.BALL_COUNT, "").isEmpty()) {
-			ballCount = parseBalls(prefs.getString(CowboyStore.pointsKey(0), "50"));
-		}
-		int caromCount = parseCaroms(prefs.getString(CowboyStore.CAROM_COUNT, ""), ballCount);
-		boolean special = prefs.getBoolean(CowboyStore.SPECIAL_LAST_SHOT, true);
 		CowboyPlayer[] players = new CowboyPlayer[count];
 		for (int i = 0; i < count; i++) {
 			players[i] = new CowboyPlayer();
 			players[i].name = prefs.getString(CowboyStore.nameKey(i), getString(defaultName(i)));
-			players[i].ballCount = ballCount;
-			players[i].caromCount = caromCount;
-			players[i].specialLastShot = special;
+			players[i].ballCount = CowboyStore.ballsOf(prefs, i);
+			players[i].caromCount = CowboyStore.caromsOf(prefs, i, players[i].ballCount);
+			players[i].specialLastShot = CowboyStore.lastShotOf(prefs, i);
 		}
 		game = new CowboyGame(players);
 		restoreOnStart = getIntent().getBooleanExtra("resume", false) || savedInstanceState != null;
@@ -245,11 +238,7 @@ public class CowboyScoreActivity extends PoolActivity {
 
 	private void apply(CowboyGame.Result result) {
 		if (result == CowboyGame.Result.WIN) {
-			MediaPlayer mp = MediaPlayer.create(getApplicationContext(), R.raw.applause);
-			if (mp != null) {
-				mp.setOnCompletionListener(MediaPlayer::release);
-				mp.start();
-			}
+			playWinApplause();
 		}
 		afterChange();
 	}
@@ -266,11 +255,12 @@ public class CowboyScoreActivity extends PoolActivity {
 		game.save(gameSaver);
 		gameSaver.save(CowboyStore.GAME_IN_PROGRESS, !game.isOver());
 		gameSaver.save(CowboyStore.PLAYER_COUNT, game.playerCount());
-		gameSaver.save(CowboyStore.BALL_COUNT, Integer.toString(game.player(0).ballCount));
-		gameSaver.save(CowboyStore.CAROM_COUNT, Integer.toString(game.player(0).caromCount));
-		gameSaver.save(CowboyStore.SPECIAL_LAST_SHOT, game.player(0).specialLastShot);
 		for (int i = 0; i < game.playerCount(); i++) {
-			gameSaver.save(CowboyStore.nameKey(i), game.player(i).name);
+			CowboyPlayer player = game.player(i);
+			gameSaver.save(CowboyStore.nameKey(i), player.name);
+			gameSaver.save(CowboyStore.ballsKey(i), Integer.toString(player.ballCount));
+			gameSaver.save(CowboyStore.caromsKey(i), Integer.toString(player.caromCount));
+			gameSaver.save(CowboyStore.lastShotKey(i), player.specialLastShot);
 		}
 		gameSaver.persist();
 	}
@@ -393,27 +383,6 @@ public class CowboyScoreActivity extends PoolActivity {
 			body.append('\n');
 		}
 		return body.toString();
-	}
-
-	private int parseBalls(String value) {
-		try {
-			int points = Integer.parseInt(value);
-			return points > 0 ? Math.min(150, points) : 50;
-		} catch (NumberFormatException e) {
-			return 50;
-		}
-	}
-
-	private int parseCaroms(String value, int ballCount) {
-		if (value == null || value.isEmpty()) {
-			return CowboyPlayer.defaultCaroms(ballCount);
-		}
-		try {
-			int points = Integer.parseInt(value);
-			return Math.max(0, Math.min(50, points));
-		} catch (NumberFormatException e) {
-			return CowboyPlayer.defaultCaroms(ballCount);
-		}
 	}
 
 	private int defaultName(int index) {
