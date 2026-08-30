@@ -435,7 +435,7 @@ public class BeadRackView extends View {
 		}
 		float wireEnd = right;
 		float onesAvailable = Math.max(0f, wireEnd - wireStart);
-		float diameter = onesAvailable / onesPacked / 2f;
+		float diameter = onesAvailable / onesPacked / 1.7f;
 		diameter = Math.min(diameter, maxBead);
 		if (diameter <= 0f) {
 			return null;
