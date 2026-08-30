@@ -326,11 +326,12 @@ public class BeadRackView extends View {
 		if (geo.markerSlots <= 0) {
 			return;
 		}
-		float top = geo.cy - geo.radius * 1.8f;
-		float bottom = geo.cy + geo.radius * 1.8f;
+		float peg = geo.markerRadius > 0f ? geo.markerRadius : geo.radius * 0.35f;
+		float top = geo.cy - peg * 2.2f;
+		float bottom = geo.cy + peg * 2.2f;
 		canvas.drawLine(geo.separatorX, top, geo.separatorX, bottom, separatorPaint);
-		canvas.drawCircle(geo.separatorX, geo.cy, geo.radius * 0.45f, bead10Paint);
-		canvas.drawCircle(geo.separatorX, geo.cy, geo.radius * 0.45f, strokePaint);
+		canvas.drawCircle(geo.separatorX, geo.cy, peg, bead10Paint);
+		canvas.drawCircle(geo.separatorX, geo.cy, peg, strokePaint);
 	}
 
 	private void drawSettled(Canvas canvas, RackGeometry geo, int leftCount) {
@@ -513,20 +514,20 @@ public class BeadRackView extends View {
 		float separatorX = left;
 		float wireStart = left;
 		if (markerSlots > 0) {
-			float gap = 14f * density;
-			float markerShare = Math.min(available * 0.22f, Math.max(72f * density, available * 0.16f));
+			float gap = 10f * density;
+			float markerShare = Math.min(available * 0.10f, Math.max(40f * density, available * 0.08f));
 			markerEnd = markerStart + markerShare;
 			separatorX = markerEnd + gap / 2f;
 			wireStart = markerEnd + gap;
 			float markerPacked = markerSlots + (markerSlots - 1) * SPACING_RATIO;
-			float markerDiameter = (markerEnd - markerStart) / markerPacked / 2f;
-			markerDiameter = Math.min(markerDiameter, maxBead);
+			float markerDiameter = (markerEnd - markerStart) / markerPacked / 2.4f;
+			markerDiameter = Math.min(markerDiameter, 5.5f * density);
 			markerRadius = markerDiameter / 2f;
 			markerStep = markerDiameter * (1f + SPACING_RATIO);
 		}
 		float wireEnd = right;
 		float onesAvailable = Math.max(0f, wireEnd - wireStart);
-		float diameter = onesAvailable / onesPacked / 1.35f;
+		float diameter = onesAvailable / onesPacked / 1.15f;
 		diameter = Math.min(diameter, maxBead);
 		if (diameter <= 0f) {
 			return null;
