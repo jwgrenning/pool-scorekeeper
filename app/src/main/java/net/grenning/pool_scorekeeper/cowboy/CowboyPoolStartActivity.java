@@ -71,6 +71,21 @@ public class CowboyPoolStartActivity extends PoolActivity {
 		startActivity(CowboyStore.scoreboardIntent(this, true));
 	}
 
+	public void resetFifty(View view) {
+		resetRaces(50);
+	}
+
+	public void resetHundred(View view) {
+		resetRaces(100);
+	}
+
+	private void resetRaces(int balls) {
+		String ballText = Integer.toString(balls);
+		for (int i = 0; i < BALL_IDS.length; i++) {
+			((EditText) findViewById(BALL_IDS[i])).setText(ballText);
+		}
+	}
+
 	private int playerCount() {
 		MaterialButtonToggleGroup group = findViewById(R.id.playerCountGroup);
 		int id = group.getCheckedButtonId();

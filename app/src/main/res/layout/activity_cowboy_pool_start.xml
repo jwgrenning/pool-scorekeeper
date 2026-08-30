@@ -61,6 +61,29 @@
                 android:minWidth="48dp"
                 android:text="4" />
         </com.google.android.material.button.MaterialButtonToggleGroup>
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/resetFiftyButton"
+            style="@style/Widget.Material3.Button.OutlinedButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:minWidth="0dp"
+            android:onClick="resetFifty"
+            android:text="@string/cowboy_reset_50" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/resetHundredButton"
+            style="@style/Widget.Material3.Button.OutlinedButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:minWidth="0dp"
+            android:onClick="resetHundred"
+            android:text="@string/cowboy_reset_100" />
     </LinearLayout>
 
     <TableLayout
