@@ -49,6 +49,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textCapWords"
+                android:selectAllOnFocus="true"
                 android:text="@string/default_player1Name" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -64,6 +65,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="number"
+                android:selectAllOnFocus="true"
                 android:text="@string/straight_pool_default_points_to_win" />
         </com.google.android.material.textfield.TextInputLayout>
     </LinearLayout>
@@ -85,6 +87,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textCapWords"
+                android:selectAllOnFocus="true"
                 android:text="@string/default_player2Name" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -100,6 +103,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="number"
+                android:selectAllOnFocus="true"
                 android:text="@string/straight_pool_default_points_to_win" />
         </com.google.android.material.textfield.TextInputLayout>
     </LinearLayout>

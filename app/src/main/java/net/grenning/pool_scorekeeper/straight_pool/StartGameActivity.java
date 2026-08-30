@@ -15,6 +15,11 @@ public class StartGameActivity extends PoolActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_straight_pool_start);
 		loadSetup();
+		selectAllOnFocus(
+				R.id.player1Name,
+				R.id.player2Name,
+				R.id.player1PointsToWin,
+				R.id.player2PointsToWin);
 	}
 
 	@Override
@@ -56,6 +61,18 @@ public class StartGameActivity extends PoolActivity {
 				textOf(R.id.player2Name),
 				textOf(R.id.player1PointsToWin),
 				textOf(R.id.player2PointsToWin));
+	}
+
+	private void selectAllOnFocus(int... ids) {
+		for (int id : ids) {
+			EditText field = findViewById(id);
+			field.setSelectAllOnFocus(true);
+			field.setOnFocusChangeListener((view, hasFocus) -> {
+				if (hasFocus) {
+					view.post(() -> ((EditText) view).selectAll());
+				}
+			});
+		}
 	}
 
 	private void setText(int id, String value, int defaultValue) {
