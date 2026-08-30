@@ -8,50 +8,45 @@ public class BeadScoreTest {
 
 	@Test
 	public void zeroAndNegativeLeaveAllBeadsOnTheRight() {
-		assertEquals(0, BeadScore.onLeft(0));
-		assertEquals(0, BeadScore.onLeft(-2));
-		assertEquals(0, BeadScore.completedStrings(0));
-		assertEquals(0, BeadScore.overflowPoints(-2));
+		assertEquals(0, BeadScore.onesOnLeft(0, 50));
+		assertEquals(0, BeadScore.onesOnLeft(-2, 150));
+		assertEquals(0, BeadScore.markersOnLeft(-2, 150));
 	}
 
 	@Test
 	public void eachPointMovesOneBeadLeft() {
-		assertEquals(1, BeadScore.onLeft(1));
-		assertEquals(14, BeadScore.onLeft(14));
-		assertEquals(0, BeadScore.completedStrings(14));
+		assertEquals(1, BeadScore.onesOnLeft(1, 50));
+		assertEquals(14, BeadScore.onesOnLeft(14, 150));
+		assertEquals(0, BeadScore.markersOnLeft(14, 150));
 	}
 
 	@Test
-	public void fiftyFillsTheString() {
-		assertEquals(50, BeadScore.onLeft(50));
-		assertEquals(0, BeadScore.completedStrings(50));
-		assertEquals(0, BeadScore.overflowPoints(50));
-	}
-
-	@Test
-	public void fiftyOneReusesTheString() {
-		assertEquals(1, BeadScore.onLeft(51));
-		assertEquals(1, BeadScore.completedStrings(51));
-		assertEquals(50, BeadScore.overflowPoints(51));
-	}
-
-	@Test
-	public void oneHundredFillsTheSecondString() {
-		assertEquals(50, BeadScore.onLeft(100));
-		assertEquals(1, BeadScore.completedStrings(100));
-		assertEquals(50, BeadScore.overflowPoints(100));
-	}
-
-	@Test
-	public void oneFiftyFillsTheThirdString() {
-		assertEquals(50, BeadScore.onLeft(150));
-		assertEquals(2, BeadScore.completedStrings(150));
-		assertEquals(100, BeadScore.overflowPoints(150));
-	}
-
-	@Test
-	public void raceOfFiftyHasNoFiftiesMarkers() {
+	public void fiftyFillsOnesWhenRaceIsFifty() {
+		assertEquals(50, BeadScore.onesOnLeft(50, 50));
+		assertEquals(0, BeadScore.markersOnLeft(50, 50));
 		assertEquals(0, BeadScore.markerSlots(50));
+	}
+
+	@Test
+	public void fiftyCarriesToAMarkerWhenRaceIsLonger() {
+		assertEquals(0, BeadScore.onesOnLeft(50, 150));
+		assertEquals(1, BeadScore.markersOnLeft(50, 150));
+		assertEquals(1, BeadScore.onesOnLeft(51, 150));
+		assertEquals(1, BeadScore.markersOnLeft(51, 150));
+	}
+
+	@Test
+	public void oneHundredFillsTwoFifties() {
+		assertEquals(0, BeadScore.onesOnLeft(100, 150));
+		assertEquals(2, BeadScore.markersOnLeft(100, 150));
+		assertEquals(50, BeadScore.onesOnLeft(100, 100));
+		assertEquals(1, BeadScore.markersOnLeft(100, 100));
+	}
+
+	@Test
+	public void oneFiftyFillsLastOnesString() {
+		assertEquals(50, BeadScore.onesOnLeft(150, 150));
+		assertEquals(2, BeadScore.markersOnLeft(150, 150));
 	}
 
 	@Test
@@ -67,11 +62,30 @@ public class BeadScoreTest {
 	}
 
 	@Test
-	public void fiftiesMarkersStayRightUntilAStringCompletes() {
-		assertEquals(0, BeadScore.markersOnLeft(50));
-		assertEquals(1, BeadScore.markersOnLeft(51));
-		assertEquals(1, BeadScore.markersOnLeft(100));
-		assertEquals(2, BeadScore.markersOnLeft(101));
-		assertEquals(2, BeadScore.markersOnLeft(150));
+	public void shorterRaceSpotsTheDifference() {
+		assertEquals(0, BeadScore.spot(150, 150));
+		assertEquals(100, BeadScore.spot(50, 150));
+		assertEquals(50, BeadScore.spot(100, 150));
+	}
+
+	@Test
+	public void spottedHundredLooksAlreadyShot() {
+		int visual = BeadScore.visualScore(0, 100);
+		assertEquals(0, BeadScore.onesOnLeft(visual, 150));
+		assertEquals(2, BeadScore.markersOnLeft(visual, 150));
+	}
+
+	@Test
+	public void spottedFiftyLeavesOnesToPlay() {
+		int visual = BeadScore.visualScore(0, 50);
+		assertEquals(0, BeadScore.onesOnLeft(visual, 150));
+		assertEquals(1, BeadScore.markersOnLeft(visual, 150));
+	}
+
+	@Test
+	public void scoringAfterASpotMovesOnes() {
+		int visual = BeadScore.visualScore(7, 100);
+		assertEquals(7, BeadScore.onesOnLeft(visual, 150));
+		assertEquals(2, BeadScore.markersOnLeft(visual, 150));
 	}
 }

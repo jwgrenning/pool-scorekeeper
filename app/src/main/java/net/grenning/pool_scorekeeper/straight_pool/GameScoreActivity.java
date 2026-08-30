@@ -516,22 +516,38 @@ public class GameScoreActivity extends PoolActivity {
 		setFieldById(scoreId, score);
 		BeadRackView beads = findViewById(beadId);
 		if (beads != null && player != null) {
-			beads.setRaceTo(player.raceTo());
+			applyBeadRack(beads, player);
 			beads.setScore(score);
 		}
+	}
+
+	private int maxRace() {
+		int max = 50;
+		if (player1Scorer != null) {
+			max = Math.max(max, player1Scorer.raceTo());
+		}
+		if (player2Scorer != null) {
+			max = Math.max(max, player2Scorer.raceTo());
+		}
+		return max;
+	}
+
+	private void applyBeadRack(BeadRackView beads, PlayerScorer player) {
+		int max = maxRace();
+		beads.setRack(max, BeadScore.spot(player.raceTo(), max));
 	}
 
 	private void refreshBeadRaces() {
 		if (player1Scorer != null) {
 			BeadRackView beads = findViewById(R.id.player1Beads);
 			if (beads != null) {
-				beads.setRaceTo(player1Scorer.raceTo());
+				applyBeadRack(beads, player1Scorer);
 			}
 		}
 		if (player2Scorer != null) {
 			BeadRackView beads = findViewById(R.id.player2Beads);
 			if (beads != null) {
-				beads.setRaceTo(player2Scorer.raceTo());
+				applyBeadRack(beads, player2Scorer);
 			}
 		}
 	}
