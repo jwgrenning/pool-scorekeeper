@@ -35,6 +35,11 @@
         <activity
             android:name="net.grenning.pool_scorekeeper.cowboy.CowboyPoolStartActivity"
             android:label="@string/title_activity_cowboy_pool_start" />
+
+        <activity
+            android:name="net.grenning.pool_scorekeeper.cowboy.CowboyScoreActivity"
+            android:label="@string/title_activity_cowboy_pool_start"
+            android:screenOrientation="landscape" />
     </application>
 
 </manifest>

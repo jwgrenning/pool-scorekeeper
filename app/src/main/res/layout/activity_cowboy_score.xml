@@ -1,0 +1,294 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/cowboyRoot"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/felt_dark"
+    android:orientation="vertical">
+
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/cowboyToolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/felt_green"
+        android:minHeight="?attr/actionBarSize"
+        app:title="@string/title_activity_cowboy_pool_start"
+        app:titleTextColor="@color/ivory">
+
+        <TextView
+            android:id="@+id/cowboyPhase"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:paddingEnd="8dp"
+            android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
+            android:textColor="@color/ivory" />
+    </com.google.android.material.appbar.MaterialToolbar>
+
+    <LinearLayout
+        android:id="@+id/player1Row"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@color/felt_green"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingStart="12dp"
+        android:paddingEnd="12dp">
+
+        <TextView
+            android:id="@+id/player1Name"
+            android:layout_width="96dp"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textColor="@color/ivory"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/player1Score"
+            android:layout_width="64dp"
+            android:layout_height="wrap_content"
+            android:gravity="end"
+            android:paddingEnd="8dp"
+            android:text="0"
+            android:textColor="@color/ivory"
+            android:textStyle="bold" />
+
+        <net.grenning.pool_scorekeeper.straight_pool.BeadRackView
+            android:id="@+id/player1Beads"
+            android:layout_width="0dp"
+            android:layout_height="16dp"
+            android:layout_weight="1" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/player2Row"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@color/felt_green"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingStart="12dp"
+        android:paddingEnd="12dp">
+
+        <TextView
+            android:id="@+id/player2Name"
+            android:layout_width="96dp"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textColor="@color/ivory"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/player2Score"
+            android:layout_width="64dp"
+            android:layout_height="wrap_content"
+            android:gravity="end"
+            android:paddingEnd="8dp"
+            android:text="0"
+            android:textColor="@color/ivory"
+            android:textStyle="bold" />
+
+        <net.grenning.pool_scorekeeper.straight_pool.BeadRackView
+            android:id="@+id/player2Beads"
+            android:layout_width="0dp"
+            android:layout_height="16dp"
+            android:layout_weight="1" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/player3Row"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@color/felt_green"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingStart="12dp"
+        android:paddingEnd="12dp"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/player3Name"
+            android:layout_width="96dp"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textColor="@color/ivory"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/player3Score"
+            android:layout_width="64dp"
+            android:layout_height="wrap_content"
+            android:gravity="end"
+            android:paddingEnd="8dp"
+            android:text="0"
+            android:textColor="@color/ivory"
+            android:textStyle="bold" />
+
+        <net.grenning.pool_scorekeeper.straight_pool.BeadRackView
+            android:id="@+id/player3Beads"
+            android:layout_width="0dp"
+            android:layout_height="16dp"
+            android:layout_weight="1" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/player4Row"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@color/felt_green"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingStart="12dp"
+        android:paddingEnd="12dp"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/player4Name"
+            android:layout_width="96dp"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textColor="@color/ivory"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/player4Score"
+            android:layout_width="64dp"
+            android:layout_height="wrap_content"
+            android:gravity="end"
+            android:paddingEnd="8dp"
+            android:text="0"
+            android:textColor="@color/ivory"
+            android:textStyle="bold" />
+
+        <net.grenning.pool_scorekeeper.straight_pool.BeadRackView
+            android:id="@+id/player4Beads"
+            android:layout_width="0dp"
+            android:layout_height="16dp"
+            android:layout_weight="1" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/playingActions"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="8dp">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/ball1Button"
+            style="@style/Widget.Pool.ActionButton"
+            android:onClick="ball1Clicked"
+            android:text="@string/cowboy_ball_1" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/ball3Button"
+            style="@style/Widget.Pool.ActionButton"
+            android:onClick="ball3Clicked"
+            android:text="@string/cowboy_ball_3" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/ball5Button"
+            style="@style/Widget.Pool.ActionButton"
+            android:onClick="ball5Clicked"
+            android:text="@string/cowboy_ball_5" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/caromButton"
+            style="@style/Widget.Pool.ActionButton"
+            android:contentDescription="@string/cowboy_carom_accessibility"
+            android:onClick="caromClicked"
+            android:text="@string/cowboy_carom" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/missButton"
+            style="@style/Widget.Pool.DangerButton"
+            android:onClick="missClicked"
+            android:text="@string/missed_shot" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/foulButton"
+            style="@style/Widget.Pool.DangerButton"
+            android:onClick="foulClicked"
+            android:text="@string/foul" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="4dp"
+            android:layout_weight="1"
+            android:minHeight="56dp"
+            android:orientation="horizontal">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/undoButton"
+                style="@style/Widget.Pool.SplitButton.Left"
+                android:layout_marginEnd="1dp"
+                android:contentDescription="@string/undo"
+                android:enabled="false"
+                android:onClick="undoClicked"
+                android:text="@string/undo_symbol" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/redoButton"
+                style="@style/Widget.Pool.SplitButton.Right"
+                android:contentDescription="@string/redo"
+                android:enabled="false"
+                android:onClick="redoClicked"
+                android:text="@string/redo_symbol" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/gameOverActions"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="8dp"
+        android:visibility="gone">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/newGameButton"
+            style="@style/Widget.Pool.ActionButton"
+            android:onClick="newGameClicked"
+            android:text="@string/new_game" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/gameSummaryButton"
+            style="@style/Widget.Pool.ActionButton"
+            android:onClick="gameSummaryClicked"
+            android:text="@string/game_summary" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="4dp"
+            android:layout_weight="1"
+            android:minHeight="56dp"
+            android:orientation="horizontal">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/undoOverButton"
+                style="@style/Widget.Pool.SplitButton.Left"
+                android:layout_marginEnd="1dp"
+                android:contentDescription="@string/undo"
+                android:onClick="undoClicked"
+                android:text="@string/undo_symbol" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/redoOverButton"
+                style="@style/Widget.Pool.SplitButton.Right"
+                android:contentDescription="@string/redo"
+                android:onClick="redoClicked"
+                android:text="@string/redo_symbol" />
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

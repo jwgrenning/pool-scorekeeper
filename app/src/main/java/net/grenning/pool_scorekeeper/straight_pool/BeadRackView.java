@@ -32,6 +32,7 @@ public class BeadRackView extends View {
 	private final LinearInterpolator slideInterpolator = new LinearInterpolator();
 
 	private int score;
+	private int pending;
 	private int maxRace = 50;
 	private int spot;
 	private int fromScore;
@@ -113,27 +114,33 @@ public class BeadRackView extends View {
 	}
 
 	public void setScore(int score) {
-		if (this.score == score && (animator == null || !animator.isRunning())) {
+		setBankedAndPending(score, 0);
+	}
+
+	public void setBankedAndPending(int banked, int pending) {
+		this.pending = Math.max(0, pending);
+		if (this.score == banked && (animator == null || !animator.isRunning())) {
+			invalidate();
 			return;
 		}
 		int from = this.score;
 		cancelSlide();
-		this.score = score;
+		this.score = banked;
 		updateDescription();
 
 		boolean canAnimate = allowAnimation && isLaidOut() && getWidth() > 0
-				&& from != score
-				&& Math.abs(score - from) <= MAX_ANIMATED_POINTS;
+				&& from != banked
+				&& Math.abs(banked - from) <= MAX_ANIMATED_POINTS;
 		if (!canAnimate) {
-			fromScore = score;
-			toScore = score;
+			fromScore = banked;
+			toScore = banked;
 			travel = 1f;
 			invalidate();
 			return;
 		}
 
 		fromScore = from;
-		toScore = score;
+		toScore = banked;
 		travel = 0f;
 		animator = ValueAnimator.ofFloat(0f, 1f);
 		animator.setDuration(SLIDE_MS);
@@ -190,13 +197,14 @@ public class BeadRackView extends View {
 
 		drawSeparator(canvas, geo);
 
-		boolean settled = travel >= 1f || fromScore == toScore;
+		boolean settled = pending > 0 || travel >= 1f || fromScore == toScore;
 		if (settled) {
 			int visual = visual(score);
+			int leftOnes = BeadScore.onesOnLeft(visual, maxRace);
 			drawMarkers(canvas, geo, BeadScore.markersOnLeft(visual, maxRace),
 					BeadScore.markersOnLeft(visual, maxRace), 1f);
 			canvas.drawLine(geo.wireStart, geo.cy, geo.wireEnd, geo.cy, wirePaint);
-			drawSettled(canvas, geo, BeadScore.onesOnLeft(visual, maxRace));
+			drawSettled(canvas, geo, leftOnes);
 			return;
 		}
 
@@ -281,12 +289,25 @@ public class BeadRackView extends View {
 	}
 
 	private void drawSettled(Canvas canvas, RackGeometry geo, int leftCount) {
-		int rightCount = BeadScore.BEADS_PER_STRING - leftCount;
+		int midCount = Math.min(pending, Math.max(0, BeadScore.BEADS_PER_STRING - leftCount));
+		int rightCount = BeadScore.BEADS_PER_STRING - leftCount - midCount;
 		for (int i = 0; i < leftCount; i++) {
 			drawBead(canvas, geo.leftX(i), geo.cy, geo.radius, i + 1);
 		}
 		for (int i = 0; i < rightCount; i++) {
 			drawBead(canvas, geo.rightX(i), geo.cy, geo.radius, rightBeadNumber(i));
+		}
+		if (midCount <= 0) {
+			return;
+		}
+		float gapStart = leftCount == 0 ? geo.wireStart + geo.radius
+				: geo.leftX(leftCount - 1) + geo.step;
+		float gapEnd = rightCount == 0 ? geo.wireEnd - geo.radius
+				: geo.rightX(rightCount - 1) - geo.step;
+		float width = midCount == 1 ? 0f : (midCount - 1) * geo.step;
+		float start = (gapStart + gapEnd - width) / 2f;
+		for (int i = 0; i < midCount; i++) {
+			drawBead(canvas, start + i * geo.step, geo.cy, geo.radius, leftCount + i + 1);
 		}
 	}
 
