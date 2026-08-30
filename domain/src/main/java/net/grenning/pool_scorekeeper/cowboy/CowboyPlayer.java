@@ -22,6 +22,9 @@ public class CowboyPlayer {
 		if (caromCount < 0) {
 			caromCount = 0;
 		}
+		if (caromCount > ballCount) {
+			caromCount = ballCount;
+		}
 		if (raceTo() <= 0) {
 			ballCount = 50;
 			caromCount = defaultCaroms(50);
@@ -30,15 +33,15 @@ public class CowboyPlayer {
 	}
 
 	public int mixedLimit() {
-		return ballCount;
+		return Math.max(0, ballCount - caromCount);
 	}
 
 	public int caromLimit() {
-		return ballCount + caromCount;
+		return ballCount;
 	}
 
 	public int raceTo() {
-		return caromLimit() + (specialLastShot ? 1 : 0);
+		return ballCount + (specialLastShot ? 1 : 0);
 	}
 
 	public int total() {
@@ -67,8 +70,8 @@ public class CowboyPlayer {
 			if (oldRace <= 0) {
 				oldRace = 50;
 			}
-			ballCount = CowboyGame.mixedLimit(oldRace);
-			caromCount = Math.max(0, CowboyGame.caromStretch(oldRace) - 1);
+			ballCount = oldRace;
+			caromCount = defaultCaroms(oldRace);
 			specialLastShot = true;
 		} else {
 			ballCount = savedBalls;

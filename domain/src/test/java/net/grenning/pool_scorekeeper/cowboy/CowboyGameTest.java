@@ -28,8 +28,9 @@ public class CowboyGameTest {
 		assertEquals(50, p1.ballCount);
 		assertEquals(5, p1.caromCount);
 		assertTrue(p1.specialLastShot);
-		assertEquals(56, p1.raceTo());
-		assertEquals(50, p1.mixedLimit());
+		assertEquals(51, p1.raceTo());
+		assertEquals(45, p1.mixedLimit());
+		assertEquals(50, p1.caromLimit());
 	}
 
 	@Test
@@ -116,7 +117,7 @@ public class CowboyGameTest {
 
 	@Test
 	public void comboThatPassesMixedLimitIsAFoul() {
-		p1.inning = 46;
+		p1.inning = 41;
 		assertEquals(CowboyGame.Result.FOUL, game.combo(true, false, true, 0));
 		assertEquals(0, p1.inning);
 		assertEquals(1, game.currentIndex());
@@ -124,7 +125,7 @@ public class CowboyGameTest {
 
 	@Test
 	public void comboWithAPocketDuringCaromPhaseIsAFoul() {
-		p1.score = 50;
+		p1.score = 45;
 		assertEquals(CowboyGame.Phase.CAROMS, game.phase());
 		assertEquals(CowboyGame.Result.FOUL, game.combo(true, false, false, 2));
 		assertEquals(1, game.currentIndex());
@@ -132,9 +133,9 @@ public class CowboyGameTest {
 
 	@Test
 	public void caromComboIsAllowedAfterMixedLimit() {
-		p1.score = 50;
+		p1.score = 45;
 		assertEquals(CowboyGame.Result.CONTINUE, game.combo(false, false, false, 2));
-		assertEquals(52, p1.total());
+		assertEquals(47, p1.total());
 	}
 
 	@Test
@@ -147,7 +148,7 @@ public class CowboyGameTest {
 
 	@Test
 	public void cannotPassMixedLimitOnAMixedShot() {
-		p1.inning = 46;
+		p1.inning = 41;
 		assertEquals(CowboyGame.Result.FOUL, game.pocket(5));
 		assertEquals(0, p1.inning);
 		assertEquals(1, game.currentIndex());
@@ -155,15 +156,15 @@ public class CowboyGameTest {
 
 	@Test
 	public void canLandExactlyOnMixedLimit() {
-		p1.inning = 47;
+		p1.inning = 42;
 		assertEquals(CowboyGame.Result.CONTINUE, game.pocket(3));
-		assertEquals(50, p1.total());
+		assertEquals(45, p1.total());
 		assertEquals(CowboyGame.Phase.CAROMS, game.phase());
 	}
 
 	@Test
 	public void pocketingDuringCaromPhaseIsAFoul() {
-		p1.score = 50;
+		p1.score = 45;
 		assertEquals(CowboyGame.Phase.CAROMS, game.phase());
 		assertEquals(CowboyGame.Result.FOUL, game.pocket(1));
 		assertEquals(1, game.currentIndex());
@@ -171,14 +172,14 @@ public class CowboyGameTest {
 
 	@Test
 	public void caromsAreAllowedAfterMixedLimit() {
-		p1.score = 50;
+		p1.score = 45;
 		assertEquals(CowboyGame.Result.CONTINUE, game.caromTwo());
-		assertEquals(51, p1.total());
+		assertEquals(46, p1.total());
 	}
 
 	@Test
 	public void lastPointMustBeTheWinShot() {
-		p1.score = 55;
+		p1.score = 50;
 		assertEquals(CowboyGame.Phase.WIN, game.phase());
 		assertEquals(CowboyGame.Result.FOUL, game.caromTwo());
 		assertEquals(1, game.currentIndex());
@@ -186,9 +187,9 @@ public class CowboyGameTest {
 
 	@Test
 	public void winShotAfterCaromsWins() {
-		p1.score = 55;
+		p1.score = 50;
 		assertEquals(CowboyGame.Result.WIN, game.winShot());
-		assertEquals(56, p1.score);
+		assertEquals(51, p1.score);
 		assertTrue(p1.hasWon());
 	}
 
@@ -196,22 +197,22 @@ public class CowboyGameTest {
 	public void lastShotIsPerPlayer() {
 		p1.specialLastShot = true;
 		p2.specialLastShot = false;
-		p1.score = 55;
-		p2.score = 54;
+		p1.score = 50;
+		p2.score = 49;
 		assertEquals(CowboyGame.Phase.WIN, game.phaseOf(p1));
 		assertEquals(CowboyGame.Phase.CAROMS, game.phaseOf(p2));
-		assertEquals(56, p1.raceTo());
-		assertEquals(55, p2.raceTo());
+		assertEquals(51, p1.raceTo());
+		assertEquals(50, p2.raceTo());
 	}
 
 	@Test
 	public void withoutSpecialLastShotACaromCanWin() {
 		p1.specialLastShot = false;
 		p2.specialLastShot = false;
-		p1.score = 54;
+		p1.score = 49;
 		assertEquals(CowboyGame.Phase.CAROMS, game.phase());
 		assertEquals(CowboyGame.Result.WIN, game.caromTwo());
-		assertEquals(55, p1.score);
+		assertEquals(50, p1.score);
 		assertTrue(p1.hasWon());
 	}
 
@@ -220,13 +221,14 @@ public class CowboyGameTest {
 		p1.ballCount = 50;
 		p1.caromCount = 2;
 		p1.specialLastShot = true;
-		p1.score = 50;
+		assertEquals(48, p1.mixedLimit());
+		p1.score = 48;
 		assertEquals(CowboyGame.Phase.CAROMS, game.phase());
 		assertEquals(CowboyGame.Result.CONTINUE, game.caromTwo());
-		assertEquals(51, p1.total());
+		assertEquals(49, p1.total());
 		assertEquals(CowboyGame.Result.CONTINUE, game.caromTwo());
 		assertEquals(CowboyGame.Phase.WIN, game.phase());
-		assertEquals(53, p1.raceTo());
+		assertEquals(51, p1.raceTo());
 	}
 
 	@Test
@@ -257,14 +259,14 @@ public class CowboyGameTest {
 		p1.caromCount = 5;
 		p2.ballCount = 100;
 		p2.caromCount = 10;
-		p1.score = 50;
+		p1.score = 45;
 		assertEquals(CowboyGame.Phase.CAROMS, game.phaseOf(p1));
 		assertEquals(CowboyGame.Result.FOUL, game.pocket(1));
 		assertEquals(1, game.currentIndex());
-		p2.score = 95;
+		p2.score = 85;
 		assertEquals(CowboyGame.Phase.MIXED, game.phaseOf(p2));
 		assertEquals(CowboyGame.Result.CONTINUE, game.pocket(5));
-		assertEquals(100, p2.total());
+		assertEquals(90, p2.total());
 		assertEquals(CowboyGame.Phase.CAROMS, game.phaseOf(p2));
 		assertEquals(CowboyGame.Result.FOUL, game.pocket(1));
 	}
@@ -275,7 +277,35 @@ public class CowboyGameTest {
 		assertEquals(4, game.playerCount());
 		assertEquals(75, game.player(3).ballCount);
 		assertEquals(7, game.player(3).caromCount);
-		assertEquals(83, game.player(3).raceTo());
+		assertEquals(76, game.player(3).raceTo());
+	}
+
+	@Test
+	public void foulButtonIsACalledFoul() {
+		assertEquals(CowboyGame.Result.FOUL, game.foul());
+		assertEquals(CowboyGame.FoulKind.CALLED, game.lastFoul());
+	}
+
+	@Test
+	public void pocketInCaromsRecordsPocketFoul() {
+		p1.score = 45;
+		assertEquals(CowboyGame.Result.FOUL, game.pocket(1));
+		assertEquals(CowboyGame.FoulKind.POCKET_DURING_CAROMS, game.lastFoul());
+	}
+
+	@Test
+	public void passingMixedLimitRecordsThatFoul() {
+		p1.inning = 41;
+		assertEquals(CowboyGame.Result.FOUL, game.pocket(5));
+		assertEquals(CowboyGame.FoulKind.PASSED_MIXED_LIMIT, game.lastFoul());
+		assertEquals(45, game.lastFoulPoints());
+	}
+
+	@Test
+	public void scoringTheLastPointAsACaromIsNotTheWinShot() {
+		p1.score = 50;
+		assertEquals(CowboyGame.Result.FOUL, game.caromTwo());
+		assertEquals(CowboyGame.FoulKind.NOT_WIN_SHOT, game.lastFoul());
 	}
 
 	@Test
@@ -294,13 +324,14 @@ public class CowboyGameTest {
 		saver.save("score", 1, 0);
 		saver.save("inning", 1, 0);
 		game.restore(saver);
-		assertEquals(45, p1.ballCount);
-		assertEquals(4, p1.caromCount);
+		assertEquals(50, p1.ballCount);
+		assertEquals(5, p1.caromCount);
 		assertTrue(p1.specialLastShot);
-		assertEquals(50, p1.raceTo());
-		assertEquals(90, p2.ballCount);
-		assertEquals(9, p2.caromCount);
-		assertEquals(100, p2.raceTo());
+		assertEquals(51, p1.raceTo());
+		assertEquals(45, p1.mixedLimit());
+		assertEquals(100, p2.ballCount);
+		assertEquals(10, p2.caromCount);
+		assertEquals(101, p2.raceTo());
 	}
 
 	private static CowboyPlayer player(String name, int ballCount) {

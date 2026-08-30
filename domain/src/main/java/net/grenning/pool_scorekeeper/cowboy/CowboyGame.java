@@ -16,11 +16,22 @@ public class CowboyGame {
 		MIXED, CAROMS, WIN
 	}
 
+	public enum FoulKind {
+		NONE,
+		CALLED,
+		POCKET_DURING_CAROMS,
+		PASSED_MIXED_LIMIT,
+		PASSED_CAROM_LIMIT,
+		NOT_WIN_SHOT
+	}
+
 	private static final int MAX_UNDO = 100;
 
 	private CowboyPlayer[] players;
 	private int current;
 	private int inning = 1;
+	private FoulKind lastFoul = FoulKind.NONE;
+	private int lastFoulPoints;
 	private final Deque<MapNameValueSaver> history = new ArrayDeque<MapNameValueSaver>();
 	private final Deque<MapNameValueSaver> redoHistory = new ArrayDeque<MapNameValueSaver>();
 
@@ -60,6 +71,14 @@ public class CowboyGame {
 
 	public static int mixedLimit(int raceTo) {
 		return Math.max(0, raceTo - caromStretch(raceTo));
+	}
+
+	public FoulKind lastFoul() {
+		return lastFoul;
+	}
+
+	public int lastFoulPoints() {
+		return lastFoulPoints;
 	}
 
 	public Phase phase() {
@@ -126,7 +145,7 @@ public class CowboyGame {
 		checkpoint();
 		CowboyPlayer player = currentPlayer();
 		if (!player.specialLastShot || player.total() != player.caromLimit()) {
-			return foulAfterCheckpoint();
+			return foulAfterCheckpoint(FoulKind.NOT_WIN_SHOT, 0);
 		}
 		player.inning += 1;
 		player.score += player.inning;
@@ -154,7 +173,7 @@ public class CowboyGame {
 			return Result.IGNORED;
 		}
 		checkpoint();
-		return foulAfterCheckpoint();
+		return foulAfterCheckpoint(FoulKind.CALLED, 0);
 	}
 
 	public boolean isOver() {
@@ -221,18 +240,19 @@ public class CowboyGame {
 		CowboyPlayer player = currentPlayer();
 		Phase phase = phaseOf(player);
 		if (phase == Phase.WIN) {
-			return foulAfterCheckpoint();
+			return foulAfterCheckpoint(FoulKind.NOT_WIN_SHOT, 0);
 		}
 		if (phase == Phase.CAROMS && !carom) {
-			return foulAfterCheckpoint();
+			return foulAfterCheckpoint(FoulKind.POCKET_DURING_CAROMS, 0);
 		}
 		int after = player.total() + points;
 		if (phase == Phase.MIXED && after > player.mixedLimit()) {
-			return foulAfterCheckpoint();
+			return foulAfterCheckpoint(FoulKind.PASSED_MIXED_LIMIT, player.mixedLimit());
 		}
 		int caromCap = player.specialLastShot ? player.caromLimit() : player.raceTo();
 		if (phase == Phase.CAROMS && after > caromCap) {
-			return foulAfterCheckpoint();
+			return foulAfterCheckpoint(player.specialLastShot
+					? FoulKind.NOT_WIN_SHOT : FoulKind.PASSED_CAROM_LIMIT, caromCap);
 		}
 		if (!player.specialLastShot && after >= player.raceTo()) {
 			player.inning += points;
@@ -244,7 +264,9 @@ public class CowboyGame {
 		return Result.CONTINUE;
 	}
 
-	private Result foulAfterCheckpoint() {
+	private Result foulAfterCheckpoint(FoulKind kind, int points) {
+		lastFoul = kind;
+		lastFoulPoints = points;
 		currentPlayer().inning = 0;
 		advance();
 		return Result.FOUL;

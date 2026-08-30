@@ -21,4 +21,10 @@
     <color name="bead_wire">#C9A227</color>
     <color name="bead_win">#F5F5DC</color>
     <color name="bead_win_highlight">#FFFFFF</color>
+    <color name="pool_ball_1">#F5C400</color>
+    <color name="pool_ball_3">#C62828</color>
+    <color name="pool_ball_5">#EF6C00</color>
+    <color name="pool_ball_number">#111111</color>
+    <color name="pool_ball_number_on_red">#FFFFFF</color>
+    <color name="pool_ball_stroke">#33FFFFFF</color>
 </resources>

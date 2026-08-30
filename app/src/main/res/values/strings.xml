@@ -58,6 +58,7 @@
     <string name="cowboy_balls">Balls</string>
     <string name="cowboy_caroms_count">Caroms</string>
     <string name="cowboy_default_caroms">5</string>
+    <string name="cowboy_reset">Reset</string>
     <string name="cowboy_reset_50">50/5</string>
     <string name="cowboy_reset_100">100/10</string>
     <string name="cowboy_last_shot">Cue ball last shot</string>
@@ -68,6 +69,12 @@
     <string name="cowboy_win_shot_title">Winning shot</string>
     <string name="cowboy_win_shot_rule">The last point is a carom of the cue ball off the 1-ball into a called pocket.</string>
     <string name="cowboy_win_shot_made">Made it</string>
+    <string name="cowboy_foul_title">Foul</string>
+    <string name="cowboy_foul_called">Inning points are lost and the turn is over.</string>
+    <string name="cowboy_foul_pocket_caroms">Only caroms are allowed now. Pocketing a ball is a foul. Inning points are lost and the turn is over.</string>
+    <string name="cowboy_foul_passed_mixed">Mixed scoring cannot go past %1$d. Inning points are lost and the turn is over.</string>
+    <string name="cowboy_foul_passed_caroms">That shot went past %1$d. Inning points are lost and the turn is over.</string>
+    <string name="cowboy_foul_not_win">The last point must be a carom of the cue ball off the 1-ball into a called pocket. Inning points are lost and the turn is over.</string>
     <string name="cowboy_players">Players</string>
     <string name="player3">Player 3</string>
     <string name="player4">Player 4</string>

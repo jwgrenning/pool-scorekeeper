@@ -185,19 +185,22 @@
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/ball1Button"
-            style="@style/Widget.Pool.ActionButton"
+            style="@style/Widget.Pool.BallButton.One"
+            android:contentDescription="@string/cowboy_ball_1"
             android:onClick="ball1Clicked"
             android:text="@string/cowboy_ball_1" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/ball3Button"
-            style="@style/Widget.Pool.ActionButton"
+            style="@style/Widget.Pool.BallButton.Three"
+            android:contentDescription="@string/cowboy_ball_3"
             android:onClick="ball3Clicked"
             android:text="@string/cowboy_ball_3" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/ball5Button"
-            style="@style/Widget.Pool.ActionButton"
+            style="@style/Widget.Pool.BallButton.Five"
+            android:contentDescription="@string/cowboy_ball_5"
             android:onClick="ball5Clicked"
             android:text="@string/cowboy_ball_5" />
 

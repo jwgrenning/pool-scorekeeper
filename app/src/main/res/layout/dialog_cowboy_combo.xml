@@ -15,37 +15,26 @@
 
     <com.google.android.material.button.MaterialButtonToggleGroup
         android:id="@+id/comboBalls"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
         android:layout_marginTop="8dp"
         app:selectionRequired="false"
         app:singleSelection="false">
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/comboBall1"
-            style="@style/Widget.Material3.Button.OutlinedButton"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:minHeight="56dp"
+            style="@style/Widget.Pool.BallButton.One"
             android:text="@string/cowboy_ball_1" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/comboBall3"
-            style="@style/Widget.Material3.Button.OutlinedButton"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:minHeight="56dp"
+            style="@style/Widget.Pool.BallButton.Three"
             android:text="@string/cowboy_ball_3" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/comboBall5"
-            style="@style/Widget.Material3.Button.OutlinedButton"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:minHeight="56dp"
+            style="@style/Widget.Pool.BallButton.Five"
             android:text="@string/cowboy_ball_5" />
     </com.google.android.material.button.MaterialButtonToggleGroup>
 

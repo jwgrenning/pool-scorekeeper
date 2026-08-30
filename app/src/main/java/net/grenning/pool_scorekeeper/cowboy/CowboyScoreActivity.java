@@ -43,6 +43,7 @@ public class CowboyScoreActivity extends PoolActivity {
 	private AndroidGameFieldSaver gameSaver;
 	private boolean restoreOnStart;
 	private androidx.appcompat.app.AlertDialog winDialog;
+	private androidx.appcompat.app.AlertDialog foulDialog;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -241,6 +242,44 @@ public class CowboyScoreActivity extends PoolActivity {
 			playWinApplause();
 		}
 		afterChange();
+		if (result == CowboyGame.Result.FOUL) {
+			showFoulDialog();
+		}
+	}
+
+	private void showFoulDialog() {
+		if (isFinishing() || isDestroyed()) {
+			return;
+		}
+		if (foulDialog != null && foulDialog.isShowing()) {
+			return;
+		}
+		foulDialog = new MaterialAlertDialogBuilder(this)
+				.setTitle(R.string.cowboy_foul_title)
+				.setMessage(foulMessage(game.lastFoul()))
+				.setPositiveButton(R.string.ok, null)
+				.setNegativeButton(R.string.undo, (dialog, which) -> {
+					game.undo();
+					afterChange();
+				})
+				.setOnDismissListener(dialog -> foulDialog = null)
+				.show();
+	}
+
+	private String foulMessage(CowboyGame.FoulKind kind) {
+		if (kind == CowboyGame.FoulKind.POCKET_DURING_CAROMS) {
+			return getString(R.string.cowboy_foul_pocket_caroms);
+		}
+		if (kind == CowboyGame.FoulKind.PASSED_MIXED_LIMIT) {
+			return getString(R.string.cowboy_foul_passed_mixed, game.lastFoulPoints());
+		}
+		if (kind == CowboyGame.FoulKind.PASSED_CAROM_LIMIT) {
+			return getString(R.string.cowboy_foul_passed_caroms, game.lastFoulPoints());
+		}
+		if (kind == CowboyGame.FoulKind.NOT_WIN_SHOT) {
+			return getString(R.string.cowboy_foul_not_win);
+		}
+		return getString(R.string.cowboy_foul_called);
 	}
 
 	private void afterChange() {
