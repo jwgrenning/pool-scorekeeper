@@ -13,8 +13,7 @@
     <string name="rack_prompt_title">New rack?</string>
     <string name="rack_prompt_one">One ball left on the table. Rack a new set?</string>
     <string name="rack_prompt_none">No balls left on the table. Rack a new set?</string>
-    <string name="rack_yes">Rack</string>
-    <string name="rack_not_now">Not now</string>
+    <string name="rack_yes">Rack \'em up</string>
     <string name="balls_potted_title">Balls potted</string>
     <string name="safe_made">Safe</string>
     <string name="missed_shot">Miss</string>

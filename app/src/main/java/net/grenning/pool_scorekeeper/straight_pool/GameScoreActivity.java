@@ -374,11 +374,15 @@ public class GameScoreActivity extends PoolActivity {
 		rackDialog = new MaterialAlertDialogBuilder(this)
 				.setTitle(R.string.rack_prompt_title)
 				.setMessage(message)
+				.setCancelable(false)
 				.setPositiveButton(R.string.rack_yes, (dialog, which) -> {
 					scorer.newRack();
 					afterScoreChange();
 				})
-				.setNegativeButton(R.string.rack_not_now, null)
+				.setNegativeButton(R.string.undo, (dialog, which) -> {
+					scorer.undo();
+					afterScoreChange();
+				})
 				.setOnDismissListener(dialog -> rackDialog = null)
 				.show();
 	}
