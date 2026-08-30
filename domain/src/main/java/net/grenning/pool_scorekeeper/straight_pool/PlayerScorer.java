@@ -202,6 +202,10 @@ public class PlayerScorer {
 		updateView(view);
 	}
 
+	public int raceTo() {
+		return raceTo;
+	}
+
 	public boolean wins() {
 		return ballsNeededToWin == 0;
 	}

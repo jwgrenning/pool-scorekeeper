@@ -48,4 +48,30 @@ public class BeadScoreTest {
 		assertEquals(2, BeadScore.completedStrings(150));
 		assertEquals(100, BeadScore.overflowPoints(150));
 	}
+
+	@Test
+	public void raceOfFiftyHasNoFiftiesMarkers() {
+		assertEquals(0, BeadScore.markerSlots(50));
+	}
+
+	@Test
+	public void raceOverFiftyHasOneFiftiesMarker() {
+		assertEquals(1, BeadScore.markerSlots(75));
+		assertEquals(1, BeadScore.markerSlots(100));
+	}
+
+	@Test
+	public void raceOverOneHundredHasTwoFiftiesMarkers() {
+		assertEquals(2, BeadScore.markerSlots(101));
+		assertEquals(2, BeadScore.markerSlots(150));
+	}
+
+	@Test
+	public void fiftiesMarkersStayRightUntilAStringCompletes() {
+		assertEquals(0, BeadScore.markersOnLeft(50));
+		assertEquals(1, BeadScore.markersOnLeft(51));
+		assertEquals(1, BeadScore.markersOnLeft(100));
+		assertEquals(2, BeadScore.markersOnLeft(101));
+		assertEquals(2, BeadScore.markersOnLeft(150));
+	}
 }

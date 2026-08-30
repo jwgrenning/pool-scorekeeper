@@ -25,4 +25,15 @@ public final class BeadScore {
 	public static int overflowPoints(int score) {
 		return completedStrings(score) * BEADS_PER_STRING;
 	}
+
+	public static int markerSlots(int raceTo) {
+		if (raceTo <= BEADS_PER_STRING) {
+			return 0;
+		}
+		return Math.min(2, (raceTo - 1) / BEADS_PER_STRING);
+	}
+
+	public static int markersOnLeft(int score) {
+		return completedStrings(score);
+	}
 }

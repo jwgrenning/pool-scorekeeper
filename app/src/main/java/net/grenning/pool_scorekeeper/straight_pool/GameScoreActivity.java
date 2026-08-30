@@ -89,7 +89,7 @@ public class GameScoreActivity extends PoolActivity {
 	PlayerView player1View = new PlayerView() {
 		@Override
 		public void score(int i) {
-			setScoreAndBeads(R.id.player1Score, R.id.player1Beads, i);
+			setScoreAndBeads(R.id.player1Score, R.id.player1Beads, player1Scorer, i);
 		}
 
 		@Override
@@ -170,7 +170,7 @@ public class GameScoreActivity extends PoolActivity {
 	PlayerView player2View = new PlayerView() {
 		@Override
 		public void score(int i) {
-			setScoreAndBeads(R.id.player2Score, R.id.player2Beads, i);
+			setScoreAndBeads(R.id.player2Score, R.id.player2Beads, player2Scorer, i);
 		}
 
 		@Override
@@ -263,6 +263,7 @@ public class GameScoreActivity extends PoolActivity {
 		player1Scorer = new PlayerScorer(player1View, getNumberFieldFromIntent("player1PointsToWin"));
 		player2Scorer = new PlayerScorer(player2View, getNumberFieldFromIntent("player2PointsToWin"));
 		scorer = new GameScorer(gameView, player1Scorer, player2Scorer);
+		refreshBeadRaces();
 
 		restoreOnStart = getBooleanFieldFromIntent("resume") || savedInstanceState != null;
 		findViewById(R.id.shotMadeButton).setOnLongClickListener(view -> {
@@ -320,6 +321,7 @@ public class GameScoreActivity extends PoolActivity {
 					getNumberFieldFromIntent("player1PointsToWin"),
 					getNumberFieldFromIntent("player2PointsToWin"));
 		}
+		refreshBeadRaces();
 		persistGame();
 		refreshUndoButton();
 		refreshGameOverChrome();
@@ -510,11 +512,27 @@ public class GameScoreActivity extends PoolActivity {
 		card.setStrokeWidth(0);
 	}
 
-	private void setScoreAndBeads(int scoreId, int beadId, int score) {
+	private void setScoreAndBeads(int scoreId, int beadId, PlayerScorer player, int score) {
 		setFieldById(scoreId, score);
 		BeadRackView beads = findViewById(beadId);
-		if (beads != null) {
+		if (beads != null && player != null) {
+			beads.setRaceTo(player.raceTo());
 			beads.setScore(score);
+		}
+	}
+
+	private void refreshBeadRaces() {
+		if (player1Scorer != null) {
+			BeadRackView beads = findViewById(R.id.player1Beads);
+			if (beads != null) {
+				beads.setRaceTo(player1Scorer.raceTo());
+			}
+		}
+		if (player2Scorer != null) {
+			BeadRackView beads = findViewById(R.id.player2Beads);
+			if (beads != null) {
+				beads.setRaceTo(player2Scorer.raceTo());
+			}
 		}
 	}
 
