@@ -36,9 +36,6 @@ public class CowboyPoolStartActivity extends PoolActivity {
 			R.string.default_player3Name, R.string.default_player4Name
 	};
 
-	private final boolean[] caromsEdited = new boolean[4];
-	private final boolean[] updatingCaroms = new boolean[4];
-
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -109,7 +106,6 @@ public class CowboyPoolStartActivity extends PoolActivity {
 			((EditText) findViewById(BALL_IDS[i])).setText(Integer.toString(balls));
 			int caroms = CowboyStore.caromsOf(prefs, i, balls);
 			((EditText) findViewById(CAROM_IDS[i])).setText(Integer.toString(caroms));
-			caromsEdited[i] = caroms != CowboyPlayer.defaultCaroms(balls);
 			((CheckBox) findViewById(LAST_SHOT_IDS[i])).setChecked(CowboyStore.lastShotOf(prefs, i));
 		}
 	}
@@ -129,27 +125,13 @@ public class CowboyPoolStartActivity extends PoolActivity {
 
 	private void wireBallCaromDefaults() {
 		for (int i = 0; i < 4; i++) {
-			final int index = i;
 			EditText balls = findViewById(BALL_IDS[i]);
 			EditText caroms = findViewById(CAROM_IDS[i]);
 			balls.addTextChangedListener(new AfterChange() {
 				@Override
 				public void afterTextChanged(Editable s) {
-					if (caromsEdited[index]) {
-						return;
-					}
-					updatingCaroms[index] = true;
 					caroms.setText(Integer.toString(
 							CowboyPlayer.defaultCaroms(CowboyStore.parseBalls(s.toString()))));
-					updatingCaroms[index] = false;
-				}
-			});
-			caroms.addTextChangedListener(new AfterChange() {
-				@Override
-				public void afterTextChanged(Editable s) {
-					if (!updatingCaroms[index]) {
-						caromsEdited[index] = true;
-					}
 				}
 			});
 		}
