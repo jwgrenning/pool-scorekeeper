@@ -14,6 +14,9 @@
     <string name="rack_prompt_one">One ball left on the table. Rack a new set?</string>
     <string name="rack_prompt_none">No balls left on the table. Rack a new set?</string>
     <string name="rack_yes">Rack \'em up</string>
+    <string name="three_foul_title">Three consecutive fouls</string>
+    <string name="three_foul_message">Third consecutive in-game foul: −16 this shot (−1 plus a 15-point penalty). Opening break fouls do not count. All 15 balls are re-racked. %1$s breaks.</string>
+    <string name="ok">OK</string>
     <string name="balls_potted_title">Balls potted</string>
     <string name="safe_made">Safe</string>
     <string name="missed_shot">Miss</string>

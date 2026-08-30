@@ -26,6 +26,10 @@ public class SummaryEmail {
 		}
 
 		@Override
+		public void threeFoulPenalty(int playerNumber) {
+		}
+
+		@Override
 		public void suggestRerack() {
 		}
 

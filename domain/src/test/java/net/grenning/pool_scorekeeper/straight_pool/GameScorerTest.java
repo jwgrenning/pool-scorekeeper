@@ -130,6 +130,52 @@ public class GameScorerTest extends GameScorerTestBase {
 	}
 
 	@Test
+	public void testThreeConsecutiveFoulsRerackAndSamePlayerBreaks() {
+		playerMakesSomeShots(3);
+		game.playerMissesShot();
+		game.foul();
+		game.playerMissesShot();
+		game.foul();
+		game.playerMissesShot();
+		assertEquals(12, gameViewSpy.ballsOnTheTable);
+		game.foul();
+
+		assertEquals(-18, player2Spy.score);
+		assertEquals(68, player2Spy.pointsNeededToWin);
+		assertEquals(0, player2Spy.consecutiveFouls);
+		assertEquals(0, player1Spy.rackScore);
+		assertEquals(0, player2Spy.rackScore);
+		assertEquals(15, gameViewSpy.ballsOnTheTable);
+		assertEquals(1, gameViewSpy.threeFoulPenaltyCount);
+		assertEquals(2, gameViewSpy.threeFoulPenaltyPlayer);
+		assertPlayerTwoActive();
+
+		game.foul();
+		assertEquals(-20, player2Spy.score);
+		assertEquals(0, player2Spy.consecutiveFouls);
+		assertPlayerOneActive();
+	}
+
+	@Test
+	public void testOpeningBreakerFourFoulsIsMinusTwenty() {
+		game.foul();
+		game.playerMissesShot();
+		game.foul();
+		game.playerMissesShot();
+		game.foul();
+		game.playerMissesShot();
+		game.foul();
+
+		assertEquals(-20, player1Spy.score);
+		assertEquals(70, player1Spy.pointsNeededToWin);
+		assertEquals(0, player1Spy.consecutiveFouls);
+		assertEquals(1, gameViewSpy.threeFoulPenaltyCount);
+		assertEquals(1, gameViewSpy.threeFoulPenaltyPlayer);
+		assertPlayerOneActive();
+		assertEquals(15, gameViewSpy.ballsOnTheTable);
+	}
+
+	@Test
 	public void testSuggestsRerackWhenOneBallLeft() {
 		playerMakesSomeShots(14);
 		assertEquals(1, gameViewSpy.reRackSuggestedCount);

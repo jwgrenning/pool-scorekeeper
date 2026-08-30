@@ -11,6 +11,8 @@ public class GameViewSpy implements GameView {
 	public int inning = -1;
 	public int winningPlayer = -1;
 	public String inningRecord = "";
+	public int threeFoulPenaltyPlayer = -1;
+	public int threeFoulPenaltyCount = 0;
 
 	@Override
 	public void inning(int inning) {
@@ -51,6 +53,12 @@ public class GameViewSpy implements GameView {
 	@Override
 	public void noWinner() {
 		winningPlayer = -1;
+	}
+
+	@Override
+	public void threeFoulPenalty(int playerNumber) {
+		threeFoulPenaltyPlayer = playerNumber;
+		threeFoulPenaltyCount++;
 	}
 
 }

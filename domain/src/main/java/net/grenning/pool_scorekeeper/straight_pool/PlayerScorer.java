@@ -90,15 +90,14 @@ public class PlayerScorer {
 		updateView(view);
 	}
 
-	public void foul() {
+	public boolean foul() {
 		updateInningRecord("F");
+		boolean threeFoulPenalty = false;
 		if (breakShotComing) {
 			breakShotComing = false;
 			ballsNeededToWin++;
 			score--;
-		}
-		else
-		{
+		} else {
 			consecutiveFouls++;
 		}
 
@@ -106,9 +105,14 @@ public class PlayerScorer {
 		ballsNeededToWin++;
 		fouls++;
 		currentRun = 0;
-		if (consecutiveFouls == 3)
+		if (consecutiveFouls == 3) {
 			score -= 15;
+			ballsNeededToWin += 15;
+			consecutiveFouls = 0;
+			threeFoulPenalty = true;
+		}
 		updateView(view);
+		return threeFoulPenalty;
 	}
 
 	public void missedShot() {
@@ -206,14 +210,18 @@ public class PlayerScorer {
 		updateInningRecord("S");
 		safesMade++;
 		currentRun = 0;
-		updateView(view);		
+		consecutiveFouls = 0;
+		breakShotComing = false;
+		updateView(view);
 	}
 
 	public void safeMissed() {
 		updateInningRecord("s");
 		safesMissed++;
 		currentRun = 0;
-		updateView(view);		
+		consecutiveFouls = 0;
+		breakShotComing = false;
+		updateView(view);
 	}
 
 	public void reportSummary(PlayerView player) {

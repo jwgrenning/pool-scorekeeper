@@ -79,6 +79,11 @@ public class GameScoreActivity extends PoolActivity {
 		public void noWinner() {
 			stopWinnerAnimation();
 		}
+
+		@Override
+		public void threeFoulPenalty(int playerNumber) {
+			showThreeFoulPenalty(playerNumber);
+		}
 	};
 
 	PlayerView player1View = new PlayerView() {
@@ -359,6 +364,18 @@ public class GameScoreActivity extends PoolActivity {
 			return true;
 		}
 		return super.onOptionsItemSelected(item);
+	}
+
+	private void showThreeFoulPenalty(int playerNumber) {
+		if (isFinishing() || isDestroyed()) {
+			return;
+		}
+		String name = textOf(playerNumber == 1 ? R.id.player1Name : R.id.player2Name);
+		new MaterialAlertDialogBuilder(this)
+				.setTitle(R.string.three_foul_title)
+				.setMessage(getString(R.string.three_foul_message, name))
+				.setPositiveButton(R.string.ok, null)
+				.show();
 	}
 
 	private void showRerackSuggestion() {

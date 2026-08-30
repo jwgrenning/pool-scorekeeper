@@ -128,7 +128,10 @@ public class GameScorer {
 	public void foul() {
 		checkpoint();
 		currentPlayerScorer.recordShot();
-		currentPlayerScorer.foul();
+		if (currentPlayerScorer.foul()) {
+			applyThreeFoulPenalty();
+			return;
+		}
 		switchPlayers();
 	}
 
@@ -219,10 +222,23 @@ public class GameScorer {
 
 	public void newRack() {
 		checkpoint();
+		resetRack();
+		updateView();
+	}
+
+	private void applyThreeFoulPenalty() {
+		endTurn();
+		resetRack();
+		currentPlayerScorer.yourBreak();
+		startTurn();
+		updateView();
+		gameView.threeFoulPenalty(currentPlayerNumber + 1);
+	}
+
+	private void resetRack() {
 		ballsOnTheTable = 15;
 		player1Scorer.newRack();
 		player2Scorer.newRack();
-		updateView();
 	}
 
 	private void oneLessBallOnTheTable() {

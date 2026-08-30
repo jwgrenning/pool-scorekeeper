@@ -73,7 +73,9 @@ public class GameScorerUndoTest extends GameScorerTestBase {
 		game.playerMissesShot();
 		game.foul();
 		assertEquals(-18, player2Spy.score);
-		assertEquals(3, player2Spy.consecutiveFouls);
+		assertEquals(0, player2Spy.consecutiveFouls);
+		assertPlayerTwoActive();
+		assertEquals(15, gameViewSpy.ballsOnTheTable);
 
 		game.undo();
 		assertEquals(-2, player2Spy.score);

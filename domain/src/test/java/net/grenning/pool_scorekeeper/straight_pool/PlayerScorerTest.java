@@ -2,6 +2,7 @@ package net.grenning.pool_scorekeeper.straight_pool;
 
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.After;
@@ -186,15 +187,25 @@ public class PlayerScorerTest extends PlayerScorerBase {
 		scorer.missedShot();
 		assertConsecutiveFouls(0);
 	}
+
+	@Test
+	public void testSafeResetsConsecutiveFouls() {
+		scorer.foul();
+		scorer.foul();
+		assertConsecutiveFouls(2);
+		scorer.safeMade();
+		assertConsecutiveFouls(0);
+	}
 	
 	@Test
 	public void testThreeConsequtiveFoulsCost15Points() {
 		scorer.missedShot();
-		scorer.foul();
-		scorer.foul();
-		scorer.foul();
+		assertFalse(scorer.foul());
+		assertFalse(scorer.foul());
+		assertTrue(scorer.foul());
 		assertEquals(-18, view.score);
-		assertEquals(3, view.consecutiveFouls);
+		assertEquals(0, view.consecutiveFouls);
+		assertBallsNeededToWin(68);
 	}
 
 	@Test
@@ -205,6 +216,20 @@ public class PlayerScorerTest extends PlayerScorerBase {
 		scorer.foul();
 		assertEquals(-4, view.score);
 		assertEquals(2, view.consecutiveFouls);
+	}
+
+	@Test
+	public void testBreakerNeedsFourFoulsForThreeFoulPenalty() {
+		scorer.yourBreak();
+		assertFalse(scorer.foul());
+		assertEquals(-2, view.score);
+		assertEquals(0, view.consecutiveFouls);
+		assertFalse(scorer.foul());
+		assertFalse(scorer.foul());
+		assertTrue(scorer.foul());
+		assertEquals(-20, view.score);
+		assertEquals(0, view.consecutiveFouls);
+		assertBallsNeededToWin(70);
 	}
 	
 	@Test
@@ -307,9 +332,4 @@ public class PlayerScorerTest extends PlayerScorerBase {
 		assertEquals(" 10 "+"  2S"+"  0s" , view.inningRecord);
 	}
 	
-	
-	
-	
-	//test for required re-rack after 3 consecutive fouls
-
 }

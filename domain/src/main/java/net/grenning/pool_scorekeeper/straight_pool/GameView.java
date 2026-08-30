@@ -17,4 +17,6 @@ public interface GameView {
 
 	public void noWinner();
 
+	public void threeFoulPenalty(int playerNumber);
+
 }
