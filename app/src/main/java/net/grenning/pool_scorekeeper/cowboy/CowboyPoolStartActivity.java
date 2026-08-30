@@ -5,6 +5,8 @@ import net.grenning.pool_scorekeeper.R;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
 
@@ -15,10 +17,6 @@ public class CowboyPoolStartActivity extends PoolActivity {
 	private static final int[] NAME_IDS = {
 			R.id.player1Name, R.id.player2Name, R.id.player3Name, R.id.player4Name
 	};
-	private static final int[] POINTS_IDS = {
-			R.id.player1PointsToWin, R.id.player2PointsToWin,
-			R.id.player3PointsToWin, R.id.player4PointsToWin
-	};
 	private static final int[] ROW_IDS = {
 			R.id.player1Row, R.id.player2Row, R.id.player3Row, R.id.player4Row
 	};
@@ -26,6 +24,9 @@ public class CowboyPoolStartActivity extends PoolActivity {
 			R.string.default_player1Name, R.string.default_player2Name,
 			R.string.default_player3Name, R.string.default_player4Name
 	};
+
+	private boolean caromsEdited;
+	private boolean updatingCaroms;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -40,7 +41,8 @@ public class CowboyPoolStartActivity extends PoolActivity {
 		});
 		showPlayerRows(playerCount());
 		selectAllOnFocus(NAME_IDS);
-		selectAllOnFocus(POINTS_IDS);
+		selectAllOnFocus(R.id.cowboyBallCount, R.id.cowboyCaromCount);
+		wireBallCaromDefault();
 		findViewById(R.id.resumeCowboyButton).setEnabled(CowboyStore.hasUnfinishedGame(this));
 	}
 
@@ -91,9 +93,23 @@ public class CowboyPoolStartActivity extends PoolActivity {
 		}
 		for (int i = 0; i < 4; i++) {
 			setText(NAME_IDS[i], prefs.getString(CowboyStore.nameKey(i), ""), NAME_DEFAULTS[i]);
-			setText(POINTS_IDS[i], prefs.getString(CowboyStore.pointsKey(i), ""),
-					R.string.cowboy_default_points_to_win);
 		}
+		String balls = prefs.getString(CowboyStore.BALL_COUNT, "");
+		if (balls == null || balls.isEmpty()) {
+			balls = prefs.getString(CowboyStore.pointsKey(0), "");
+		}
+		setText(R.id.cowboyBallCount, balls, R.string.cowboy_default_points_to_win);
+		int ballCount = parseBalls(textOf(R.id.cowboyBallCount));
+		int defaultCaroms = CowboyPlayer.defaultCaroms(ballCount);
+		String caroms = prefs.getString(CowboyStore.CAROM_COUNT, "");
+		if (caroms == null || caroms.isEmpty()) {
+			caroms = Integer.toString(defaultCaroms);
+		}
+		((EditText) findViewById(R.id.cowboyCaromCount)).setText(caroms);
+		caromsEdited = parseCaroms(caroms) != defaultCaroms;
+		MaterialButtonToggleGroup lastShot = findViewById(R.id.lastShotGroup);
+		boolean special = prefs.getBoolean(CowboyStore.SPECIAL_LAST_SHOT, true);
+		lastShot.check(special ? R.id.lastShotYes : R.id.lastShotNo);
 	}
 
 	private void saveSetup() {
@@ -101,9 +117,37 @@ public class CowboyPoolStartActivity extends PoolActivity {
 		editor.putInt(CowboyStore.PLAYER_COUNT, playerCount());
 		for (int i = 0; i < 4; i++) {
 			editor.putString(CowboyStore.nameKey(i), textOf(NAME_IDS[i]));
-			editor.putString(CowboyStore.pointsKey(i), textOf(POINTS_IDS[i]));
 		}
+		editor.putString(CowboyStore.BALL_COUNT, textOf(R.id.cowboyBallCount));
+		editor.putString(CowboyStore.CAROM_COUNT, textOf(R.id.cowboyCaromCount));
+		editor.putBoolean(CowboyStore.SPECIAL_LAST_SHOT,
+				((MaterialButtonToggleGroup) findViewById(R.id.lastShotGroup))
+						.getCheckedButtonId() != R.id.lastShotNo);
 		editor.apply();
+	}
+
+	private void wireBallCaromDefault() {
+		EditText balls = findViewById(R.id.cowboyBallCount);
+		EditText caroms = findViewById(R.id.cowboyCaromCount);
+		balls.addTextChangedListener(new AfterChange() {
+			@Override
+			public void afterTextChanged(Editable s) {
+				if (caromsEdited) {
+					return;
+				}
+				updatingCaroms = true;
+				caroms.setText(Integer.toString(CowboyPlayer.defaultCaroms(parseBalls(s.toString()))));
+				updatingCaroms = false;
+			}
+		});
+		caroms.addTextChangedListener(new AfterChange() {
+			@Override
+			public void afterTextChanged(Editable s) {
+				if (!updatingCaroms) {
+					caromsEdited = true;
+				}
+			}
+		});
 	}
 
 	private void selectAllOnFocus(int... ids) {
@@ -129,5 +173,33 @@ public class CowboyPoolStartActivity extends PoolActivity {
 
 	private String textOf(int id) {
 		return ((EditText) findViewById(id)).getText().toString();
+	}
+
+	private static int parseBalls(String value) {
+		try {
+			int points = Integer.parseInt(value);
+			return points > 0 ? Math.min(150, points) : 50;
+		} catch (NumberFormatException e) {
+			return 50;
+		}
+	}
+
+	private static int parseCaroms(String value) {
+		try {
+			int points = Integer.parseInt(value);
+			return Math.max(0, Math.min(50, points));
+		} catch (NumberFormatException e) {
+			return 0;
+		}
+	}
+
+	private abstract static class AfterChange implements TextWatcher {
+		@Override
+		public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+		}
+
+		@Override
+		public void onTextChanged(CharSequence s, int start, int before, int count) {
+		}
 	}
 }

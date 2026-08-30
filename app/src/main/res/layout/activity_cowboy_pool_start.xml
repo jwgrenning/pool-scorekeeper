@@ -20,6 +20,78 @@
             android:textAppearance="@style/TextAppearance.Material3.HeadlineMedium"
             android:textColor="@color/ivory" />
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:orientation="horizontal">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:layout_weight="1"
+                android:hint="@string/cowboy_balls">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/cowboyBallCount"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+                    android:selectAllOnFocus="true"
+                    android:text="@string/cowboy_default_points_to_win" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:layout_weight="1"
+                android:hint="@string/cowboy_caroms_count">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/cowboyCaromCount"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+                    android:selectAllOnFocus="true"
+                    android:text="@string/cowboy_default_caroms" />
+            </com.google.android.material.textfield.TextInputLayout>
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:gravity="center"
+            android:text="@string/cowboy_last_shot"
+            android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
+            android:textColor="@color/ivory" />
+
+        <com.google.android.material.button.MaterialButtonToggleGroup
+            android:id="@+id/lastShotGroup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="8dp"
+            app:selectionRequired="true"
+            app:singleSelection="true">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/lastShotYes"
+                style="@style/Widget.Material3.Button.OutlinedButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/cowboy_yes" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/lastShotNo"
+                style="@style/Widget.Material3.Button.OutlinedButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/cowboy_no" />
+        </com.google.android.material.button.MaterialButtonToggleGroup>
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -60,164 +132,71 @@
                 android:text="4" />
         </com.google.android.material.button.MaterialButtonToggleGroup>
 
-        <LinearLayout
+        <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/player1Row"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:orientation="horizontal">
+            android:layout_margin="8dp"
+            android:hint="@string/player1">
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="0dp"
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/player1Name"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="8dp"
-                android:layout_weight="1"
-                android:hint="@string/player1">
+                android:inputType="textCapWords"
+                android:selectAllOnFocus="true"
+                android:text="@string/default_player1Name" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/player1Name"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="textCapWords"
-                    android:selectAllOnFocus="true"
-                    android:text="@string/default_player1Name" />
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_margin="8dp"
-                android:layout_weight="1"
-                android:hint="@string/points_to_win">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/player1PointsToWin"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="number"
-                    android:selectAllOnFocus="true"
-                    android:text="@string/cowboy_default_points_to_win" />
-            </com.google.android.material.textfield.TextInputLayout>
-        </LinearLayout>
-
-        <LinearLayout
+        <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/player2Row"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:layout_margin="8dp"
+            android:hint="@string/player2">
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="0dp"
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/player2Name"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="8dp"
-                android:layout_weight="1"
-                android:hint="@string/player2">
+                android:inputType="textCapWords"
+                android:selectAllOnFocus="true"
+                android:text="@string/default_player2Name" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/player2Name"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="textCapWords"
-                    android:selectAllOnFocus="true"
-                    android:text="@string/default_player2Name" />
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_margin="8dp"
-                android:layout_weight="1"
-                android:hint="@string/points_to_win">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/player2PointsToWin"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="number"
-                    android:selectAllOnFocus="true"
-                    android:text="@string/cowboy_default_points_to_win" />
-            </com.google.android.material.textfield.TextInputLayout>
-        </LinearLayout>
-
-        <LinearLayout
+        <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/player3Row"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
+            android:layout_margin="8dp"
+            android:hint="@string/player3"
             android:visibility="gone">
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="0dp"
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/player3Name"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="8dp"
-                android:layout_weight="1"
-                android:hint="@string/player3">
+                android:inputType="textCapWords"
+                android:selectAllOnFocus="true"
+                android:text="@string/default_player3Name" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/player3Name"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="textCapWords"
-                    android:selectAllOnFocus="true"
-                    android:text="@string/default_player3Name" />
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_margin="8dp"
-                android:layout_weight="1"
-                android:hint="@string/points_to_win">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/player3PointsToWin"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="number"
-                    android:selectAllOnFocus="true"
-                    android:text="@string/cowboy_default_points_to_win" />
-            </com.google.android.material.textfield.TextInputLayout>
-        </LinearLayout>
-
-        <LinearLayout
+        <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/player4Row"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
+            android:layout_margin="8dp"
+            android:hint="@string/player4"
             android:visibility="gone">
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="0dp"
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/player4Name"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="8dp"
-                android:layout_weight="1"
-                android:hint="@string/player4">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/player4Name"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="textCapWords"
-                    android:selectAllOnFocus="true"
-                    android:text="@string/default_player4Name" />
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_margin="8dp"
-                android:layout_weight="1"
-                android:hint="@string/points_to_win">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/player4PointsToWin"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="number"
-                    android:selectAllOnFocus="true"
-                    android:text="@string/cowboy_default_points_to_win" />
-            </com.google.android.material.textfield.TextInputLayout>
-        </LinearLayout>
+                android:inputType="textCapWords"
+                android:selectAllOnFocus="true"
+                android:text="@string/default_player4Name" />
+        </com.google.android.material.textfield.TextInputLayout>
 
         <LinearLayout
             android:layout_width="match_parent"

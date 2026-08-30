@@ -19,4 +19,6 @@
     <color name="bead_highlight_5">#D4B06A</color>
     <color name="bead_highlight_10">#8B6914</color>
     <color name="bead_wire">#C9A227</color>
+    <color name="bead_win">#F5F5DC</color>
+    <color name="bead_win_highlight">#FFFFFF</color>
 </resources>

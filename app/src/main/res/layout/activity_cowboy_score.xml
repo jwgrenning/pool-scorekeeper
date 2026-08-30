@@ -209,6 +209,13 @@
             android:text="@string/cowboy_carom" />
 
         <com.google.android.material.button.MaterialButton
+            android:id="@+id/multiButton"
+            style="@style/Widget.Pool.ActionButton"
+            android:contentDescription="@string/cowboy_multi_accessibility"
+            android:onClick="multiClicked"
+            android:text="@string/cowboy_multi" />
+
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/missButton"
             style="@style/Widget.Pool.DangerButton"
             android:onClick="missClicked"

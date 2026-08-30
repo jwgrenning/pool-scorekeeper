@@ -30,9 +30,7 @@ public class CowboyGame {
 		}
 		this.players = players;
 		for (CowboyPlayer player : players) {
-			if (player.raceTo <= 0) {
-				player.raceTo = 50;
-			}
+			player.normalize();
 		}
 	}
 
@@ -70,13 +68,10 @@ public class CowboyGame {
 
 	public Phase phaseOf(CowboyPlayer player) {
 		int total = player.total();
-		if (total >= player.raceTo) {
+		if (player.specialLastShot && total >= player.caromLimit()) {
 			return Phase.WIN;
 		}
-		if (total == player.raceTo - 1) {
-			return Phase.WIN;
-		}
-		if (total >= mixedLimit(player.raceTo)) {
+		if (total >= player.mixedLimit()) {
 			return Phase.CAROMS;
 		}
 		return Phase.MIXED;
@@ -86,15 +81,42 @@ public class CowboyGame {
 		if (ball != 1 && ball != 3 && ball != 5) {
 			return Result.IGNORED;
 		}
-		return scorePoints(ball, false);
+		return combo(ball == 1, ball == 3, ball == 5, 0);
 	}
 
 	public Result caromTwo() {
-		return scorePoints(1, true);
+		return combo(false, false, false, 1);
 	}
 
 	public Result caromThree() {
-		return scorePoints(2, true);
+		return combo(false, false, false, 2);
+	}
+
+	public static int comboPoints(boolean ball1, boolean ball3, boolean ball5, int caroms) {
+		if (caroms < 0 || caroms > 3) {
+			return 0;
+		}
+		int pockets = 0;
+		if (ball1) {
+			pockets += 1;
+		}
+		if (ball3) {
+			pockets += 3;
+		}
+		if (ball5) {
+			pockets += 5;
+		}
+		int caromPoints = pockets == 9 ? Math.min(caroms, 2) : caroms;
+		return pockets + caromPoints;
+	}
+
+	public Result combo(boolean ball1, boolean ball3, boolean ball5, int caroms) {
+		int points = comboPoints(ball1, ball3, ball5, caroms);
+		if (points <= 0) {
+			return Result.IGNORED;
+		}
+		int pockets = (ball1 ? 1 : 0) + (ball3 ? 3 : 0) + (ball5 ? 5 : 0);
+		return scorePoints(points, pockets == 0);
 	}
 
 	public Result winShot() {
@@ -103,7 +125,7 @@ public class CowboyGame {
 		}
 		checkpoint();
 		CowboyPlayer player = currentPlayer();
-		if (player.total() != player.raceTo - 1) {
+		if (!player.specialLastShot || player.total() != player.caromLimit()) {
 			return foulAfterCheckpoint();
 		}
 		player.inning += 1;
@@ -204,13 +226,19 @@ public class CowboyGame {
 		if (phase == Phase.CAROMS && !carom) {
 			return foulAfterCheckpoint();
 		}
-		int mixed = mixedLimit(player.raceTo);
 		int after = player.total() + points;
-		if (phase == Phase.MIXED && after > mixed) {
+		if (phase == Phase.MIXED && after > player.mixedLimit()) {
 			return foulAfterCheckpoint();
 		}
-		if (phase == Phase.CAROMS && after > player.raceTo - 1) {
+		int caromCap = player.specialLastShot ? player.caromLimit() : player.raceTo();
+		if (phase == Phase.CAROMS && after > caromCap) {
 			return foulAfterCheckpoint();
+		}
+		if (!player.specialLastShot && after >= player.raceTo()) {
+			player.inning += points;
+			player.score += player.inning;
+			player.inning = 0;
+			return Result.WIN;
 		}
 		player.inning += points;
 		return Result.CONTINUE;

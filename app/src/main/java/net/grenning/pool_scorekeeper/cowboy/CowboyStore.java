@@ -9,6 +9,9 @@ public final class CowboyStore {
 	static final String PREFS_NAME = "cowboy_pool_game";
 	static final String PLAYER_COUNT = "playerCount";
 	static final String GAME_IN_PROGRESS = "gameInProgress";
+	static final String BALL_COUNT = "setupBallCount";
+	static final String CAROM_COUNT = "setupCaromCount";
+	static final String SPECIAL_LAST_SHOT = "setupSpecialLastShot";
 
 	private CowboyStore() {
 	}

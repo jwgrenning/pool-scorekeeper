@@ -14,6 +14,7 @@ import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.HapticFeedbackConstants;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -21,6 +22,8 @@ import android.widget.TextView;
 
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.button.MaterialButton;
+import com.google.android.material.button.MaterialButtonToggleGroup;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 public class CowboyScoreActivity extends PoolActivity {
 
@@ -40,6 +43,7 @@ public class CowboyScoreActivity extends PoolActivity {
 	private CowboyGame game;
 	private AndroidGameFieldSaver gameSaver;
 	private boolean restoreOnStart;
+	private androidx.appcompat.app.AlertDialog winDialog;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -52,18 +56,30 @@ public class CowboyScoreActivity extends PoolActivity {
 
 		SharedPreferences prefs = CowboyStore.prefs(this);
 		int count = Math.min(4, Math.max(2, prefs.getInt(CowboyStore.PLAYER_COUNT, 2)));
+		int ballCount = parseBalls(prefs.getString(CowboyStore.BALL_COUNT, ""));
+		if (prefs.getString(CowboyStore.BALL_COUNT, "").isEmpty()) {
+			ballCount = parseBalls(prefs.getString(CowboyStore.pointsKey(0), "50"));
+		}
+		int caromCount = parseCaroms(prefs.getString(CowboyStore.CAROM_COUNT, ""), ballCount);
+		boolean special = prefs.getBoolean(CowboyStore.SPECIAL_LAST_SHOT, true);
 		CowboyPlayer[] players = new CowboyPlayer[count];
 		for (int i = 0; i < count; i++) {
 			players[i] = new CowboyPlayer();
 			players[i].name = prefs.getString(CowboyStore.nameKey(i), getString(defaultName(i)));
-			players[i].raceTo = parsePoints(prefs.getString(CowboyStore.pointsKey(i), "50"));
+			players[i].ballCount = ballCount;
+			players[i].caromCount = caromCount;
+			players[i].specialLastShot = special;
 		}
 		game = new CowboyGame(players);
 		restoreOnStart = getIntent().getBooleanExtra("resume", false) || savedInstanceState != null;
 
 		findViewById(R.id.caromButton).setOnLongClickListener(view -> {
 			vibrate(view);
-			apply(game.caromThree());
+			if (game.phase() == CowboyGame.Phase.WIN) {
+				showWinShotReminder();
+			} else {
+				apply(game.caromThree());
+			}
 			return true;
 		});
 		refreshBoard();
@@ -120,10 +136,80 @@ public class CowboyScoreActivity extends PoolActivity {
 	public void caromClicked(View view) {
 		vibrate(view);
 		if (game.phase() == CowboyGame.Phase.WIN) {
-			apply(game.winShot());
+			showWinShotReminder();
 		} else {
 			apply(game.caromTwo());
 		}
+	}
+
+	private void showWinShotReminder() {
+		if (isFinishing() || isDestroyed()) {
+			return;
+		}
+		if (winDialog != null && winDialog.isShowing()) {
+			return;
+		}
+		winDialog = new MaterialAlertDialogBuilder(this)
+				.setTitle(R.string.cowboy_win_shot_title)
+				.setMessage(R.string.cowboy_win_shot_rule)
+				.setPositiveButton(R.string.cowboy_win_shot_made, (dialog, which) -> apply(game.winShot()))
+				.setNegativeButton(android.R.string.cancel, null)
+				.setOnDismissListener(dialog -> winDialog = null)
+				.show();
+	}
+
+	public void multiClicked(View view) {
+		vibrate(view);
+		if (game.phase() == CowboyGame.Phase.WIN) {
+			return;
+		}
+		showComboDialog();
+	}
+
+	private void showComboDialog() {
+		View body = LayoutInflater.from(this).inflate(R.layout.dialog_cowboy_combo, null);
+		MaterialButtonToggleGroup balls = body.findViewById(R.id.comboBalls);
+		MaterialButtonToggleGroup caroms = body.findViewById(R.id.comboCaroms);
+		MaterialButton ball1 = body.findViewById(R.id.comboBall1);
+		MaterialButton ball3 = body.findViewById(R.id.comboBall3);
+		MaterialButton ball5 = body.findViewById(R.id.comboBall5);
+		TextView total = body.findViewById(R.id.comboTotal);
+		MaterialButton enter = body.findViewById(R.id.comboEnter);
+		boolean pocketsAllowed = game.phase() == CowboyGame.Phase.MIXED;
+		ball1.setEnabled(pocketsAllowed);
+		ball3.setEnabled(pocketsAllowed);
+		ball5.setEnabled(pocketsAllowed);
+		balls.setEnabled(pocketsAllowed);
+
+		androidx.appcompat.app.AlertDialog dialog = new MaterialAlertDialogBuilder(this)
+				.setTitle(R.string.cowboy_combo_title)
+				.setView(body)
+				.create();
+
+		Runnable refresh = () -> {
+			int points = CowboyGame.comboPoints(
+					pocketsAllowed && ball1.isChecked(),
+					pocketsAllowed && ball3.isChecked(),
+					pocketsAllowed && ball5.isChecked(),
+					checkedCaroms(caroms));
+			if (points > 0) {
+				total.setText(getString(R.string.cowboy_combo_total, points));
+			} else {
+				total.setText("");
+			}
+			enter.setEnabled(points > 0);
+		};
+		balls.addOnButtonCheckedListener((group, id, checked) -> refresh.run());
+		caroms.addOnButtonCheckedListener((group, id, checked) -> refresh.run());
+		enter.setOnClickListener(v -> {
+			boolean one = pocketsAllowed && ball1.isChecked();
+			boolean three = pocketsAllowed && ball3.isChecked();
+			boolean five = pocketsAllowed && ball5.isChecked();
+			dialog.dismiss();
+			apply(game.combo(one, three, five, checkedCaroms(caroms)));
+		});
+		refresh.run();
+		dialog.show();
 	}
 
 	public void missClicked(View view) {
@@ -180,9 +266,11 @@ public class CowboyScoreActivity extends PoolActivity {
 		game.save(gameSaver);
 		gameSaver.save(CowboyStore.GAME_IN_PROGRESS, !game.isOver());
 		gameSaver.save(CowboyStore.PLAYER_COUNT, game.playerCount());
+		gameSaver.save(CowboyStore.BALL_COUNT, Integer.toString(game.player(0).ballCount));
+		gameSaver.save(CowboyStore.CAROM_COUNT, Integer.toString(game.player(0).caromCount));
+		gameSaver.save(CowboyStore.SPECIAL_LAST_SHOT, game.player(0).specialLastShot);
 		for (int i = 0; i < game.playerCount(); i++) {
 			gameSaver.save(CowboyStore.nameKey(i), game.player(i).name);
-			gameSaver.save(CowboyStore.pointsKey(i), Integer.toString(game.player(i).raceTo));
 		}
 		gameSaver.persist();
 	}
@@ -190,7 +278,7 @@ public class CowboyScoreActivity extends PoolActivity {
 	private void refreshBoard() {
 		int maxRace = 50;
 		for (int i = 0; i < game.playerCount(); i++) {
-			maxRace = Math.max(maxRace, game.player(i).raceTo);
+			maxRace = Math.max(maxRace, game.player(i).caromLimit());
 		}
 		for (int i = 0; i < 4; i++) {
 			boolean present = i < game.playerCount();
@@ -211,8 +299,12 @@ public class CowboyScoreActivity extends PoolActivity {
 				score.setText(Integer.toString(player.score));
 			}
 			BeadRackView beads = findViewById(BEAD_IDS[i]);
-			beads.setRack(maxRace, BeadScore.spot(player.raceTo, maxRace));
-			beads.setBankedAndPending(player.score, player.inning);
+			int normal = player.caromLimit();
+			int shownScore = Math.min(player.score, normal);
+			int shownPending = Math.min(player.inning, Math.max(0, normal - shownScore));
+			beads.setRack(maxRace, BeadScore.spot(normal, maxRace), player.specialLastShot);
+			beads.setBankedAndPending(shownScore, shownPending);
+			beads.setWinBeadScored(player.specialLastShot && player.score >= player.raceTo());
 		}
 
 		MaterialToolbar toolbar = findViewById(R.id.cowboyToolbar);
@@ -227,6 +319,10 @@ public class CowboyScoreActivity extends PoolActivity {
 		}
 
 		boolean over = game.isOver();
+		View multi = findViewById(R.id.multiButton);
+		if (multi != null) {
+			multi.setEnabled(!over && game.phase() != CowboyGame.Phase.WIN);
+		}
 		findViewById(R.id.playingActions).setVisibility(over ? View.GONE : View.VISIBLE);
 		findViewById(R.id.gameOverActions).setVisibility(over ? View.VISIBLE : View.GONE);
 		boolean canUndo = game.canUndo();
@@ -247,6 +343,20 @@ public class CowboyScoreActivity extends PoolActivity {
 		if (redoOver != null) {
 			redoOver.setEnabled(canRedo);
 		}
+	}
+
+	private static int checkedCaroms(MaterialButtonToggleGroup caroms) {
+		int caromId = caroms.getCheckedButtonId();
+		if (caromId == R.id.comboCarom1) {
+			return 1;
+		}
+		if (caromId == R.id.comboCarom2) {
+			return 2;
+		}
+		if (caromId == R.id.comboCarom3) {
+			return 3;
+		}
+		return 0;
 	}
 
 	private String phaseLabel() {
@@ -276,7 +386,7 @@ public class CowboyScoreActivity extends PoolActivity {
 		for (int i = 0; i < game.playerCount(); i++) {
 			CowboyPlayer player = game.player(i);
 			body.append(player.name).append(' ').append(player.score)
-					.append('/').append(player.raceTo);
+					.append('/').append(player.raceTo());
 			if (player.hasWon()) {
 				body.append(" *");
 			}
@@ -285,12 +395,24 @@ public class CowboyScoreActivity extends PoolActivity {
 		return body.toString();
 	}
 
-	private int parsePoints(String value) {
+	private int parseBalls(String value) {
 		try {
 			int points = Integer.parseInt(value);
 			return points > 0 ? Math.min(150, points) : 50;
 		} catch (NumberFormatException e) {
 			return 50;
+		}
+	}
+
+	private int parseCaroms(String value, int ballCount) {
+		if (value == null || value.isEmpty()) {
+			return CowboyPlayer.defaultCaroms(ballCount);
+		}
+		try {
+			int points = Integer.parseInt(value);
+			return Math.max(0, Math.min(50, points));
+		} catch (NumberFormatException e) {
+			return CowboyPlayer.defaultCaroms(ballCount);
 		}
 	}
 

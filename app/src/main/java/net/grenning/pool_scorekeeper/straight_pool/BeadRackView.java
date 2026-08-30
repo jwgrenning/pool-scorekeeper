@@ -31,6 +31,8 @@ public class BeadRackView extends View {
 	private final Paint highlightPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
 	private final Paint highlight5Paint = new Paint(Paint.ANTI_ALIAS_FLAG);
 	private final Paint highlight10Paint = new Paint(Paint.ANTI_ALIAS_FLAG);
+	private final Paint winBeadPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+	private final Paint winHighlightPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
 	private final Paint separatorPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
 	private final RectF beadRect = new RectF();
 	private final LinearInterpolator slideInterpolator = new LinearInterpolator();
@@ -39,6 +41,8 @@ public class BeadRackView extends View {
 	private int pending;
 	private int maxRace = 50;
 	private int spot;
+	private boolean winBead;
+	private boolean winBeadScored;
 	private int fromScore;
 	private int toScore;
 	private float travel = 1f;
@@ -87,6 +91,10 @@ public class BeadRackView extends View {
 		highlight5Paint.setStyle(Paint.Style.FILL);
 		highlight10Paint.setColor(getResources().getColor(R.color.bead_highlight_10, getContext().getTheme()));
 		highlight10Paint.setStyle(Paint.Style.FILL);
+		winBeadPaint.setColor(getResources().getColor(R.color.bead_win, getContext().getTheme()));
+		winBeadPaint.setStyle(Paint.Style.FILL);
+		winHighlightPaint.setColor(getResources().getColor(R.color.bead_win_highlight, getContext().getTheme()));
+		winHighlightPaint.setStyle(Paint.Style.FILL);
 
 		separatorPaint.setColor(getResources().getColor(R.color.bead_wire, getContext().getTheme()));
 		separatorPaint.setStrokeWidth(2f * density);
@@ -97,14 +105,35 @@ public class BeadRackView extends View {
 	}
 
 	public void setRack(int maxRace, int spot) {
+		setRack(maxRace, spot, false);
+	}
+
+	public void setRack(int maxRace, int spot, boolean winBead) {
 		int nextMax = Math.max(0, maxRace);
 		int nextSpot = Math.max(0, spot);
-		if (this.maxRace == nextMax && this.spot == nextSpot) {
+		if (this.maxRace == nextMax && this.spot == nextSpot && this.winBead == winBead) {
 			return;
 		}
 		this.maxRace = nextMax;
 		this.spot = nextSpot;
+		this.winBead = winBead;
 		updateDescription();
+		invalidate();
+	}
+
+	public void setWinBeadScored(boolean scored) {
+		if (winBeadScored == scored) {
+			return;
+		}
+		boolean animate = scored && allowAnimation && isLaidOut() && getWidth() > 0;
+		winBeadScored = scored;
+		updateDescription();
+		if (animate && (animator == null || !animator.isRunning())) {
+			fromScore = score;
+			toScore = score;
+			startTravelAnimator();
+			return;
+		}
 		invalidate();
 	}
 
@@ -216,11 +245,16 @@ public class BeadRackView extends View {
 		int visual = visual(score);
 		int left = BeadScore.onesOnLeft(visual, maxRace);
 		int fifties = BeadScore.markersOnLeft(visual, maxRace);
+		String description;
 		if (fifties > 0) {
-			setContentDescription(fifties + " fifties and " + left + " beads");
+			description = fifties + " fifties and " + left + " beads";
 		} else {
-			setContentDescription(left + " beads");
+			description = left + " beads";
 		}
+		if (winBead) {
+			description += winBeadScored ? ", cue-ball shot made" : ", cue-ball shot remaining";
+		}
+		setContentDescription(description);
 	}
 
 	@Override
@@ -239,6 +273,7 @@ public class BeadRackView extends View {
 					BeadScore.markersOnLeft(visual, maxRace), 1f);
 			canvas.drawLine(geo.wireStart, geo.cy, geo.wireEnd, geo.cy, wirePaint);
 			drawPendingMotion(canvas, geo);
+			drawWinBead(canvas, geo);
 			return;
 		}
 
@@ -250,10 +285,12 @@ public class BeadRackView extends View {
 					BeadScore.markersOnLeft(visual, maxRace), 1f);
 			canvas.drawLine(geo.wireStart, geo.cy, geo.wireEnd, geo.cy, wirePaint);
 			drawSettled(canvas, geo, leftOnes);
+			drawWinBead(canvas, geo);
 			return;
 		}
 
 		drawTraveling(canvas, geo);
+		drawWinBead(canvas, geo);
 	}
 
 	private void drawTraveling(Canvas canvas, RackGeometry geo) {
@@ -425,6 +462,24 @@ public class BeadRackView extends View {
 		return BeadScore.BEADS_PER_STRING - indexFromRight;
 	}
 
+	private void drawWinBead(Canvas canvas, RackGeometry geo) {
+		if (!geo.winBead) {
+			return;
+		}
+		canvas.drawLine(geo.winWireStart, geo.cy, geo.winWireEnd, geo.cy, wirePaint);
+		float t = 0f;
+		if (winBeadScored) {
+			boolean running = animator != null && animator.isRunning();
+			t = running ? clamp01(travel) : 1f;
+		}
+		float cx = lerp(geo.winRightX, geo.winLeftX, t);
+		beadRect.set(cx - geo.radius, geo.cy - geo.radius, cx + geo.radius, geo.cy + geo.radius);
+		canvas.drawOval(beadRect, winBeadPaint);
+		canvas.drawOval(beadRect, strokePaint);
+		float glint = geo.radius * 0.35f;
+		canvas.drawCircle(cx - geo.radius * 0.25f, geo.cy - geo.radius * 0.25f, glint, winHighlightPaint);
+	}
+
 	private void drawBead(Canvas canvas, float cx, float cy, float radius, int beadNumber) {
 		Paint fill = beadPaint;
 		Paint highlight = highlightPaint;
@@ -502,9 +557,13 @@ public class BeadRackView extends View {
 		float cy = getHeight() / 2f;
 		int markerSlots = BeadScore.markerSlots(maxRace);
 		float left = getPaddingLeft();
-		float right = getWidth() - getPaddingRight() - padEnd;
-		float available = Math.max(0f, right - left);
 		float maxBead = Math.max(0f, getHeight() - 2f * padY);
+		float winReserve = 0f;
+		if (winBead) {
+			winReserve = Math.max(maxBead, 12f * density) + 10f * density;
+		}
+		float right = getWidth() - getPaddingRight() - padEnd - winReserve;
+		float available = Math.max(0f, right - left);
 		float onesPacked = BeadScore.BEADS_PER_STRING
 				+ (BeadScore.BEADS_PER_STRING - 1) * SPACING_RATIO;
 		float markerStart = left;
@@ -519,11 +578,6 @@ public class BeadRackView extends View {
 			markerEnd = markerStart + markerShare;
 			separatorX = markerEnd + gap / 2f;
 			wireStart = markerEnd + gap;
-			float markerPacked = markerSlots + (markerSlots - 1) * SPACING_RATIO;
-			float markerDiameter = (markerEnd - markerStart) / markerPacked / 2.4f;
-			markerDiameter = Math.min(markerDiameter, 5.5f * density);
-			markerRadius = markerDiameter / 2f;
-			markerStep = markerDiameter * (1f + SPACING_RATIO);
 		}
 		float wireEnd = right;
 		float onesAvailable = Math.max(0f, wireEnd - wireStart);
@@ -531,6 +585,10 @@ public class BeadRackView extends View {
 		diameter = Math.min(diameter, maxBead);
 		if (diameter <= 0f) {
 			return null;
+		}
+		if (markerSlots > 0) {
+			markerRadius = diameter / 2f;
+			markerStep = diameter * (1f + SPACING_RATIO);
 		}
 		RackGeometry geo = new RackGeometry();
 		geo.cy = cy;
@@ -544,6 +602,14 @@ public class BeadRackView extends View {
 		geo.markerRadius = markerRadius;
 		geo.markerStep = markerStep;
 		geo.separatorX = separatorX;
+		geo.winBead = winBead;
+		if (winBead) {
+			float gap = 10f * density;
+			geo.winWireStart = wireEnd + gap;
+			geo.winWireEnd = getWidth() - getPaddingRight() - padEnd;
+			geo.winLeftX = geo.winWireStart + geo.radius;
+			geo.winRightX = geo.winWireEnd - geo.radius;
+		}
 		return geo;
 	}
 
@@ -583,6 +649,11 @@ public class BeadRackView extends View {
 		float markerRadius;
 		float markerStep;
 		float separatorX;
+		boolean winBead;
+		float winWireStart;
+		float winWireEnd;
+		float winLeftX;
+		float winRightX;
 
 		float leftX(int index) {
 			return wireStart + radius + index * step;
