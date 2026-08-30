@@ -136,6 +136,22 @@ public class CowboyGameTest {
 	}
 
 	@Test
+	public void lastTenthIsCaromsForEachPlayersOwnRace() {
+		p1.raceTo = 50;
+		p2.raceTo = 100;
+		p1.score = 45;
+		assertEquals(CowboyGame.Phase.CAROMS, game.phaseOf(p1));
+		assertEquals(CowboyGame.Result.FOUL, game.pocket(1));
+		assertEquals(1, game.currentIndex());
+		p2.score = 85;
+		assertEquals(CowboyGame.Phase.MIXED, game.phaseOf(p2));
+		assertEquals(CowboyGame.Result.CONTINUE, game.pocket(5));
+		assertEquals(90, p2.total());
+		assertEquals(CowboyGame.Phase.CAROMS, game.phaseOf(p2));
+		assertEquals(CowboyGame.Result.FOUL, game.pocket(1));
+	}
+
+	@Test
 	public void fourPlayersAllowed() {
 		game = new CowboyGame(p1, p2, player("C", 50), player("D", 75));
 		assertEquals(4, game.playerCount());

@@ -16,8 +16,12 @@ import android.view.animation.LinearInterpolator;
 public class BeadRackView extends View {
 
 	private static final long SLIDE_MS = 500;
-	private static final int MAX_ANIMATED_POINTS = 15;
+	private static final int MAX_ANIMATED_POINTS = 50;
 	private static final float SPACING_RATIO = 0.18f;
+
+	private enum PendingMotion {
+		NONE, BANK, DUMP
+	}
 
 	private final Paint wirePaint = new Paint(Paint.ANTI_ALIAS_FLAG);
 	private final Paint beadPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
@@ -40,6 +44,9 @@ public class BeadRackView extends View {
 	private float travel = 1f;
 	private boolean allowAnimation;
 	private ValueAnimator animator;
+	private PendingMotion pendingMotion = PendingMotion.NONE;
+	private int motionBanked;
+	private int motionPending;
 
 	public BeadRackView(Context context) {
 		super(context);
@@ -118,7 +125,30 @@ public class BeadRackView extends View {
 	}
 
 	public void setBankedAndPending(int banked, int pending) {
-		this.pending = Math.max(0, pending);
+		int newPending = Math.max(0, pending);
+		int oldBanked = this.score;
+		int oldPending = this.pending;
+		PendingMotion motion = PendingMotion.NONE;
+		if (allowAnimation && isLaidOut() && getWidth() > 0 && oldPending > 0 && newPending == 0) {
+			if (banked == oldBanked + oldPending) {
+				motion = PendingMotion.BANK;
+			} else if (banked == oldBanked) {
+				motion = PendingMotion.DUMP;
+			}
+		}
+		this.pending = newPending;
+		if (motion != PendingMotion.NONE) {
+			cancelSlide();
+			this.score = banked;
+			updateDescription();
+			pendingMotion = motion;
+			motionBanked = oldBanked;
+			motionPending = oldPending;
+			fromScore = oldBanked;
+			toScore = banked;
+			startTravelAnimator();
+			return;
+		}
 		if (this.score == banked && (animator == null || !animator.isRunning())) {
 			invalidate();
 			return;
@@ -141,6 +171,10 @@ public class BeadRackView extends View {
 
 		fromScore = from;
 		toScore = banked;
+		startTravelAnimator();
+	}
+
+	private void startTravelAnimator() {
 		travel = 0f;
 		animator = ValueAnimator.ofFloat(0f, 1f);
 		animator.setDuration(SLIDE_MS);
@@ -158,6 +192,7 @@ public class BeadRackView extends View {
 				}
 				travel = 1f;
 				fromScore = toScore;
+				pendingMotion = PendingMotion.NONE;
 				BeadRackView.this.animator = null;
 				invalidate();
 			}
@@ -170,6 +205,7 @@ public class BeadRackView extends View {
 			animator.cancel();
 			animator = null;
 		}
+		pendingMotion = PendingMotion.NONE;
 	}
 
 	private int visual(int actualScore) {
@@ -196,6 +232,15 @@ public class BeadRackView extends View {
 		}
 
 		drawSeparator(canvas, geo);
+
+		if (pendingMotion != PendingMotion.NONE && travel < 1f) {
+			int visual = visual(motionBanked);
+			drawMarkers(canvas, geo, BeadScore.markersOnLeft(visual, maxRace),
+					BeadScore.markersOnLeft(visual, maxRace), 1f);
+			canvas.drawLine(geo.wireStart, geo.cy, geo.wireEnd, geo.cy, wirePaint);
+			drawPendingMotion(canvas, geo);
+			return;
+		}
 
 		boolean settled = pending > 0 || travel >= 1f || fromScore == toScore;
 		if (settled) {
@@ -297,18 +342,43 @@ public class BeadRackView extends View {
 		for (int i = 0; i < rightCount; i++) {
 			drawBead(canvas, geo.rightX(i), geo.cy, geo.radius, rightBeadNumber(i));
 		}
-		if (midCount <= 0) {
-			return;
+		for (int i = 0; i < midCount; i++) {
+			drawBead(canvas, pendingX(geo, leftCount, midCount, rightCount, i), geo.cy, geo.radius,
+					leftCount + i + 1);
 		}
+	}
+
+	private void drawPendingMotion(Canvas canvas, RackGeometry geo) {
+		int leftCount = BeadScore.onesOnLeft(visual(motionBanked), maxRace);
+		int midCount = Math.min(motionPending, Math.max(0, BeadScore.BEADS_PER_STRING - leftCount));
+		int rightCount = BeadScore.BEADS_PER_STRING - leftCount - midCount;
+		float t = clamp01(travel);
+		for (int i = 0; i < leftCount; i++) {
+			drawBead(canvas, geo.leftX(i), geo.cy, geo.radius, i + 1);
+		}
+		for (int i = 0; i < rightCount; i++) {
+			drawBead(canvas, geo.rightX(i), geo.cy, geo.radius, rightBeadNumber(i));
+		}
+		for (int k = 0; k < midCount; k++) {
+			float startX = pendingX(geo, leftCount, midCount, rightCount, k);
+			float endX;
+			if (pendingMotion == PendingMotion.BANK) {
+				endX = geo.leftX(leftCount + k);
+			} else {
+				endX = geo.rightX(rightCount + (midCount - 1 - k));
+			}
+			drawBead(canvas, lerp(startX, endX, t), geo.cy, geo.radius, leftCount + k + 1);
+		}
+	}
+
+	private float pendingX(RackGeometry geo, int leftCount, int midCount, int rightCount, int index) {
 		float gapStart = leftCount == 0 ? geo.wireStart + geo.radius
 				: geo.leftX(leftCount - 1) + geo.step;
 		float gapEnd = rightCount == 0 ? geo.wireEnd - geo.radius
 				: geo.rightX(rightCount - 1) - geo.step;
-		float width = midCount == 1 ? 0f : (midCount - 1) * geo.step;
+		float width = midCount <= 1 ? 0f : (midCount - 1) * geo.step;
 		float start = (gapStart + gapEnd - width) / 2f;
-		for (int i = 0; i < midCount; i++) {
-			drawBead(canvas, start + i * geo.step, geo.cy, geo.radius, leftCount + i + 1);
-		}
+		return start + index * geo.step;
 	}
 
 	private void drawSlide(Canvas canvas, RackGeometry geo, int fromLeft, int toLeft, float t) {
@@ -456,7 +526,7 @@ public class BeadRackView extends View {
 		}
 		float wireEnd = right;
 		float onesAvailable = Math.max(0f, wireEnd - wireStart);
-		float diameter = onesAvailable / onesPacked / 1.7f;
+		float diameter = onesAvailable / onesPacked / 1.35f;
 		diameter = Math.min(diameter, maxBead);
 		if (diameter <= 0f) {
 			return null;

@@ -57,7 +57,7 @@
             <net.grenning.pool_scorekeeper.straight_pool.BeadRackView
                 android:id="@+id/player1Beads"
                 android:layout_width="0dp"
-                android:layout_height="14dp"
+                android:layout_height="18dp"
                 android:layout_weight="1" />
         </LinearLayout>
 
@@ -80,7 +80,7 @@
             <net.grenning.pool_scorekeeper.straight_pool.BeadRackView
                 android:id="@+id/player2Beads"
                 android:layout_width="0dp"
-                android:layout_height="14dp"
+                android:layout_height="18dp"
                 android:layout_weight="1" />
         </LinearLayout>
     </LinearLayout>

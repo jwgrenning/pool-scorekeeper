@@ -59,7 +59,7 @@
         <net.grenning.pool_scorekeeper.straight_pool.BeadRackView
             android:id="@+id/player1Beads"
             android:layout_width="0dp"
-            android:layout_height="16dp"
+            android:layout_height="22dp"
             android:layout_weight="1" />
     </LinearLayout>
 
@@ -96,7 +96,7 @@
         <net.grenning.pool_scorekeeper.straight_pool.BeadRackView
             android:id="@+id/player2Beads"
             android:layout_width="0dp"
-            android:layout_height="16dp"
+            android:layout_height="22dp"
             android:layout_weight="1" />
     </LinearLayout>
 
@@ -134,7 +134,7 @@
         <net.grenning.pool_scorekeeper.straight_pool.BeadRackView
             android:id="@+id/player3Beads"
             android:layout_width="0dp"
-            android:layout_height="16dp"
+            android:layout_height="22dp"
             android:layout_weight="1" />
     </LinearLayout>
 
@@ -172,7 +172,7 @@
         <net.grenning.pool_scorekeeper.straight_pool.BeadRackView
             android:id="@+id/player4Beads"
             android:layout_width="0dp"
-            android:layout_height="16dp"
+            android:layout_height="22dp"
             android:layout_weight="1" />
     </LinearLayout>
 
