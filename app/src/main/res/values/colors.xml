@@ -12,7 +12,11 @@
     <color name="black_overlay">#66000000</color>
     <color name="pool_table_felt">#0D3B1E</color>
     <color name="bead">#E0C48A</color>
+    <color name="bead_5">#A67C3D</color>
+    <color name="bead_10">#5C3D1E</color>
     <color name="bead_stroke">#8D6E3B</color>
     <color name="bead_highlight">#FFF3D0</color>
+    <color name="bead_highlight_5">#D4B06A</color>
+    <color name="bead_highlight_10">#8B6914</color>
     <color name="bead_wire">#C9A227</color>
 </resources>

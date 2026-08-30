@@ -21,8 +21,12 @@ public class BeadRackView extends View {
 
 	private final Paint wirePaint = new Paint(Paint.ANTI_ALIAS_FLAG);
 	private final Paint beadPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+	private final Paint bead5Paint = new Paint(Paint.ANTI_ALIAS_FLAG);
+	private final Paint bead10Paint = new Paint(Paint.ANTI_ALIAS_FLAG);
 	private final Paint strokePaint = new Paint(Paint.ANTI_ALIAS_FLAG);
 	private final Paint highlightPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+	private final Paint highlight5Paint = new Paint(Paint.ANTI_ALIAS_FLAG);
+	private final Paint highlight10Paint = new Paint(Paint.ANTI_ALIAS_FLAG);
 	private final Paint overflowPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
 	private final RectF beadRect = new RectF();
 	private final LinearInterpolator slideInterpolator = new LinearInterpolator();
@@ -58,6 +62,10 @@ public class BeadRackView extends View {
 
 		beadPaint.setColor(getResources().getColor(R.color.bead, getContext().getTheme()));
 		beadPaint.setStyle(Paint.Style.FILL);
+		bead5Paint.setColor(getResources().getColor(R.color.bead_5, getContext().getTheme()));
+		bead5Paint.setStyle(Paint.Style.FILL);
+		bead10Paint.setColor(getResources().getColor(R.color.bead_10, getContext().getTheme()));
+		bead10Paint.setStyle(Paint.Style.FILL);
 
 		strokePaint.setColor(getResources().getColor(R.color.bead_stroke, getContext().getTheme()));
 		strokePaint.setStyle(Paint.Style.STROKE);
@@ -65,6 +73,10 @@ public class BeadRackView extends View {
 
 		highlightPaint.setColor(getResources().getColor(R.color.bead_highlight, getContext().getTheme()));
 		highlightPaint.setStyle(Paint.Style.FILL);
+		highlight5Paint.setColor(getResources().getColor(R.color.bead_highlight_5, getContext().getTheme()));
+		highlight5Paint.setStyle(Paint.Style.FILL);
+		highlight10Paint.setColor(getResources().getColor(R.color.bead_highlight_10, getContext().getTheme()));
+		highlight10Paint.setStyle(Paint.Style.FILL);
 
 		overflowPaint.setColor(getResources().getColor(R.color.ivory, getContext().getTheme()));
 		overflowPaint.setTextSize(9f * density);
@@ -240,10 +252,10 @@ public class BeadRackView extends View {
 		drawOverflow(canvas, geo, overflow);
 		int rightCount = BeadScore.BEADS_PER_STRING - leftCount;
 		for (int i = 0; i < leftCount; i++) {
-			drawBead(canvas, geo.leftX(i), geo.cy, geo.radius);
+			drawBead(canvas, geo.leftX(i), geo.cy, geo.radius, i + 1);
 		}
 		for (int i = 0; i < rightCount; i++) {
-			drawBead(canvas, geo.rightX(i), geo.cy, geo.radius);
+			drawBead(canvas, geo.rightX(i), geo.cy, geo.radius, rightBeadNumber(i));
 		}
 	}
 
@@ -260,15 +272,15 @@ public class BeadRackView extends View {
 		if (moving > 0) {
 			int parkedRight = BeadScore.BEADS_PER_STRING - toLeft;
 			for (int i = 0; i < fromLeft; i++) {
-				drawBead(canvas, geo.leftX(i), geo.cy, geo.radius);
+				drawBead(canvas, geo.leftX(i), geo.cy, geo.radius, i + 1);
 			}
 			for (int i = 0; i < parkedRight; i++) {
-				drawBead(canvas, geo.rightX(i), geo.cy, geo.radius);
+				drawBead(canvas, geo.rightX(i), geo.cy, geo.radius, rightBeadNumber(i));
 			}
 			for (int k = 0; k < moving; k++) {
 				float startX = geo.rightX(parkedRight + moving - 1 - k);
 				float endX = geo.leftX(fromLeft + k);
-				drawBead(canvas, lerp(startX, endX, t), geo.cy, geo.radius);
+				drawBead(canvas, lerp(startX, endX, t), geo.cy, geo.radius, fromLeft + k + 1);
 			}
 			return;
 		}
@@ -276,24 +288,37 @@ public class BeadRackView extends View {
 		moving = -moving;
 		int parkedRight = BeadScore.BEADS_PER_STRING - fromLeft;
 		for (int i = 0; i < toLeft; i++) {
-			drawBead(canvas, geo.leftX(i), geo.cy, geo.radius);
+			drawBead(canvas, geo.leftX(i), geo.cy, geo.radius, i + 1);
 		}
 		for (int i = 0; i < parkedRight; i++) {
-			drawBead(canvas, geo.rightX(i), geo.cy, geo.radius);
+			drawBead(canvas, geo.rightX(i), geo.cy, geo.radius, rightBeadNumber(i));
 		}
 		for (int k = 0; k < moving; k++) {
 			float startX = geo.leftX(fromLeft - 1 - k);
 			float endX = geo.rightX(parkedRight + moving - 1 - k);
-			drawBead(canvas, lerp(startX, endX, t), geo.cy, geo.radius);
+			drawBead(canvas, lerp(startX, endX, t), geo.cy, geo.radius, fromLeft - k);
 		}
 	}
 
-	private void drawBead(Canvas canvas, float cx, float cy, float radius) {
+	private static int rightBeadNumber(int indexFromRight) {
+		return BeadScore.BEADS_PER_STRING - indexFromRight;
+	}
+
+	private void drawBead(Canvas canvas, float cx, float cy, float radius, int beadNumber) {
+		Paint fill = beadPaint;
+		Paint highlight = highlightPaint;
+		if (beadNumber % 10 == 0) {
+			fill = bead10Paint;
+			highlight = highlight10Paint;
+		} else if (beadNumber % 5 == 0) {
+			fill = bead5Paint;
+			highlight = highlight5Paint;
+		}
 		beadRect.set(cx - radius, cy - radius, cx + radius, cy + radius);
-		canvas.drawOval(beadRect, beadPaint);
+		canvas.drawOval(beadRect, fill);
 		canvas.drawOval(beadRect, strokePaint);
-		float highlight = radius * 0.35f;
-		canvas.drawCircle(cx - radius * 0.25f, cy - radius * 0.25f, highlight, highlightPaint);
+		float glint = radius * 0.35f;
+		canvas.drawCircle(cx - radius * 0.25f, cy - radius * 0.25f, glint, highlight);
 	}
 
 	private void drawOverflow(Canvas canvas, RackGeometry geo, int overflow) {
