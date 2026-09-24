@@ -3,13 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/straight_pool_rules_button"
+        android:id="@+id/wpa_rules_button"
         android:orderInCategory="1"
-        android:title="@string/straight_pool_rules_button"
+        android:title="@string/wpa_rules_button"
         app:showAsAction="never" />
     <item
-        android:id="@+id/general_pool_rules_button"
+        android:id="@+id/straight_pool_rules_button"
         android:orderInCategory="2"
-        android:title="@string/general_pool_rules_button"
+        android:title="@string/straight_pool_rules_button"
         app:showAsAction="never" />
 </menu>

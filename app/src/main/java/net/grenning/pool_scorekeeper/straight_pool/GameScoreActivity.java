@@ -352,12 +352,12 @@ public class GameScoreActivity extends PoolActivity {
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		int id = item.getItemId();
-		if (id == R.id.straight_pool_rules_button) {
-			showStraightPoolRules();
+		if (id == R.id.wpa_rules_button) {
+			openUrl("https://wpapool.com/rules");
 			return true;
 		}
-		if (id == R.id.general_pool_rules_button) {
-			showGeneralPoolRules();
+		if (id == R.id.straight_pool_rules_button) {
+			openUrl("https://www.cuesight.com/wpa/14-1-straight-pool-rules/");
 			return true;
 		}
 		return super.onOptionsItemSelected(item);
@@ -603,14 +603,8 @@ public class GameScoreActivity extends PoolActivity {
 		return getIntent().getBooleanExtra(name, false);
 	}
 
-	public void showGeneralPoolRules() {
-		startActivity(new Intent(Intent.ACTION_VIEW,
-				Uri.parse("https://www.wpa-pool.com/web/the_rules_of_play")));
-	}
-
-	private void showStraightPoolRules() {
-		startActivity(new Intent(Intent.ACTION_VIEW,
-				Uri.parse("https://www.wpa-pool.com/web/index.asp?id=119&pagetype=rules")));
+	private void openUrl(String url) {
+		startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(url)));
 	}
 
 	private void vibrate(View view) {

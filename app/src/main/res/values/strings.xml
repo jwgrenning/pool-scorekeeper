@@ -5,7 +5,9 @@
     <string name="title_activity_straight_pool_start">Let\'s Play Straight Pool</string>
     <string name="cowboy_pool_button">Cowboy</string>
     <string name="straight_pool_button">Straight Pool</string>
-    <string name="straight_pool_rules_button">Straight Pool Rules</string>
+    <string name="wpa_rules_button">WPA Pool Rules</string>
+    <string name="straight_pool_rules_button">14.1 Straight Pool Rules</string>
+    <string name="cowboy_rules_button">Cowboy Pool Rules</string>
     <string name="straight_pool_default_points_to_win">50</string>
     <string name="shot_made">Shot Made</string>
     <string name="shot_made_accessibility">Shot Made. Long-press to enter several balls on one shot</string>
@@ -47,7 +49,7 @@
     <string name="share">Share</string>
     <string name="no_apps_to_share">No apps available to share.</string>
     <string name="resume_game">Resume Game</string>
-    <string name="general_pool_rules_button">General Rules of Pool</string>
+
     <string name="title_activity_score_straight_pool">Straight Pool Score Board</string>
     <string name="email_game_summary_button">Game Summary</string>
     <string name="default_balls_left_on_the_table">15 balls on the table</string>
@@ -86,17 +88,16 @@
     <string name="cowboy_carom">Carom</string>
     <string name="cowboy_multi">Multi</string>
     <string name="cowboy_multi_accessibility">Multiple points on one shot</string>
-    <string name="cowboy_combo_title">One shot</string>
-    <string name="cowboy_combo_balls">Balls</string>
+    <string name="cowboy_combo_title">One shot, multiple scores</string>
     <string name="cowboy_combo_caroms">Caroms</string>
-    <string name="cowboy_combo_enter">Enter</string>
-    <string name="cowboy_combo_total">%1$d points</string>
+    <string name="cowboy_combo_accept">Accept %1$d points</string>
+    <string name="cowboy_combo_accept_zero">Accept points</string>
     <string name="cowboy_win_shot">Win</string>
     <string name="cowboy_carom_accessibility">Carom. Long-press for a three-ball carom worth two points</string>
     <string name="cowboy_phase_mixed">Mixed scoring</string>
     <string name="cowboy_phase_caroms">Caroms only</string>
     <string name="cowboy_phase_win">Win shot off the 1</string>
-    <string name="cowboy_rules_button">Cowboy Rules</string>
+
     <string name="default_inning_text">Inning #1</string>
     <string name="inning_title">Inning #</string>
     <string name="send_mail">Send mail…</string>

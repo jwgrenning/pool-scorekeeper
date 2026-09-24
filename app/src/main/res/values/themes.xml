@@ -16,11 +16,6 @@
 
     <style name="Widget.Pool" parent="android:Widget" />
 
-    <style name="ShapeAppearance.Pool.Circle">
-        <item name="cornerFamily">rounded</item>
-        <item name="cornerSize">50%</item>
-    </style>
-
     <style name="Widget.Pool.BallButton" parent="Widget.Material3.Button">
         <item name="android:layout_width">56dp</item>
         <item name="android:layout_height">56dp</item>
@@ -37,22 +32,26 @@
         <item name="android:textSize">22sp</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textColor">@color/pool_ball_number</item>
-        <item name="strokeColor">@color/pool_ball_stroke</item>
-        <item name="strokeWidth">2dp</item>
-        <item name="shapeAppearanceOverlay">@style/ShapeAppearance.Pool.Circle</item>
+        <item name="android:elevation">0dp</item>
+        <item name="android:stateListAnimator">@null</item>
+        <item name="backgroundTint">@null</item>
+        <item name="strokeWidth">0dp</item>
+        <item name="rippleColor">@android:color/transparent</item>
+        <item name="icon">@null</item>
+        <item name="iconPadding">0dp</item>
     </style>
 
-    <style name="Widget.Pool.BallButton.One">
-        <item name="backgroundTint">@color/pool_ball_1</item>
+    <style name="Widget.Pool.BallButton.One" parent="Widget.Pool.BallButton">
+        <item name="android:background">@drawable/pool_ball_1</item>
     </style>
 
-    <style name="Widget.Pool.BallButton.Three">
-        <item name="backgroundTint">@color/pool_ball_3</item>
+    <style name="Widget.Pool.BallButton.Three" parent="Widget.Pool.BallButton">
+        <item name="android:background">@drawable/pool_ball_3</item>
         <item name="android:textColor">@color/pool_ball_number_on_red</item>
     </style>
 
-    <style name="Widget.Pool.BallButton.Five">
-        <item name="backgroundTint">@color/pool_ball_5</item>
+    <style name="Widget.Pool.BallButton.Five" parent="Widget.Pool.BallButton">
+        <item name="android:background">@drawable/pool_ball_5</item>
     </style>
 
     <style name="Widget.Pool.ActionButton" parent="Widget.Material3.Button">

@@ -162,17 +162,18 @@ public class CowboyScoreActivity extends PoolActivity {
 
 	private void showComboDialog() {
 		View body = LayoutInflater.from(this).inflate(R.layout.dialog_cowboy_combo, null);
-		MaterialButtonToggleGroup balls = body.findViewById(R.id.comboBalls);
+		View balls = body.findViewById(R.id.comboBalls);
 		MaterialButtonToggleGroup caroms = body.findViewById(R.id.comboCaroms);
 		MaterialButton ball1 = body.findViewById(R.id.comboBall1);
 		MaterialButton ball3 = body.findViewById(R.id.comboBall3);
 		MaterialButton ball5 = body.findViewById(R.id.comboBall5);
-		TextView total = body.findViewById(R.id.comboTotal);
+		MaterialButton carom3 = body.findViewById(R.id.comboCarom3);
 		MaterialButton enter = body.findViewById(R.id.comboEnter);
 		boolean pocketsAllowed = game.phase() == CowboyGame.Phase.MIXED;
-		ball1.setEnabled(pocketsAllowed);
-		ball3.setEnabled(pocketsAllowed);
-		ball5.setEnabled(pocketsAllowed);
+		for (MaterialButton ball : new MaterialButton[] { ball1, ball3, ball5 }) {
+			ball.setCheckable(true);
+			ball.setEnabled(pocketsAllowed);
+		}
 		balls.setEnabled(pocketsAllowed);
 
 		androidx.appcompat.app.AlertDialog dialog = new MaterialAlertDialogBuilder(this)
@@ -181,19 +182,27 @@ public class CowboyScoreActivity extends PoolActivity {
 				.create();
 
 		Runnable refresh = () -> {
-			int points = CowboyGame.comboPoints(
-					pocketsAllowed && ball1.isChecked(),
-					pocketsAllowed && ball3.isChecked(),
-					pocketsAllowed && ball5.isChecked(),
-					checkedCaroms(caroms));
+			boolean one = pocketsAllowed && ball1.isChecked();
+			boolean three = pocketsAllowed && ball3.isChecked();
+			boolean five = pocketsAllowed && ball5.isChecked();
+			boolean allBalls = one && three && five;
+			// Clear before disable: disabling a checked toggle child can auto-select another.
+			if (allBalls && caroms.getCheckedButtonId() == R.id.comboCarom3) {
+				caroms.clearChecked();
+			}
+			carom3.setEnabled(!allBalls);
+			int points = CowboyGame.comboPoints(one, three, five, checkedCaroms(caroms));
 			if (points > 0) {
-				total.setText(getString(R.string.cowboy_combo_total, points));
+				enter.setText(getString(R.string.cowboy_combo_accept, points));
 			} else {
-				total.setText("");
+				enter.setText(R.string.cowboy_combo_accept_zero);
 			}
 			enter.setEnabled(points > 0);
 		};
-		balls.addOnButtonCheckedListener((group, id, checked) -> refresh.run());
+		MaterialButton.OnCheckedChangeListener ballListener = (button, checked) -> refresh.run();
+		ball1.addOnCheckedChangeListener(ballListener);
+		ball3.addOnCheckedChangeListener(ballListener);
+		ball5.addOnCheckedChangeListener(ballListener);
 		caroms.addOnButtonCheckedListener((group, id, checked) -> refresh.run());
 		enter.setOnClickListener(v -> {
 			boolean one = pocketsAllowed && ball1.isChecked();

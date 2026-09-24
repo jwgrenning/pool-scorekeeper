@@ -6,98 +6,98 @@
     android:orientation="vertical"
     android:padding="16dp">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/cowboy_combo_balls"
-        android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
-        android:textColor="@color/ivory" />
-
-    <com.google.android.material.button.MaterialButtonToggleGroup
+    <!-- LinearLayout (not MaterialButtonToggleGroup): PoolBallButton overwrites
+         Material backgrounds, which ToggleGroup rejects via ShapeAppearanceModel. -->
+    <LinearLayout
         android:id="@+id/comboBalls"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="8dp"
-        app:selectionRequired="false"
-        app:singleSelection="false">
+        android:orientation="horizontal">
 
-        <com.google.android.material.button.MaterialButton
+        <net.grenning.pool_scorekeeper.PoolBallButton
             android:id="@+id/comboBall1"
             style="@style/Widget.Pool.BallButton.One"
+            android:background="@drawable/pool_ball_1"
+            android:checkable="true"
             android:text="@string/cowboy_ball_1" />
 
-        <com.google.android.material.button.MaterialButton
+        <net.grenning.pool_scorekeeper.PoolBallButton
             android:id="@+id/comboBall3"
             style="@style/Widget.Pool.BallButton.Three"
+            android:background="@drawable/pool_ball_3"
+            android:checkable="true"
             android:text="@string/cowboy_ball_3" />
 
-        <com.google.android.material.button.MaterialButton
+        <net.grenning.pool_scorekeeper.PoolBallButton
             android:id="@+id/comboBall5"
             style="@style/Widget.Pool.BallButton.Five"
+            android:background="@drawable/pool_ball_5"
+            android:checkable="true"
             android:text="@string/cowboy_ball_5" />
-    </com.google.android.material.button.MaterialButtonToggleGroup>
+    </LinearLayout>
 
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:text="@string/cowboy_combo_caroms"
-        android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
-        android:textColor="@color/ivory" />
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
 
-    <com.google.android.material.button.MaterialButtonToggleGroup
-        android:id="@+id/comboCaroms"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        app:selectionRequired="false"
-        app:singleSelection="true">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingEnd="12dp"
+            android:text="@string/cowboy_combo_caroms"
+            android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
+            android:textColor="@color/ivory" />
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/comboCarom1"
-            style="@style/Widget.Material3.Button.OutlinedButton"
+        <com.google.android.material.button.MaterialButtonToggleGroup
+            android:id="@+id/comboCaroms"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:minHeight="56dp"
-            android:text="1" />
+            app:selectionRequired="false"
+            app:singleSelection="true">
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/comboCarom2"
-            style="@style/Widget.Material3.Button.OutlinedButton"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:minHeight="56dp"
-            android:text="2" />
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/comboCarom1"
+                style="@style/Widget.Material3.Button.OutlinedButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:minHeight="56dp"
+                android:text="1" />
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/comboCarom3"
-            style="@style/Widget.Material3.Button.OutlinedButton"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:minHeight="56dp"
-            android:text="3" />
-    </com.google.android.material.button.MaterialButtonToggleGroup>
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/comboCarom2"
+                style="@style/Widget.Material3.Button.OutlinedButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:minHeight="56dp"
+                android:text="2" />
 
-    <TextView
-        android:id="@+id/comboTotal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:gravity="center"
-        android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
-        android:textColor="@color/ivory" />
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/comboCarom3"
+                style="@style/Widget.Material3.Button.OutlinedButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:minHeight="56dp"
+                android:text="3" />
+        </com.google.android.material.button.MaterialButtonToggleGroup>
+    </LinearLayout>
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/comboEnter"
         style="@style/Widget.Material3.Button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="20dp"
         android:enabled="false"
-        android:minHeight="56dp"
-        android:text="@string/cowboy_combo_enter" />
+        android:minHeight="72dp"
+        android:text="@string/cowboy_combo_accept_zero"
+        android:textSize="20sp"
+        android:textStyle="bold" />
 </LinearLayout>
